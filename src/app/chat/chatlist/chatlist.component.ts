@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { ChatService } from './../chat.service';
 @Component({
   selector: 'app-chatlist',
   templateUrl: './chatlist.component.html',
@@ -7,9 +7,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ChatlistComponent implements OnInit {
 
-  constructor() { }
+  constructor(private sidenav: ChatService) { }
 
   ngOnInit(): void {
   }
 
+  toggleRightSidenav() {
+		this.sidenav.open();
+	}
+
+  goUserList(){
+    this.sidenav.openLeftNav();
+  }
 }

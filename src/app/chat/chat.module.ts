@@ -6,7 +6,7 @@ import { UserlistComponent } from './userlist/userlist.component';
 import { ChatlistComponent } from './chatlist/chatlist.component';
 import { UserinfoComponent } from './userinfo/userinfo.component';
 import { ChatComponent } from './chat.component';
-
+import { MaterialModule } from './../modules/material/material.module';
 
 @NgModule({
   declarations: [
@@ -16,6 +16,7 @@ import { ChatComponent } from './chat.component';
     ChatComponent
   ],
   imports: [
+    MaterialModule,
     CommonModule,
     ChatRoutingModule
   ]

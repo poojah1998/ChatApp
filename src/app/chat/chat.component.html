@@ -1,7 +1,16 @@
-<div class="container-fluid wrapper chat-body">
-    <div class="row">
-        <app-userlist class="col-lg-3 left"></app-userlist>
-        <app-chatlist class="col-lg-6 center"></app-chatlist>
-        <app-userinfo class="col-lg-3"></app-userinfo>
-    </div>
-</div>
+<mat-drawer-container class="example-container" autosize>
+    <mat-drawer #leftsidenav class="example-sidenav" mode="side" opened position="start">
+        <app-userlist class="conversation-area"></app-userlist>
+    </mat-drawer>
+    <mat-drawer-content class="overflow-hidden">
+        <div class="app">
+            <div></div>
+            <div class="wrapper">
+                <app-chatlist class="chat-area"></app-chatlist>
+            </div>
+        </div>
+    </mat-drawer-content>
+    <mat-drawer #sidenav class="example-sidenav" mode="side" position="end">
+        <app-userinfo class="detail-area"></app-userinfo>
+    </mat-drawer>
+</mat-drawer-container>

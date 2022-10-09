@@ -1,71 +1,178 @@
-<div class="col-lg-6" style="width: 300px;">
-    <div class="container img-container mt-4 p-3">
-        <img src="/assets/image/short-image.jfif" alt="profile-image" style="width: 90px; height: 90px">
-        <p class="mb-1">User Name</p>
-        <span>CEO at Mighty Schools.</span>
+<div class="chat-area-header">
+  <div class="chat-area-group" (click)="closeSidenav()">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+      <line x1="18" y1="6" x2="6" y2="18"></line>
+      <line x1="6" y1="6" x2="18" y2="18"></line>
+    </svg>
+  </div>
+</div>
+<div class="detail-area-body">
+  <div class="detail-area-header">
+    <div class="msg-profile group">
+      <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%281%29.png" alt=""
+        class="msg-profile mb-0">
     </div>
+    <div class="detail-title">Jordan Smith</div>
+    <div class="detail-subtitle">CEO at Mighty Schools.</div>
+  </div>
+  <div class="detail-changes">
+    <div class="detail-change flex-column">
+      <div class="d-flex align-items-center" (click)="additionalDetails('about')" [ngClass]="{'detail-photo-title': about}">
+        About
+        <div class="colors">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+            class="feather feather-chevron-down" *ngIf="!about">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+            class="feather feather-chevron-up" *ngIf="about">
+            <polyline points="18 15 12 9 6 15"></polyline>
+          </svg>
+        </div>
+      </div>
+      <div class="" *ngIf="about">
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ea debitis, maiores deserunt veniam pariatur illo, esse
+        totam mollitia aperiam, eligendi provident eveniet nemo nam velit voluptate molestiae illum ad dicta?
+      </div>
+    </div>
+    <div class="detail-change flex-column">
+      <div class="d-flex align-items-center" (click)="additionalDetails('images')" [ngClass]="{'detail-photo-title': images}">
+        Images
+        <div class="colors">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+            class="feather feather-chevron-down" *ngIf="!images">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+            class="feather feather-chevron-up" *ngIf="images">
+            <polyline points="18 15 12 9 6 15"></polyline>
+          </svg>
+        </div>
+      </div>
+      <div class="detail-photo-grid" *ngIf="images">
+        <img
+          src="https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2168&q=80" />
+        <img
+          src="https://images.unsplash.com/photo-1516085216930-c93a002a8b01?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2250&q=80" />
+        <img
+          src="https://images.unsplash.com/photo-1458819714733-e5ab3d536722?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=933&q=80" />
+        <img
+          src="https://images.unsplash.com/photo-1520013817300-1f4c1cb245ef?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2287&q=80" />
+        <img
+          src="https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2247&q=80" />
+        <img
+          src="https://images.unsplash.com/photo-1559181567-c3190ca9959b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1300&q=80" />
+        <img
+          src="https://images.unsplash.com/photo-1560393464-5c69a73c5770?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1301&q=80" />
+        <img
+          src="https://images.unsplash.com/photo-1506619216599-9d16d0903dfd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2249&q=80" />
+        <img
+          src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2309&q=80" />
+    
+        <img
+          src="https://images.unsplash.com/photo-1473170611423-22489201d919?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2251&q=80" />
+        <img
+          src="https://images.unsplash.com/photo-1579613832111-ac7dfcc7723f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2250&q=80" />
+        <img
+          src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2189&q=80" />
+      </div>
+      <div class="view-more" *ngIf="images">View More</div>
+    </div>
+    <div class="detail-change flex-column">
+      <div class="d-flex align-items-center" (click)="additionalDetails('files')" [ngClass]="{'detail-photo-title': files}">
+        Files
+        <div class="colors">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+            class="feather feather-chevron-down" *ngIf="!files">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+            class="feather feather-chevron-up" *ngIf="files">
+            <polyline points="18 15 12 9 6 15"></polyline>
+          </svg>
+        </div>
+      </div>
+      <div class="detail-photo-grid" *ngIf="files">
+        <img
+          src="https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2168&q=80" />
+        <img
+          src="https://images.unsplash.com/photo-1516085216930-c93a002a8b01?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2250&q=80" />
+        <img
+          src="https://images.unsplash.com/photo-1458819714733-e5ab3d536722?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=933&q=80" />
+        <img
+          src="https://images.unsplash.com/photo-1520013817300-1f4c1cb245ef?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2287&q=80" />
+        <img
+          src="https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2247&q=80" />
+        <img
+          src="https://images.unsplash.com/photo-1559181567-c3190ca9959b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1300&q=80" />
+        <img
+          src="https://images.unsplash.com/photo-1560393464-5c69a73c5770?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1301&q=80" />
+        <img
+          src="https://images.unsplash.com/photo-1506619216599-9d16d0903dfd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2249&q=80" />
+        <img
+          src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2309&q=80" />
+    
+        <img
+          src="https://images.unsplash.com/photo-1473170611423-22489201d919?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2251&q=80" />
+        <img
+          src="https://images.unsplash.com/photo-1579613832111-ac7dfcc7723f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2250&q=80" />
+        <img
+          src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2189&q=80" />
+      </div>
+      <div class="view-more" *ngIf="files">View More</div>
+    </div>
+    <div class="detail-change flex-column">
+      <div class="d-flex align-items-center" (click)="additionalDetails('pinned')" [ngClass]="{'detail-photo-title': pinned}">
+        Pinned Items
+        <div class="colors">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+            class="feather feather-chevron-down" *ngIf="!pinned">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+            class="feather feather-chevron-up" *ngIf="pinned">
+            <polyline points="18 15 12 9 6 15"></polyline>
+          </svg>
+        </div>
+      </div>
+      <div class="detail-photo-grid" *ngIf="pinned">
+        <img
+          src="https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2168&q=80" />
+        <img
+          src="https://images.unsplash.com/photo-1516085216930-c93a002a8b01?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2250&q=80" />
+        <img
+          src="https://images.unsplash.com/photo-1458819714733-e5ab3d536722?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=933&q=80" />
+        <img
+          src="https://images.unsplash.com/photo-1520013817300-1f4c1cb245ef?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2287&q=80" />
+        <img
+          src="https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2247&q=80" />
+        <img
+          src="https://images.unsplash.com/photo-1559181567-c3190ca9959b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1300&q=80" />
+        <img
+          src="https://images.unsplash.com/photo-1560393464-5c69a73c5770?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1301&q=80" />
+        <img
+          src="https://images.unsplash.com/photo-1506619216599-9d16d0903dfd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2249&q=80" />
+        <img
+          src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2309&q=80" />
+    
+        <img
+          src="https://images.unsplash.com/photo-1473170611423-22489201d919?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2251&q=80" />
+        <img
+          src="https://images.unsplash.com/photo-1579613832111-ac7dfcc7723f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2250&q=80" />
+        <img
+          src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2189&q=80" />
+      </div>
+      <div class="view-more" *ngIf="pinned">View More</div>
+    </div>
+  </div>
+</div>
+<div></div>
 
-    <div class="accordion accordion-flush mt-2" id="accordionFlushExample">
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="flush-headingOne">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                    About
-                </button>
-            </h2>
-            <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
-                data-bs-parent="#accordionFlushExample">
-                <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the
-                    <code>.accordion-flush</code> class. This is the first item's accordion body.
-                </div>
-            </div>
-        </div>
-        <div class="accordion-item mt-2">
-            <h2 class="accordion-header" id="flush-headingTwo">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-                    Images
-                </button>
-            </h2>
-            <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo"
-                data-bs-parent="#accordionFlushExample">
-                <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the
-                    <code>.accordion-flush</code> class. This is the second item's accordion body. Let's imagine this
-                    being
-                    filled with some actual content.
-                </div>
-            </div>
-        </div>
-        <div class="accordion-item mt-2">
-            <h2 class="accordion-header" id="flush-headingThree">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
-                    Files
-                </button>
-            </h2>
-            <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree"
-                data-bs-parent="#accordionFlushExample">
-                <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the
-                    <code>.accordion-flush</code> class. This is the third item's accordion body. Nothing more exciting
-                    happening here in terms of content, but just filling up the space to make it look, at least at first
-                    glance, a bit more representative of how this would look in a real-world application.
-                </div>
-            </div>
-        </div>
-        <div class="accordion-item mt-2">
-            <h2 class="accordion-header" id="flush-headingFour">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
-                    Pinned Items
-                </button>
-            </h2>
-            <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingFour"
-                data-bs-parent="#accordionFlushExample">
-                <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the
-                    <code>.accordion-flush</code> class. This is the third item's accordion body. Nothing more exciting
-                    happening here in terms of content, but just filling up the space to make it look, at least at first
-                    glance, a bit more representative of how this would look in a real-world application.
-                </div>
-            </div>
-        </div>
-    </div>
