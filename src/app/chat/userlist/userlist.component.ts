@@ -8,10 +8,15 @@ import { ChatService } from './../chat.service';
   styleUrls: ['./userlist.component.css']
 })
 export class UserlistComponent implements OnInit {
-
+uid:any= "6076ddf9305343214c6f90bc";
+ConversationList:any=[];
   constructor(private leftsidenav: ChatService, public breakpointObserver: BreakpointObserver) { }
 
   ngOnInit(): void {
+this.leftsidenav.getConversationListById(this.uid).subscribe((data:any)=>{
+this.ConversationList = data
+console.log(this.ConversationList);
+})
   }
 
   showConvo(){
