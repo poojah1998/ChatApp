@@ -33,7 +33,7 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
       // if (localStorage.getItem('AppContext')) {
       //   this.auth.isLoggedIn();
       // }else{
-        this.chat.removeToken();
+        // this.chat.removeToken();
       // }
 
       // setTimeout(() => {

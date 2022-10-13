@@ -1,4 +1,4 @@
 export const environment = {
-  host: "http://localhost: 4000/auth/api/",
+  host: "http://localhost:4000/",
   production: true
 };

@@ -41,28 +41,26 @@ export class ChatService {
 		this.leftsidenav.toggle();
 	}
 
+	public getAllConversation() {
+		return this.httpClient.get(environment.host +"getAllconversation");
+	  }
+	  public getAllconversationUser(id: string) {
+		return this.httpClient.get(environment.host +"getAllconversationUser/"+id);
+	  }
+	// public getConversationListById(uid: string) {
+	// 	return this.httpClient.get(environment.host + uid +"/conversation");
+	//   }
+	//   public postConversation() {
+	// 	return this.httpClient.post(environment.host + "/conversation",{});
+	//   }
+	//   public getAllConversation(firstUserId: string,secondUserId: string) {
+	// 	return this.httpClient.get(environment.host + firstUserId+secondUserId+"/conversation");
+	//   }
+	//  public getMembers(uid:string){
+	// 	return this.httpClient.get(environment.host+uid+"/members")
+	//  }
+	//  public getConversationMembers(uid: string){
+    //     return this.httpClient.post(environment.host+uid+"/conversationmembers",{})
+	//  }
 
-
-	public getConversationListById(uid: string) {
-		return this.httpClient.get(environment.host + uid+"/conversation");
-	  }
-	  public postConversation() {
-		return this.httpClient.post(environment.host +"/conversation",{});
-	  }
-	  public getAllConversation(firstUserId: string,secondUserId: string) {
-		return this.httpClient.get(environment.host + firstUserId+secondUserId+"/conversation");
-	  }
-	 public getMembers(uid:string){
-		return this.httpClient.get(environment.host+uid+"/members")
-	 }
-	 public getConversationMembers(uid: string){
-        return this.httpClient.post(environment.host+uid+"/conversationmembers",{})
-	 }
-	 
-	public getToken(){
-	
-	}
-	public removeToken(){
-	  
-	}
 }
