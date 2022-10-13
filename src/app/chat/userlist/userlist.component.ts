@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { ChatService } from './../chat.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-userlist',
@@ -9,13 +10,13 @@ import { ChatService } from './../chat.service';
 })
 export class UserlistComponent implements OnInit {
 ConversationList:any=[];
-  constructor(private leftsidenav: ChatService, public breakpointObserver: BreakpointObserver) { }
+  constructor(private leftsidenav: ChatService, public breakpointObserver: BreakpointObserver,private router:Router) { }
 
   ngOnInit(): void {
-    console.log("i am coming");
 this.leftsidenav.getAllConversation().subscribe((data:any)=>{
 this.ConversationList = data
 console.log(this.ConversationList);
+
 })
   }
 
@@ -30,5 +31,9 @@ console.log(this.ConversationList);
         }
       });
   }
-
+ async chatDeatils(conversationid: any){
+this.leftsidenav.getAllconversationUser(conversationid).subscribe(()=>{
+  this.router.navigate([`/chatlist/${conversationid}`],{ state: { data: this.ConversationList } });
+})
+ }
 }

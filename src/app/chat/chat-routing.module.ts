@@ -7,7 +7,7 @@ import { UserlistComponent } from './userlist/userlist.component';
 
 const routes: Routes = [
   {
-    path:'chatlist',
+    path:'chatlist/:id',
     component:ChatlistComponent
   },
   {
