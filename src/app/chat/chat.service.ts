@@ -5,12 +5,15 @@ import { environment } from 'src/environments/environment';
 
 
 const credentialsKey = 'currentUser';
+
+
 @Injectable({
 	providedIn: 'root'
 })
 export class ChatService {
 	private sidenav!: MatSidenav;
 	private leftsidenav!: MatSidenav;
+	userId: any;conversationId: any
 	constructor(private httpClient: HttpClient) { }
   
 
@@ -47,6 +50,16 @@ export class ChatService {
 	  public getAllconversationUser(id: string) {
 		return this.httpClient.get(environment.host +"getAllconversationUser/"+id);
 	  }
+	  public sendMessage(data:any) {
+		return this.httpClient.post(environment.host +"addChat", data);
+	  }
+	 
+
+	  public allMessageById(id: string) {
+		return this.httpClient.get(environment.host +"getAllChatbyId/"+ id);
+	  }
+
+
 	// public getConversationListById(uid: string) {
 	// 	return this.httpClient.get(environment.host + uid +"/conversation");
 	//   }

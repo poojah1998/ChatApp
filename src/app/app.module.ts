@@ -19,7 +19,8 @@ import { ErrorHandlerInterceptor } from './interceptors/error-handler.intercepto
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    HttpClientModule
+    HttpClientModule,
+    
     
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: ApiPrefixInterceptor, multi: true },

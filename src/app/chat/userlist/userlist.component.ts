@@ -33,7 +33,7 @@ console.log(this.ConversationList);
   }
  async chatDeatils(conversationid: any){
 this.leftsidenav.getAllconversationUser(conversationid).subscribe(()=>{
-  this.router.navigate([`/chatlist/${conversationid}`],{ state: { data: this.ConversationList } });
+  this.router.navigate([`/chat/${conversationid}`]);
 })
  }
 }

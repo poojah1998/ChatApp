@@ -6,7 +6,7 @@
         <div class="app">
             <div></div>
             <div class="wrapper">
-                <app-chatlist class="chat-area"></app-chatlist>
+                <app-chatlist *ngIf="isUserChatHistoryExist" class="chat-area"></app-chatlist>
             </div>
         </div>
     </mat-drawer-content>

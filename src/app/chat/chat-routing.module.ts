@@ -7,16 +7,8 @@ import { UserlistComponent } from './userlist/userlist.component';
 
 const routes: Routes = [
   {
-    path:'chatlist/:id',
-    component:ChatlistComponent
-  },
-  {
-    path:'userinfo',
-    component:UserinfoComponent
-  },
-  {
-    path:'userlist',
-    component:UserlistComponent
+    path:'chat/:conversationId',
+    component:ChatComponent
   },
   {
     path:'chat',
