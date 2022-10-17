@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { ChatService } from './../chat.service';
 @Component({
   selector: 'app-userinfo',
@@ -10,7 +11,7 @@ export class UserinfoComponent implements OnInit {
   images: any = false;
   files: any = false;
   pinned: any = false;
-  constructor(private sidenav: ChatService) { }
+  constructor(private sidenav: ChatService, private activateRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
   }
