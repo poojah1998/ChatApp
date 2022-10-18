@@ -11,9 +11,28 @@ export class UserinfoComponent implements OnInit {
   images: any = false;
   files: any = false;
   pinned: any = false;
+  userId: any;
+  conversationId: any ="";
+  allConversation: any = Array;
+  userDetails: any ={};
   constructor(private sidenav: ChatService, private activateRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
+    //coming from params 
+    this.activateRoute.params.subscribe(params => {
+      this.userId = params["userId"];
+      this.conversationId = params["conversationId"];
+      // coming from chat list component
+      this.sidenav.getAllconversationUser(this.conversationId).subscribe((data: any) => {
+        this.allConversation = data;
+        this.userDetails =data[0].user_id;
+        console.log(this.userDetails);
+      
+
+      })
+    
+
+    })
   }
 
   additionalDetails(name: any) {

@@ -1,6 +1,6 @@
 <ng-container  *ngFor="let item of ConversationList">
  <div class="msg" (click)="showConvo();chatDeatils(item._id)">
-   <img class="msg-profile" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%281%29.png" alt="" />
+   <img class="msg-profile" src="{{item.image}}" alt="" />
    <div class="msg-detail">
     <div class="msg-username">{{item.name}}</div>
     <div class="msg-content">

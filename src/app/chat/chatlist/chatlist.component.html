@@ -8,7 +8,7 @@
       </svg>
     </div>
     <img (click)="toggleRightSidenav()" class="msg-profile"
-      src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%281%29.png" alt="" />
+      src="{{userDetails.image}}" alt="" />
     <div class="chat-area-title" (click)="toggleRightSidenav()">{{userDetails.name}}</div>
   </div>
   <div class="chat-area-group">
@@ -19,7 +19,7 @@
     </svg>
   </div>
 </div>
-<div class="chat-area-main">
+<div class="chat-area-main" #scrollMe>
   <!-- <div class="chat-msg">
     <div class="chat-msg-profile">
       <img class="chat-msg-img" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%283%29+%281%29.png"
@@ -78,25 +78,26 @@
     <div class="chat-msg-content">
       <div class="chat-msg-text">Egestas tellus rutrum tellus pellentesque</div>
     </div>
-  </div>
-  <div class="chat-msg">
-    <div class="chat-msg-profile">
-      <img class="chat-msg-img" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%283%29+%281%29.png"
-        alt="">
-      <div class="chat-msg-date">Message seen 3.16pm</div>
-    </div>
-    <div class="chat-msg-content">
-      <div class="chat-msg-text">Consectetur adipiscing elit pellentesque habitant morbi tristique senectus et.</div>
-    </div>
   </div> -->
+
+
+
+
+
+
+
+
+
+
+
   <ng-container *ngFor="let item of allMessage">
     <ul id="chat">
-   
-    <!-- <ng-container *ngFor="let item of returnArr(item.createdAt)"> -->
+     
+    
       <ng-container *ngIf="item.sender_id == userData._id ; else templateA">
         <div class="chat-msg owner">
           <div class="chat-msg-profile">
-            <img class="chat-msg-img" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%281%29.png"
+            <img class="chat-msg-img" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png"
               alt="" />
             <div class="chat-msg-date">{{calculateDiff(item.createdAt)}} Message seen {{getTime(item.createdAt)}}</div>
           </div>
@@ -104,13 +105,13 @@
             <div class="chat-msg-text">{{item.message}}</div>
           </div>
         </div>
-      <!-- </ng-container> -->
-    </ng-container>
+     
+      </ng-container>
     </ul>
     <ng-template #templateA>
       <div class="chat-msg">
         <div class="chat-msg-profile">
-          <img class="chat-msg-img" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png"
+          <img class="chat-msg-img" src="{{userDetails.image}}"
             alt="">
           <div class="chat-msg-date">Message seen 3.16pm</div>
         </div>
@@ -149,7 +150,8 @@
     <path
       d="M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.19-9.19a4 4 0 015.66 5.66l-9.2 9.19a2 2 0 01-2.83-2.83l8.49-8.48" />
   </svg>
-  <input type="text" placeholder="Type something here..." [(ngModel)]="userInput" />
+  
+  <textarea  placeholder="Type something here..." [(ngModel)]="userInput" (keyup)="handleKeyUp($event)" ></textarea>
   <svg viewBox="0 0 24 24" width="24" height="24" class="">
     <path fill="currentColor" d="M1.101 21.757 23.8 12.028 1.101 2.3l.011 7.912 13.623 1.816-13.623 1.817-.011 7.912z"
       (click)="sendMessage()">

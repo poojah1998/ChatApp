@@ -15,7 +15,7 @@ ConversationList:any=[];
   ngOnInit(): void {
 this.leftsidenav.getAllConversation().subscribe((data:any)=>{
 this.ConversationList = data
-console.log(this.ConversationList);
+// console.log(this.ConversationList);
 
 })
   }

@@ -11,3 +11,7 @@
 #chat .entete{
 	margin-bottom:5px;
 } */
+
+.chat-msg-text{
+    white-space: pre-line;
+}
