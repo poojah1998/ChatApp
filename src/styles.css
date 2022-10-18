@@ -512,7 +512,8 @@ html {
   margin-left: 12px;
 }
 
-.chat-area-footer input {
+.chat-area-footer input,
+.chat-area-footer textarea {
   border: none;
   color: var(--body-color);
   background-color: var(--input-bg);
@@ -522,7 +523,8 @@ html {
   margin: 0 12px;
   width: 100%;
 }
-.chat-area-footer input::placeholder {
+.chat-area-footer input::placeholder,
+.chat-area-footer textarea::placeholder {
   color: var(--input-chat-color);
 }
 
