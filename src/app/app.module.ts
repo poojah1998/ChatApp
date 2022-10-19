@@ -10,7 +10,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ApiPrefixInterceptor } from './interceptors/api-prefix.interceptor';
 import { ErrorHandlerInterceptor } from './interceptors/error-handler.interceptor';
 
-import { environment } from 'src/environments/environment';
 
 
 

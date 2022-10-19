@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit, AfterViewChecked, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { SocketService } from 'src/app/services/socket.service';
 import { ChatService } from './../chat.service';
 @Component({
   selector: 'app-chatlist',
@@ -19,38 +20,51 @@ export class ChatlistComponent implements OnInit, AfterViewChecked {
   chat: any = {};
   allMessage: any = [];
   userDetails: any = {};
+  receiverIds: any[] = [];
+  newChatData: any 
 
 
-  constructor(private sidenav: ChatService, private activateRoute: ActivatedRoute, private datePipe: DatePipe, private router: Router) { }
+  constructor(private sidenav: ChatService, private activateRoute: ActivatedRoute, private datePipe: DatePipe, private router: Router, private socketService: SocketService) { }
 
   ngOnInit(): void {
+
+    this.sidenav.open();
     //scroll
     this.scrollToBottom();
     //coming from userlist page
     this.activateRoute.params.subscribe(params => {
-      //   console.log(params["conversationId"]);
+      this.userData = JSON.parse(localStorage.getItem("loginUserData") || '{}');
       this.conversationid = params["conversationId"];
-
-      // console.log(this.conversationid);
-
-      this.sidenav.getAllconversationUser(this.conversationid).subscribe((data: any) => {
+      this.sidenav.getAllconversationUser(this.conversationid).subscribe((data: any[] | any) => {
         this.allConversation = data;
-        this.userDetails = data[0].user_id;
-        // console.log(this.allConversation);
-        console.log(this.userDetails);
-
+        this.newChatData = data.filter((o: any) => o.user_id._id != this.userData._id)
+        this.userDetails = this.newChatData[0].user_id;
+        this.receiverIds = data.map((o: any) => o.user_id._id)
       })
       //chatting page
       this.sidenav.allMessageById(this.conversationid).subscribe((data: any) => {
         this.allMessage = data;
-        // console.log(this.allMessage);
       })
-      this.userData = JSON.parse(localStorage.getItem("loginUserData") || '{}');
-      // console.log(this.userData._id);
 
+      //
     })
+    this.getSoketMessage();
+  }
+  sendSoketMessage() {
+    this.socketService.sendSoketMessage(true, this.userDetails._id,  this.receiverIds );
 
   }
+  getSoketMessage() {
+    this.socketService.getSoketMessage().subscribe((data:any) => {
+      if (data.submit == "true") {
+        this.ngOnInit();
+      }
+    })
+  }
+
+
+
+
   //scroll
   ngAfterViewChecked() {
     this.scrollToBottom();
@@ -85,6 +99,7 @@ export class ChatlistComponent implements OnInit, AfterViewChecked {
         this.Usermessage = event;
         this.chat = this.Usermessage.ChatData
         // console.log(this.Usermessage.ChatData);
+        this.sendSoketMessage();
         this.ngOnInit();
       })
 
@@ -132,11 +147,12 @@ export class ChatlistComponent implements OnInit, AfterViewChecked {
   }
 
   toggleRightSidenav() {
-    this.sidenav.open();
+
     // console.log(this.conversationid);
     //console.log(this.userDetails._id);
     this.sidenav.getAllconversationUser(this.conversationid).subscribe(() => {
       this.router.navigate([`/chat/${this.conversationid}/${this.userDetails._id}`]);
+      // 
     })
   }
 

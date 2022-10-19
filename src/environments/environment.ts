@@ -4,8 +4,8 @@
 
 export const environment = {
   host: "http://localhost:4000/",
+  socket: "http://localhost:4001/",
   production: false,
-  socket:""
 };
 
 /*

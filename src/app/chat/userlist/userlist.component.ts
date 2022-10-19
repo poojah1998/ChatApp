@@ -13,6 +13,7 @@ ConversationList:any=[];
   constructor(private leftsidenav: ChatService, public breakpointObserver: BreakpointObserver,private router:Router) { }
 
   ngOnInit(): void {
+    this.showConvo();
 this.leftsidenav.getAllConversation().subscribe((data:any)=>{
 this.ConversationList = data
 // console.log(this.ConversationList);
