@@ -56,7 +56,7 @@ export class ChatlistComponent implements OnInit, AfterViewChecked {
   }
   getSoketMessage() {
     this.socketService.getSoketMessage().subscribe((data:any) => {
-      if (data.submit == "true") {
+      if (data.submit == true) {
         this.ngOnInit();
       }
     })

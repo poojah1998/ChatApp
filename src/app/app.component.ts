@@ -10,14 +10,13 @@ export class AppComponent {
 
   constructor() {
     localStorage.setItem("loginUserData", JSON.stringify({
-       
-        "name": "me",
-        "email": "me@gmail.com",
-        "phone_no": 8763039826,
-        "user_type": "DC",
-        "_id": "634a8484aea2a36cefd8b36d",
-        "__v": 0
-    
+        "_id": "63469c43a452cf0c5c545e12",
+        "name": "ABC",
+        "email": "ABC@gmail.com",
+        "phone_no": 1234567891,
+        "user_type": "RP",
+        "__v": 0,
+        "image": "https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%2812%29.png"
     }))
   }
  
