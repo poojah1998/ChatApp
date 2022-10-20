@@ -35,15 +35,15 @@ export class SocketService {
   public sendSoketMessage(submit: any,senderId:any,receiverId:any=[]) {
    
     this.userId = localStorage.getItem('loginUserData') ? JSON.parse(localStorage.getItem('loginUserData')||'{}')._id: '0';
-    this.socket.emit('new-qa', { submit, senderId: this.userId,receiverId:receiverId});
+    this.socket.emit('new-message', { submit, senderId: this.userId,receiverId:receiverId});
   }
 
   public getSoketMessage() {
+    this.userId = localStorage.getItem('loginUserData') ? JSON.parse(localStorage.getItem('loginUserData')||'{}')._id: '0';
     var that = this;
-    
-    return new Observable((observer) => {
-      this.socket.on('new-qa-emited', (submit) => {
-        console.log('1.1---------', that.userId)
+    return new Observable((observer: any) => {
+      this.socket.on('new-message-emited', (submit: any) => {
+        console.log('1.1---------', that.userId,submit.senderId)
         console.log('2.1---------', submit.senderId)
         if(that.userId == submit.senderId || submit.receiverId.includes(that.userId))
         {
