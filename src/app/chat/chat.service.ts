@@ -59,7 +59,9 @@ export class ChatService {
 		return this.httpClient.get(environment.host +"getAllChatbyId/"+ id);
 	  }
 
-
+	  public allHashtag() {
+		return this.httpClient.get(environment.host +"getAllhashtag");
+	  }
 	// public getConversationListById(uid: string) {
 	// 	return this.httpClient.get(environment.host + uid +"/conversation");
 	//   }

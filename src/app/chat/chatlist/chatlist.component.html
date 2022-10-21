@@ -7,8 +7,7 @@
         <polyline points="12 19 5 12 12 5"></polyline>
       </svg>
     </div>
-    <img (click)="toggleRightSidenav()" class="msg-profile"
-      src="{{userDetails.image}}" alt="" />
+    <img (click)="toggleRightSidenav()" class="msg-profile" src="{{userDetails.image}}" alt="" />
     <div class="chat-area-title" (click)="toggleRightSidenav()">{{userDetails.name}}</div>
   </div>
   <div class="chat-area-group">
@@ -92,27 +91,26 @@
 
   <ng-container *ngFor="let item of allMessage">
     <ul id="chat">
-     
-    
+
+
       <ng-container *ngIf="item.sender_id == userData._id ; else templateA">
         <div class="chat-msg owner">
           <div class="chat-msg-profile">
             <img class="chat-msg-img" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png"
               alt="" />
-            <div class="chat-msg-date">{{calculateDiff(item.createdAt)}} Message seen {{getTime(item.createdAt)}}</div>
+            <div class="chat-msg-date">{{calculateDiff(item.createdAt)}} Message sent at {{getTime(item.createdAt)}}</div>
           </div>
           <div class="chat-msg-content">
             <div class="chat-msg-text">{{item.message}}</div>
           </div>
         </div>
-     
+
       </ng-container>
     </ul>
     <ng-template #templateA>
       <div class="chat-msg">
         <div class="chat-msg-profile">
-          <img class="chat-msg-img" src="{{userDetails.image}}"
-            alt="">
+          <img class="chat-msg-img" src="{{userDetails.image}}" alt="">
           <div class="chat-msg-date">Message seen 3.16pm</div>
         </div>
         <div class="chat-msg-content">
@@ -140,18 +138,20 @@
     <circle cx="12" cy="12" r="10" />
     <path d="M12 8v8M8 12h8" />
   </svg> -->
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
-    stroke-linecap="round" stroke-linejoin="round" class="feather feather-smile">
-    <circle cx="12" cy="12" r="10" />
-    <path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01" />
-  </svg>
+  <a>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+      stroke-linecap="round" stroke-linejoin="round" class="feather feather-smile">
+      <circle cx="12" cy="12" r="10" />
+      <path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01" />
+    </svg>
+  </a>
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
     stroke-linecap="round" stroke-linejoin="round" class="feather feather-paperclip">
     <path
       d="M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.19-9.19a4 4 0 015.66 5.66l-9.2 9.19a2 2 0 01-2.83-2.83l8.49-8.48" />
   </svg>
-  
-  <textarea placeholder="Type something here..." [(ngModel)]="userInput" (keyup)="handleKeyUp($event)" ></textarea>
+
+  <textarea placeholder="Type something here..."  [mention]="hashtag" [mentionConfig]="{triggerChar:'#',dropUp:true}"  [(ngModel)]="userInput" (keyup)="handleKeyUp($event)"></textarea>
   <svg viewBox="0 0 24 24" width="24" height="24" class="">
     <path fill="currentColor" d="M1.101 21.757 23.8 12.028 1.101 2.3l.011 7.912 13.623 1.816-13.623 1.817-.011 7.912z"
       (click)="sendMessage()">

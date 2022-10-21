@@ -9,7 +9,9 @@ import { UserinfoComponent } from './userinfo/userinfo.component';
 import { MaterialModule } from './../modules/material/material.module';
 import { ChatComponent } from './chat.component';
 import { FormsModule } from '@angular/forms';
-
+import { ReactiveFormsModule } from '@angular/forms';
+import { animation } from '@angular/animations';
+import { MentionModule } from 'angular-mentions';
 @NgModule({
   declarations: [
     UserlistComponent,
@@ -23,8 +25,9 @@ import { FormsModule } from '@angular/forms';
     MaterialModule,
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     ChatRoutingModule,
-    
+    MentionModule
   ],
   providers:[
     DatePipe
