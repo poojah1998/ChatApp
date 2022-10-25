@@ -28,37 +28,49 @@ export class ChatlistComponent implements OnInit, AfterViewChecked {
   mentionUserArray: any = [];
   mention_id: any;
   taggedUsers: any;
-  hashtag: any=[];
+  hashtag: any = [];
   mentionUsers: any;
+  mentionConfig: any;
 
   constructor(private sidenav: ChatService, private activateRoute: ActivatedRoute, private datePipe: DatePipe, private router: Router, private socketService: SocketService) { }
 
   ngOnInit(): void {
     this.sidenav.open();
     this.scrollToBottom();
-//hashtag
-this.sidenav.allHashtag().subscribe((hashtags:any)=>{
-  this.hashtag = hashtags.map((ele:any)=>ele.name);
-  
-  console.log(this.hashtag);
-  })
-    //scroll
+
 
 
     //coming from userlist page
     this.activateRoute.params.subscribe(params => {
+      this.sidenav.allHashtag().subscribe((hashtags: any) => {
+        this.hashtag = hashtags.map((ele: any) => ele.name);
+        this.userData = JSON.parse(localStorage.getItem("loginUserData") || '{}');
+        this.conversationid = params["conversationId"];
+        this.sidenav.getAllconversationUser(this.conversationid).subscribe((data: any[] | any) => {
+          this.allConversation = data;
 
-      this.userData = JSON.parse(localStorage.getItem("loginUserData") || '{}');
-      this.conversationid = params["conversationId"];
-      this.sidenav.getAllconversationUser(this.conversationid).subscribe((data: any[] | any) => {
-        this.allConversation = data;
-       
-        this.mentionUsers =data.map((ele:any)=>ele.user_id.name);
-        console.log(this.mentionUsers);
-        this.newChatData = data.filter((o: any) => o.user_id._id != this.userData._id)
-        this.userDetails = this.newChatData[0].user_id;
-        
-        this.receiverIds = data.map((o: any) => o.user_id._id)
+          this.mentionUsers = data.map((ele: any) => ele.user_id.name);
+          console.log(this.mentionUsers);
+          this.mentionConfig = {
+            
+            mentions: [
+              {
+                items: this.mentionUsers,
+                triggerChar: '@',
+                dropUp:true
+              },
+              {
+                items: this.hashtag,
+                triggerChar: '#',
+                dropUp:true
+              },
+            ]
+          }
+          this.newChatData = data.filter((o: any) => o.user_id._id != this.userData._id)
+          this.userDetails = this.newChatData[0].user_id;
+
+          this.receiverIds = data.map((o: any) => o.user_id._id)
+        })
       })
       //chatting page
       this.sidenav.allMessageById(this.conversationid).subscribe((data: any) => {
@@ -128,8 +140,8 @@ this.sidenav.allHashtag().subscribe((hashtags:any)=>{
         // console.log(this.Usermessage.ChatData);
         if (this.mentionUserArray.length > 0) {
           data['isMailAvailability'] = true;
-            data['isMailDelivered'] = false;
-            data['mention_id'] = this.mention_id;
+          data['isMailDelivered'] = false;
+          data['mention_id'] = this.mention_id;
         }
         if (this.tagUserAraay.length > 0) {
           data['hashtag_id'] = this.hashtag_id;
