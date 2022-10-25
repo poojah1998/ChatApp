@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnInit, AfterViewChecked, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, AfterViewChecked, ElementRef, ViewChild, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SocketService } from 'src/app/services/socket.service';
 import { ChatService } from './../chat.service';
@@ -9,7 +9,8 @@ import { ChatService } from './../chat.service';
   styleUrls: ['./chatlist.component.css']
 })
 export class ChatlistComponent implements OnInit, AfterViewChecked {
-  @ViewChild('scrollMe') private myScrollContainer: ElementRef
+  @ViewChild('scrollMe') private myScrollContainer: ElementRef;
+  @Output() itemSelected: EventEmitter<any>;
   allConversation: any = [];
   conversationid: any = "";
   userId: any = "";
@@ -42,13 +43,14 @@ export class ChatlistComponent implements OnInit, AfterViewChecked {
 
     //coming from userlist page
     this.activateRoute.params.subscribe(params => {
+      this.conversationid = params["conversationId"];
       this.sidenav.allHashtag().subscribe((hashtags: any) => {
         this.hashtag = hashtags.map((ele: any) => ele.name);
         this.userData = JSON.parse(localStorage.getItem("loginUserData") || '{}');
-        this.conversationid = params["conversationId"];
+        
         this.sidenav.getAllconversationUser(this.conversationid).subscribe((data: any[] | any) => {
           this.allConversation = data;
-
+           console.log(this.allConversation);
           this.mentionUsers = data.map((ele: any) => ele.user_id.name);
           console.log(this.mentionUsers);
           this.mentionConfig = {
@@ -81,6 +83,11 @@ export class ChatlistComponent implements OnInit, AfterViewChecked {
     })
     this.getSoketMessage();
   }
+
+  closed(event:any){
+console.log(event);
+  }
+
 
   public addEmoji(event: any) {
     this.userInput = `${this.userInput}${event.emoji.native}`;
@@ -119,6 +126,7 @@ export class ChatlistComponent implements OnInit, AfterViewChecked {
   //send message
   sendMessage() {
     if (this.userInput.trim() != '') {
+      
       var data = {
         sender_id: this.userData._id,
         conversation_id: this.conversationid,
@@ -127,25 +135,20 @@ export class ChatlistComponent implements OnInit, AfterViewChecked {
         image: "",
 
       }
-      // console.log(this.mentionUsers);
-      // console.log(this.taggedUsers);
-
+   
+      if (this.mentionUserArray.length > 0) {
+        data['isMailAvailability'] = true;
+        data['isMailDelivered'] = false;
+        data['mentionUserArray'] = this.mention_id;
+      }
+      if (this.tagUserAraay.length > 0) {
+        data['tagUserAraay'] = this.hashtag_id;
+      }
       this.sidenav.sendMessage(data).subscribe((event: any) => {
-        console.log(event.ChatData.taggedUsers);
-        this.tagUserAraay = event.ChatData.taggedUsers;
-        this.mentionUserArray = event.ChatData.mentionUsers;
         this.userInput = '';
         this.Usermessage = event;
         this.chat = this.Usermessage.ChatData;
-        // console.log(this.Usermessage.ChatData);
-        if (this.mentionUserArray.length > 0) {
-          data['isMailAvailability'] = true;
-          data['isMailDelivered'] = false;
-          data['mention_id'] = this.mention_id;
-        }
-        if (this.tagUserAraay.length > 0) {
-          data['hashtag_id'] = this.hashtag_id;
-        }
+    
         this.sendSoketMessage();
         this.ngOnInit();
       })
