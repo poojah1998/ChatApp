@@ -52,17 +52,17 @@ export class ChatlistComponent implements OnInit, AfterViewChecked {
           this.mentionUsers = data.map((ele: any) => ele.user_id.name);
           console.log(this.mentionUsers);
           this.mentionConfig = {
-            
+
             mentions: [
               {
                 items: this.mentionUsers,
                 triggerChar: '@',
-                dropUp:true
+                dropUp: true
               },
               {
                 items: this.hashtag,
                 triggerChar: '#',
-                dropUp:true
+                dropUp: true
               },
             ]
           }
