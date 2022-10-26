@@ -33,6 +33,8 @@ export class ChatlistComponent implements OnInit, AfterViewChecked {
   mentionConfig: any;
   mention_ids: any;
   mention_id: any;
+  mentionUserName: any;
+  mentionArrayIds: unknown[];
 
   constructor(private sidenav: ChatService, private activateRoute: ActivatedRoute, private datePipe: DatePipe, private router: Router, private socketService: SocketService) { }
 
@@ -48,16 +50,11 @@ export class ChatlistComponent implements OnInit, AfterViewChecked {
       this.sidenav.allHashtag().subscribe((hashtags: any) => {
         this.hashtag = hashtags.map((ele: any) => ele.name);
         this.userData = JSON.parse(localStorage.getItem("loginUserData") || '{}');
-        
         this.sidenav.getAllconversationUser(this.conversationid).subscribe((data: any[] | any) => {
           this.allConversation = data;
-           console.log(this.allConversation);
-           this.mention_ids =data.map((ele: any) => ele.user_id._id);
-           console.log(this.mention_ids);
-          this.mentionUsers = data.map((ele: any) => ele.user_id.name);
-          console.log(this.mentionUsers);
-          this.mentionConfig = {
 
+          this.mentionUsers = data.map((ele: any) => ele.user_id.name);
+          this.mentionConfig = {
             mentions: [
               {
                 items: this.mentionUsers,
@@ -87,8 +84,16 @@ export class ChatlistComponent implements OnInit, AfterViewChecked {
     this.getSoketMessage();
   }
 
-  closed(event:any){
-console.log(event);
+  closed(event: any) {
+   event.preventDefault()
+    //  event.stopPropagation();
+      this.mentionUserName = event.label;
+     
+      const newarray = this.allConversation.filter((ele: any) => ele.user_id.name.includes(this.mentionUserName));
+      this.mentionArrayIds = [...new Set(newarray.map((it: any) => it.user_id._id))];
+      return false;
+ 
+
   }
 
 
@@ -129,29 +134,25 @@ console.log(event);
   //send message
   sendMessage() {
     if (this.userInput.trim() != '') {
-      
+
       var data = {
         sender_id: this.userData._id,
         conversation_id: this.conversationid,
         message: this.userInput,
         files: "",
         image: "",
-
       }
-   
-      if (this.mentionUserArray.length > 0) {
+
+      if (this.mentionArrayIds?.length > 0) {
         data['isMailAvailability'] = true;
         data['isMailDelivered'] = false;
-        data['mentionUserArray'] = this.mention_id;
-      }
-      if (this.tagUserAraay.length > 0) {
-        data['tagUserAraay'] = this.hashtag_id;
+        data['allMentionUsers'] = this.mentionArrayIds
       }
       this.sidenav.sendMessage(data).subscribe((event: any) => {
         this.userInput = '';
         this.Usermessage = event;
         this.chat = this.Usermessage.ChatData;
-    
+        this.mentionArrayIds = [];
         this.sendSoketMessage();
         this.ngOnInit();
       })
@@ -161,11 +162,11 @@ console.log(event);
   }
   //after enter send msg
   handleKeyUp(e: any) {
+    
     console.log(this.userInput)
-    if (this.userInput.trim() != '') {
+    if (this.userInput.trim() != '' ) {
       if (e.keyCode == 13 && !e.shiftKey) {
         // prevent default behavior
-        e.preventDefault();
         this.sendMessage();
       }
     }
