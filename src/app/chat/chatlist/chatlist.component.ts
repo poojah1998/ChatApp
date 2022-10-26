@@ -27,11 +27,12 @@ export class ChatlistComponent implements OnInit, AfterViewChecked {
   hashtag_id: any;
   tagUserAraay: any = [];
   mentionUserArray: any = [];
-  mention_id: any;
   taggedUsers: any;
   hashtag: any = [];
   mentionUsers: any;
   mentionConfig: any;
+  mention_ids: any;
+  mention_id: any;
 
   constructor(private sidenav: ChatService, private activateRoute: ActivatedRoute, private datePipe: DatePipe, private router: Router, private socketService: SocketService) { }
 
@@ -51,6 +52,8 @@ export class ChatlistComponent implements OnInit, AfterViewChecked {
         this.sidenav.getAllconversationUser(this.conversationid).subscribe((data: any[] | any) => {
           this.allConversation = data;
            console.log(this.allConversation);
+           this.mention_ids =data.map((ele: any) => ele.user_id._id);
+           console.log(this.mention_ids);
           this.mentionUsers = data.map((ele: any) => ele.user_id.name);
           console.log(this.mentionUsers);
           this.mentionConfig = {
@@ -89,10 +92,10 @@ console.log(event);
   }
 
 
-  public addEmoji(event: any) {
-    this.userInput = `${this.userInput}${event.emoji.native}`;
-    this.isEmojiPickerVisible = false;
-  }
+  // public addEmoji(event: any) {
+  //   this.userInput = `${this.userInput}${event.emoji.native}`;
+  //   this.isEmojiPickerVisible = false;
+  // }
 
 
   sendSoketMessage() {
