@@ -13,12 +13,10 @@ export class ChatComponent implements OnInit {
   @ViewChild('leftsidenav', { static: true }) leftsidenav!: MatSidenav;
   isUserChatHistoryExist: boolean = false;
   isUserInfoExist: boolean = false;
-
   constructor(private sidenavService: ChatService,private route:ActivatedRoute) { }
 
   ngOnInit(): void {
     this.route.params.subscribe((paramObj: any) =>{
-      console.log(paramObj);
       if(paramObj.conversationId) {
         this.isUserChatHistoryExist = true;
       }

@@ -26,9 +26,6 @@ export class UserinfoComponent implements OnInit {
       this.sidenav.getAllconversationUser(this.conversationId).subscribe((data: any) => {
         this.allConversation = data;
         this.userDetails =data[0].user_id;
-        console.log(this.userDetails);
-      
-
       })
     
 

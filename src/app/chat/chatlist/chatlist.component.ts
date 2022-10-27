@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnInit, AfterViewChecked, ElementRef, ViewChild, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, AfterViewChecked, ElementRef, ViewChild, Output, EventEmitter, SimpleChanges, Input, OnChanges } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SocketService } from 'src/app/services/socket.service';
 import { ChatService } from './../chat.service';
@@ -11,11 +11,12 @@ import { ChatService } from './../chat.service';
 export class ChatlistComponent implements OnInit, AfterViewChecked {
   @ViewChild('scrollMe') private myScrollContainer: ElementRef;
   @Output() itemSelected: EventEmitter<any>;
+  isMentionModalOpen: boolean = false;
   allConversation: any = [];
   conversationid: any = "";
   userId: any = "";
   message: any;
-  userInput: any = '';
+  userInput : any = '';
   Usermessage: any = {};
   userData: any;
   chat: any = {};
@@ -23,7 +24,6 @@ export class ChatlistComponent implements OnInit, AfterViewChecked {
   userDetails: any = {};
   receiverIds: any[] = [];
   newChatData: any
-  isEmojiPickerVisible = false;
   hashtag_id: any;
   tagUserAraay: any = [];
   mentionUserArray: any = [];
@@ -35,18 +35,16 @@ export class ChatlistComponent implements OnInit, AfterViewChecked {
   mention_id: any;
   mentionUserName: any;
   mentionArrayIds: unknown[];
-
+  isEmojiPickerVisible=false;
   constructor(private sidenav: ChatService, private activateRoute: ActivatedRoute, private datePipe: DatePipe, private router: Router, private socketService: SocketService) { }
 
   ngOnInit(): void {
     this.sidenav.open();
     this.scrollToBottom();
-
-
-
     //coming from userlist page
     this.activateRoute.params.subscribe(params => {
       this.conversationid = params["conversationId"];
+      this.userInput = '';
       this.sidenav.allHashtag().subscribe((hashtags: any) => {
         this.hashtag = hashtags.map((ele: any) => ele.name);
         this.userData = JSON.parse(localStorage.getItem("loginUserData") || '{}');
@@ -82,25 +80,31 @@ export class ChatlistComponent implements OnInit, AfterViewChecked {
       //
     })
     this.getSoketMessage();
+    
   }
 
+
+
   closed(event: any) {
-   event.preventDefault()
-    //  event.stopPropagation();
+    if(event.label) {
+      this.isMentionModalOpen = true;
+    }
+    
       this.mentionUserName = event.label;
      
       const newarray = this.allConversation.filter((ele: any) => ele.user_id.name.includes(this.mentionUserName));
       this.mentionArrayIds = [...new Set(newarray.map((it: any) => it.user_id._id))];
-      return false;
+    // }
+   
  
 
   }
 
 
-  // public addEmoji(event: any) {
-  //   this.userInput = `${this.userInput}${event.emoji.native}`;
-  //   this.isEmojiPickerVisible = false;
-  // }
+  public addEmoji(event:any) {
+    this.userInput = `${this.userInput}${event.emoji.native}`;
+    this.isEmojiPickerVisible = false;
+ }
 
 
   sendSoketMessage() {
@@ -162,15 +166,19 @@ export class ChatlistComponent implements OnInit, AfterViewChecked {
   }
   //after enter send msg
   handleKeyUp(e: any) {
-    
-    console.log(this.userInput)
-    if (this.userInput.trim() != '' ) {
-      if (e.keyCode == 13 && !e.shiftKey) {
-        // prevent default behavior
-        this.sendMessage();
+   // console.log(this.userInput)
+    if(this.isMentionModalOpen === false && e.keyCode == 13) {
+      if (this.userInput.trim() != '') {
+        if (e.keyCode == 13 && !e.shiftKey) {
+          // prevent default behavior
+          this.sendMessage();
+        }
       }
     }
-
+    else {
+      this.isMentionModalOpen = false;
+    }
+    
   }
 
 

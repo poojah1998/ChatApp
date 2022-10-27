@@ -126,6 +126,12 @@
     <circle cx="12" cy="12" r="10" />
     <path d="M12 8v8M8 12h8" />
   </svg> -->
+
+  <mat-buttons slot="start" class="iconBtn emoji">
+    <ion-button (click)="isEmojiPickerVisible = !isEmojiPickerVisible;" >
+      <img src="../../assets/images/img_icons/emoji.png" style="height: 30px;" />
+    </ion-button>
+  </mat-buttons>
   <a>
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
       stroke-linecap="round" stroke-linejoin="round" class="feather feather-smile">
@@ -139,10 +145,13 @@
       d="M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.19-9.19a4 4 0 015.66 5.66l-9.2 9.19a2 2 0 01-2.83-2.83l8.49-8.48" />
   </svg>
   
-  <textarea placeholder="Type something here..." [mentionConfig]="mentionConfig" (itemSelected)="closed($event)" [(ngModel)]="userInput" (keyup)="handleKeyUp($event)"></textarea>
+  <textarea placeholder="Type something here..." (focus)="isEmojiPickerVisible = false" [mentionConfig]="mentionConfig" (itemSelected)="closed($event)" (keyup)="handleKeyUp($event)" [(ngModel)]="userInput" ></textarea>
   <svg viewBox="0 0 24 24" width="24" height="24" class="" (click)="sendMessage()">
     <path fill="currentColor" d="M1.101 21.757 23.8 12.028 1.101 2.3l.011 7.912 13.623 1.816-13.623 1.817-.011 7.912z">
     </path>
   </svg>
 
+  <emoji-mart class="emoji-mart" [emojiTooltip]="false" [darkMode]="false" [emojiSize]="30" [showPreview]="false"
+  [enableSearch]="false" [style.display]="isEmojiPickerVisible ? 'block' : 'none'" (emojiSelect)="addEmoji($event)"
+  title="Choose your emoji"></emoji-mart>
 </div>

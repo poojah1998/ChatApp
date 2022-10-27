@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { animation } from '@angular/animations';
 import { MentionModule } from 'angular-mentions';
+import { PickerModule } from '@ctrl/ngx-emoji-mart';
 @NgModule({
   declarations: [
     UserlistComponent,
@@ -27,7 +28,8 @@ import { MentionModule } from 'angular-mentions';
     FormsModule,
     ReactiveFormsModule,
     ChatRoutingModule,
-    MentionModule
+    MentionModule,
+    PickerModule 
   ],
   providers:[
     DatePipe
