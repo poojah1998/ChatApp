@@ -127,8 +127,8 @@
     <path fill="currentColor" d="M1.101 21.757 23.8 12.028 1.101 2.3l.011 7.912 13.623 1.816-13.623 1.817-.011 7.912z">
     </path>
   </svg>
-  <div class="emoj_overlay" [style.display]="isEmojiPickerVisible ? 'block' : 'none'"
-    (click)="isEmojiPickerVisible = false"></div>
+  <div class="emoj_overlay" [style.display]="isEmojiPickerVisible || additionalBtns ? 'block' : 'none'"
+    (click)="isEmojiPickerVisible = false; additionalBtns = false"></div>
   <emoji-mart class="emoji-mart" [emojiTooltip]="false" [darkMode]="false" [emojiSize]="30" [showPreview]="false"
     [enableSearch]="false" [style.display]="isEmojiPickerVisible ? 'block' : 'none'" (emojiSelect)="addEmoji($event)"
     title="Choose your emoji"></emoji-mart>
@@ -141,7 +141,7 @@
         <polyline points="13 2 13 9 20 9"></polyline>
       </svg>
     </button>
-    <button>
+    <button >
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
         stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
         class="feather feather-image">

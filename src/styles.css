@@ -813,7 +813,7 @@ svg.disabled{
   visibility: hidden;
   position: absolute;
   top: -10px;
-  right: 45px;
+  right: 35px;
   transform: translateY(-100%);
 }
 .addiotnalBtns.isVisible{
@@ -821,12 +821,12 @@ svg.disabled{
 }
 
 .addiotnalBtns > button {
-  background-color: var(--theme-color);
-  box-shadow: 0 0 16px var(--msg-hover-bg);
+  background-color: var(--body-color);
+  box-shadow: 0 0 16px var(--body-color);
   border: 0;
   margin: 4px;
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   opacity: 0;
   -webkit-transform: scale(0);
