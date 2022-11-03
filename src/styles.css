@@ -799,6 +799,16 @@ html {
     right: 0;
 }
 
+svg.send:not(.disabled){
+  color: var(--theme-color);
+}
+
+svg.disabled{
+  cursor: not-allowed;
+  color: var(--settings-icon-color);
+  pointer-events: none;
+}
+
 @media (max-width: 1120px) {
   .detail-area {
     /* display: none; */

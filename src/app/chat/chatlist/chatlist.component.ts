@@ -16,7 +16,7 @@ export class ChatlistComponent implements OnInit, AfterViewChecked {
   conversationid: any = "";
   userId: any = "";
   message: any;
-  userInput : any = '';
+  userInput: any = '';
   Usermessage: any = {};
   userData: any;
   chat: any = {};
@@ -35,8 +35,11 @@ export class ChatlistComponent implements OnInit, AfterViewChecked {
   mention_id: any;
   mentionUserName: any;
   mentionArrayIds: unknown[];
-  isEmojiPickerVisible=false;
-  constructor(private sidenav: ChatService, private activateRoute: ActivatedRoute, private datePipe: DatePipe, private router: Router, private socketService: SocketService) { }
+  isEmojiPickerVisible = false;
+  disabledBtn: boolean = true;
+  constructor(private sidenav: ChatService, private activateRoute: ActivatedRoute, private datePipe: DatePipe, private router: Router, private socketService: SocketService) {
+    
+  }
 
   ngOnInit(): void {
     this.sidenav.open();
@@ -80,31 +83,33 @@ export class ChatlistComponent implements OnInit, AfterViewChecked {
       //
     })
     this.getSoketMessage();
-    
+
+
   }
 
 
 
   closed(event: any) {
-    if(event.label) {
+    if (event.label) {
       this.isMentionModalOpen = true;
     }
-    
-      this.mentionUserName = event.label;
-     
-      const newarray = this.allConversation.filter((ele: any) => ele.user_id.name.includes(this.mentionUserName));
-      this.mentionArrayIds = [...new Set(newarray.map((it: any) => it.user_id._id))];
+
+    this.mentionUserName = event.label;
+
+    const newarray = this.allConversation.filter((ele: any) => ele.user_id.name.includes(this.mentionUserName));
+    this.mentionArrayIds = [...new Set(newarray.map((it: any) => it.user_id._id))];
     // }
-   
- 
+
+
 
   }
 
 
-  public addEmoji(event:any) {
+  public addEmoji(event: any) {
     this.userInput = `${this.userInput}${event.emoji.native}`;
+    this.userInput.focus();
     // this.isEmojiPickerVisible = false;
- }
+  }
 
 
   sendSoketMessage() {
@@ -166,8 +171,8 @@ export class ChatlistComponent implements OnInit, AfterViewChecked {
   }
   //after enter send msg
   handleKeyUp(e: any) {
-   // console.log(this.userInput)
-    if(this.isMentionModalOpen === false && e.keyCode == 13) {
+    // console.log(this.userInput)
+    if (this.isMentionModalOpen === false && e.keyCode == 13) {
       if (this.userInput.trim() != '') {
         if (e.keyCode == 13 && !e.shiftKey) {
           // prevent default behavior
@@ -178,7 +183,13 @@ export class ChatlistComponent implements OnInit, AfterViewChecked {
     else {
       this.isMentionModalOpen = false;
     }
-    
+
+
+    if (this.userInput.trim() != '') {
+      this.disabledBtn = false
+    } else {
+      this.disabledBtn = true
+    }
   }
 
 
