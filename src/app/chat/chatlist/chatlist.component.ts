@@ -37,6 +37,7 @@ export class ChatlistComponent implements OnInit, AfterViewChecked {
   mentionArrayIds: unknown[];
   isEmojiPickerVisible = false;
   disabledBtn: boolean = true;
+  additionalBtns: boolean = false;
   constructor(private sidenav: ChatService, private activateRoute: ActivatedRoute, private datePipe: DatePipe, private router: Router, private socketService: SocketService) {
     
   }
@@ -143,7 +144,7 @@ export class ChatlistComponent implements OnInit, AfterViewChecked {
   //send message
   sendMessage() {
     if (this.userInput.trim() != '') {
-
+      this.disabledBtn = true
       var data = {
         sender_id: this.userData._id,
         conversation_id: this.conversationid,
@@ -233,7 +234,9 @@ export class ChatlistComponent implements OnInit, AfterViewChecked {
     this.sidenav.openLeftNav();
   }
 
-
+  triggerBtns(){
+    this.additionalBtns = !this.additionalBtns
+  }
 
 
 }
