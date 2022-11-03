@@ -408,9 +408,57 @@ html {
   font-size: 18px;
   font-weight: 600;
 }
-.chat-area-main {
+.chat-area-main,
+.chat-file-preview {
   flex-grow: 1;
   overflow: auto;
+}
+
+.chat-file-preview{
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  overflow: hidden;
+}
+
+.preview-header{
+  display: flex;
+  width: 100%;
+  min-height: 60px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  background: var(--chat-header-bg);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.preview_close svg{
+  width: 20px;
+}
+
+.chat-file-preview .file-container{
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 0%;
+}
+
+.chat-file-preview .file-container img{
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.add-multiple-files{
+  padding: 10px 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.add-multiple-files span{
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  padding: 18px;
 }
 
 .chat-msg-img {
