@@ -1,4 +1,4 @@
 export const environment = {
-  host: "http://localhost:5066/",
+  host: "http://192.168.29.172:5066/",
   production: true
 };

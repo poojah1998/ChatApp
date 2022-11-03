@@ -489,6 +489,7 @@ html {
 
 .chat-area-footer {
   display: flex;
+  position: relative;
   border-top: 1px solid var(--border-color);
   width: 100%;
   padding: 10px 20px;
@@ -521,7 +522,10 @@ html {
   border-radius: 6px;
   font-size: 15px;
   margin: 0 12px;
+  margin-left: 0;
   width: 100%;
+  resize: none;
+  height: 50px;
 }
 .chat-area-footer input::placeholder,
 .chat-area-footer textarea::placeholder {
@@ -778,6 +782,21 @@ html {
   align-items: center;
   font-size: 14px;
   font-weight: 500;
+}
+
+.emoji-mart{
+  position: absolute;
+  top: -4px;
+  right: 7px;
+  transform: translateY(-100%);
+}
+
+.emoj_overlay{
+  position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
 }
 
 @media (max-width: 1120px) {

@@ -103,7 +103,7 @@ export class ChatlistComponent implements OnInit, AfterViewChecked {
 
   public addEmoji(event:any) {
     this.userInput = `${this.userInput}${event.emoji.native}`;
-    this.isEmojiPickerVisible = false;
+    // this.isEmojiPickerVisible = false;
  }
 
 
