@@ -1,4 +1,4 @@
-<mat-tab-group mat-stretch-tabs animationDuration="0ms">
+<mat-tab-group mat-stretch-tabs animationDuration="0ms" (selectedTabChange)="tabClick($event)">
     <mat-tab label="INDIVIDUAL">
         <ng-container *ngTemplateOutlet="tabContent"></ng-container>
     </mat-tab>
@@ -46,6 +46,12 @@
      
 </ng-template>
 
-<div class="d-flex justify-content-end p-3">
+<!-- <div class="d-flex justify-content-end p-3">
     <button mat-button mat-dialog-close>Done</button>
+</div> -->
+<div class="d-flex justify-content-end p-3" *ngIf="index == 0">
+    <button mat-button mat-dialog-close>Chat</button>
+</div>
+<div class="d-flex justify-content-end p-3"  *ngIf="index == 1">
+    <button mat-button mat-dialog-close>Create Group</button>
 </div>

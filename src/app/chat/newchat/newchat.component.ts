@@ -8,6 +8,7 @@ import { ChatService } from '../chat.service';
 })
 export class NewchatComponent implements OnInit {
   usersData: any;
+  index: any=0;
 
   constructor(private chatService: ChatService) { }
 
@@ -19,7 +20,11 @@ export class NewchatComponent implements OnInit {
 //     this.allDoctors = data;
 //   })
 // }
-
+tabClick(event){
+ 
+console.log(event.index.tab,event);
+this.index=event.index;
+}
   tabs(type){
     if(type == "Doctor"){
   this.chatService.getAllDoctors().subscribe((data: any) => {
