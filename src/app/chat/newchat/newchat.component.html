@@ -10,20 +10,21 @@
 <ng-template #tabContent>
     <div class="innerTab">
         <ul>
-            <li matRipple>Doctor</li>
-            <li matRipple>Referral</li>
-            <li matRipple>Partner</li>
-            <li matRipple>Facilitator</li>
+            <li matRipple (click)="tabs('Doctor')">Doctor</li>
+            <li matRipple (click)="tabs('Referral')">Referral</li>
+            <li matRipple (click)="tabs('Partner')">Partner</li>
+            <li matRipple (click)="tabs('Facilitator')">Facilitator</li>
         </ul>
     </div>
     <div class="search">
         <input type="text" placeholder="Search">
     </div>
     <div class="user-grp-list">
-        <p>
-            <mat-checkbox>John Doe</mat-checkbox>
+        <p  *ngFor="let item of usersData ">
+            <mat-checkbox>{{item.name}}</mat-checkbox>
         </p>
-        <p>
+       
+        <!-- <p>
             <mat-checkbox>Seth Rollins</mat-checkbox>
         </p>
         <p>
@@ -40,8 +41,9 @@
         </p>
         <p>
             <mat-checkbox>Mark Henry</mat-checkbox>
-        </p>
+        </p> -->
     </div>
+     
 </ng-template>
 
 <div class="d-flex justify-content-end p-3">

@@ -65,6 +65,12 @@ export class ChatService {
 	  public uploadMedia(data :any){
 		return this.httpClient.post(environment.host +"upload/media",data);
 	  }
+	  public getAllDoctors(){
+		return this.httpClient.get(environment.host +"getAllDoctors");
+	  }
+	  public getAllRefferals(){
+		return this.httpClient.get(environment.host +"allRefferals");
+	  }
 	// public getConversationListById(uid: string) {
 	// 	return this.httpClient.get(environment.host + uid +"/conversation");
 	//   }
