@@ -27,6 +27,8 @@
    rgba(255, 255, 255, 1) 100%
   );
   --chat-header-bg: #fff;
+  --chat-bubble-right-bg: #cce0ff;
+  --chat-bubble-left-bg: #eff0f1;
 }
 
 [data-theme=purple] {
@@ -525,13 +527,18 @@ html {
   align-items: flex-end;
 }
 .owner .chat-msg-text {
-  background-color: var(--theme-color);
-  color: #fff;
+  background-color: var(--chat-bubble-right-bg);
+  color: #000;
   border-radius: 20px 20px 0 20px;
 }
 .owner .chat-msg-date {
   left: auto;
   right: calc(100% + 12px);
+}
+
+.chat-msg-text span.mentions{
+  color: #3370ff;
+  cursor: pointer;
 }
 
 .chat-msg-text img {
@@ -928,10 +935,12 @@ svg.disabled{
 
 .popover{
   min-width: 330px;
+  border: 0 !important;
 }
 
 .popover-body{
   padding: 0 !important;
+  background-color: var(--input-bg);
 }
 
 @media (max-width: 1120px) {
