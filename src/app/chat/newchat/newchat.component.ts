@@ -8,33 +8,29 @@ import { ChatService } from '../chat.service';
 })
 export class NewchatComponent implements OnInit {
   usersData: any;
-  index: any=0;
+  index: any = 0;
 
+  selectedMenu: string = 'Doctor';
   constructor(private chatService: ChatService) { }
 
   ngOnInit(): void {
 
   }
-// doctors(){
-//   this.chatService.getAllDoctors().subscribe((data: any) => {
-//     this.allDoctors = data;
-//   })
-// }
-tabClick(event){
- 
-console.log(event.index.tab,event);
-this.index=event.index;
-}
-  tabs(type){
-    if(type == "Doctor"){
-  this.chatService.getAllDoctors().subscribe((data: any) => {
-    this.usersData = data;
-  })
-    }else if (type == "Referral") {
+  
+  tabClick(event) {
+    console.log(event.index.tab, event);
+    this.index = event.index;
+  }
+  tabs(type) {
+    this.selectedMenu = type;
+    if (type == "Doctor") {
+      this.chatService.getAllDoctors().subscribe((data: any) => {
+        this.usersData = data;
+      })
+    } else if (type == "Referral") {
       this.chatService.getAllRefferals().subscribe((data: any) => {
         this.usersData = data;
       })
     }
-
   }
 }
