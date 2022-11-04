@@ -23,7 +23,7 @@
     <ng-container *ngIf="item.sender_id == userData._id ; else templateA">
       <div class="chat-msg owner">
         <div class="chat-msg-profile">
-          <img class="chat-msg-img" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png"
+          <img class="chat-msg-img" [ngbPopover]="userInfo" container="body" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png"
             alt="" />
           <div class="chat-msg-date">{{calculateDiff(item.createdAt)}} Message sent at {{getTime(item.createdAt)}}</div>
         </div>
@@ -115,3 +115,21 @@
     </button>
   </div>
 </div>
+
+<ng-template #userInfo>
+  <div class="userCard">
+    <div class="userCoverPic" style="background: url('https://www.blog.motifphotos.com/wp-content/uploads/2021/05/panorama-photo-01-2308x632.jpg');"></div>
+    <div class="userProfileDetails pt-0">
+        <div class="profImg">
+          <img class="chat-msg-img" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png"
+          alt="" />
+        </div>
+        <div class="profName">
+         <h4>Mike Tyson</h4>
+        </div>
+        <div class="">
+
+        </div>
+    </div>
+  </div>
+</ng-template>

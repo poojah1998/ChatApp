@@ -14,6 +14,7 @@ import { animation } from '@angular/animations';
 import { MentionModule } from 'angular-mentions';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
 import { NewchatComponent } from './newchat/newchat.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 @NgModule({
   declarations: [
     UserlistComponent,
@@ -31,7 +32,8 @@ import { NewchatComponent } from './newchat/newchat.component';
     ReactiveFormsModule,
     ChatRoutingModule,
     MentionModule,
-    PickerModule 
+    PickerModule,
+    NgbModule 
   ],
   providers:[
     DatePipe

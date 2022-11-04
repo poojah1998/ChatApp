@@ -10,9 +10,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ApiPrefixInterceptor } from './interceptors/api-prefix.interceptor';
 import { ErrorHandlerInterceptor } from './interceptors/error-handler.interceptor';
 import { MentionModule } from 'angular-mentions';
-
-
-
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -24,8 +22,8 @@ import { MentionModule } from 'angular-mentions';
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    MentionModule
-    
+    MentionModule,
+    NgbModule
     
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: ApiPrefixInterceptor, multi: true },

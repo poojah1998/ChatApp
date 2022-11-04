@@ -897,6 +897,43 @@ svg.disabled{
   transition-delay: 0.05s;
 }
 
+.userCard{
+
+}
+
+.userCoverPic{
+  min-height: 100px;
+}
+
+.userProfileDetails{
+  padding: 16px;
+}
+
+.userProfileDetails .profImg{
+  margin-top: -40px;
+}
+.userProfileDetails .profImg img{
+  height: 80px;
+    width: 80px;
+    border: 4px solid #fff;
+}
+
+.profName{
+
+}
+
+.profName h4{
+  font-weight: 500;
+}
+
+.popover{
+  min-width: 330px;
+}
+
+.popover-body{
+  padding: 0 !important;
+}
+
 @media (max-width: 1120px) {
   .detail-area {
     /* display: none; */
