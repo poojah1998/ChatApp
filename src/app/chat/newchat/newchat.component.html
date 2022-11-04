@@ -10,10 +10,18 @@
 <ng-template #tabContent>
     <div class="innerTab">
         <ul>
-            <li matRipple (click)="tabs('Doctor')">Doctor</li>
-            <li matRipple (click)="tabs('Referral')">Referral</li>
-            <li matRipple (click)="tabs('Partner')">Partner</li>
-            <li matRipple (click)="tabs('Facilitator')">Facilitator</li>
+            <li (click)="tabs('Doctor')" [ngClass]="{'selected': selectedMenu == 'Doctor'}">
+               <span>Doctor</span>
+            </li>
+            <li (click)="tabs('Referral')" [ngClass]="{'selected': selectedMenu == 'Referral'}">
+               <span>Referral</span>
+            </li>
+            <li (click)="tabs('Partner')" [ngClass]="{'selected': selectedMenu == 'Partner'}">
+               <span>Partner</span>
+            </li>
+            <li (click)="tabs('Facilitator')" [ngClass]="{'selected': selectedMenu == 'Facilitator'}">
+               <span>Facilitator</span>
+            </li>
         </ul>
     </div>
     <div class="search">
@@ -23,25 +31,6 @@
         <p  *ngFor="let item of usersData ">
             <mat-checkbox>{{item.name}}</mat-checkbox>
         </p>
-       
-        <!-- <p>
-            <mat-checkbox>Seth Rollins</mat-checkbox>
-        </p>
-        <p>
-            <mat-checkbox>Bobby Lashley</mat-checkbox>
-        </p>
-        <p>
-            <mat-checkbox>Roman Reigns</mat-checkbox>
-        </p>
-        <p>
-            <mat-checkbox>Dolph Ziggler</mat-checkbox>
-        </p>
-        <p>
-            <mat-checkbox>Shelton Benjamin</mat-checkbox>
-        </p>
-        <p>
-            <mat-checkbox>Mark Henry</mat-checkbox>
-        </p> -->
     </div>
      
 </ng-template>

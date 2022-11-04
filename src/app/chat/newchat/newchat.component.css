@@ -6,12 +6,22 @@
 }
 
 .innerTab ul li{
-    flex: 1 1 auto;
+    flex: 1;
     text-align: center;
     padding: 5px;
     font-size: 14px;
     font-weight: 500;
     cursor: pointer;
+}
+
+.innerTab ul li span{
+    padding: 5px 10px;
+    display: block;
+    border-radius: 4px;
+}
+
+.innerTab ul li.selected span{
+    background: var(--chat-bubble-right-bg);
 }
 
 .search{
@@ -29,4 +39,10 @@
 
 .user-grp-list{
     padding: 10px 20px;
+}
+
+.user-grp-list p{
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 10px;
 }
