@@ -238,6 +238,10 @@ export class ChatlistComponent implements OnInit, AfterViewChecked {
   triggerBtns(){
     this.additionalBtns = !this.additionalBtns
   }
-
+// meadiaUpload(data:any){
+//   this.sidenav.uploadMedia(data).subscribe((event: any) => {
+//     this.ngOnInit();
+//   })
+// }
 
 }

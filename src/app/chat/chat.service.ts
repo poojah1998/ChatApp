@@ -62,6 +62,9 @@ export class ChatService {
 	  public allHashtag() {
 		return this.httpClient.get(environment.host +"getAllhashtag");
 	  }
+	  public uploadMedia(data :any){
+		return this.httpClient.post(environment.host +"upload/media",data);
+	  }
 	// public getConversationListById(uid: string) {
 	// 	return this.httpClient.get(environment.host + uid +"/conversation");
 	//   }
