@@ -222,7 +222,7 @@ export class ChatlistComponent implements OnInit, AfterViewChecked {
     this.sidenav.openLeftNav();
   }
 
-
+                                                                                                                                                           
 
 
 }
