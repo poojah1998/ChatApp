@@ -14,7 +14,7 @@ export class NewchatComponent implements OnInit {
   constructor(private chatService: ChatService) { }
 
   ngOnInit(): void {
-
+    this.tabs("Doctor") ;
   }
   
   tabClick(event) {
@@ -22,6 +22,7 @@ export class NewchatComponent implements OnInit {
     this.index = event.index;
   }
   tabs(type) {
+   
     this.selectedMenu = type;
     if (type == "Doctor") {
       this.chatService.getAllDoctors().subscribe((data: any) => {
