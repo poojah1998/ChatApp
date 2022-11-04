@@ -234,9 +234,14 @@ export class ChatlistComponent implements OnInit, AfterViewChecked {
     this.sidenav.openLeftNav();
   }
 
+                                                                                                                                                           
   triggerBtns(){
     this.additionalBtns = !this.additionalBtns
   }
-
+// meadiaUpload(data:any){
+//   this.sidenav.uploadMedia(data).subscribe((event: any) => {
+//     this.ngOnInit();
+//   })
+// }
 
 }
