@@ -13,12 +13,14 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { animation } from '@angular/animations';
 import { MentionModule } from 'angular-mentions';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
+import { NewchatComponent } from './newchat/newchat.component';
 @NgModule({
   declarations: [
     UserlistComponent,
     ChatlistComponent,
     UserinfoComponent,
     ChatComponent,
+    NewchatComponent,
    
   ],
  

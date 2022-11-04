@@ -1,0 +1,49 @@
+<mat-tab-group mat-stretch-tabs animationDuration="0ms">
+    <mat-tab label="INDIVIDUAL">
+        <ng-container *ngTemplateOutlet="tabContent"></ng-container>
+    </mat-tab>
+    <mat-tab label="GROUP">
+        <ng-container *ngTemplateOutlet="tabContent"></ng-container>
+    </mat-tab>
+</mat-tab-group>
+
+<ng-template #tabContent>
+    <div class="innerTab">
+        <ul>
+            <li matRipple>Doctor</li>
+            <li matRipple>Referral</li>
+            <li matRipple>Partner</li>
+            <li matRipple>Facilitator</li>
+        </ul>
+    </div>
+    <div class="search">
+        <input type="text" placeholder="Search">
+    </div>
+    <div class="user-grp-list">
+        <p>
+            <mat-checkbox>John Doe</mat-checkbox>
+        </p>
+        <p>
+            <mat-checkbox>Seth Rollins</mat-checkbox>
+        </p>
+        <p>
+            <mat-checkbox>Bobby Lashley</mat-checkbox>
+        </p>
+        <p>
+            <mat-checkbox>Roman Reigns</mat-checkbox>
+        </p>
+        <p>
+            <mat-checkbox>Dolph Ziggler</mat-checkbox>
+        </p>
+        <p>
+            <mat-checkbox>Shelton Benjamin</mat-checkbox>
+        </p>
+        <p>
+            <mat-checkbox>Mark Henry</mat-checkbox>
+        </p>
+    </div>
+</ng-template>
+
+<div class="d-flex justify-content-end p-3">
+    <button mat-button mat-dialog-close>Done</button>
+</div>

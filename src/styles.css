@@ -323,6 +323,10 @@ html {
   overflow: hidden;
 }
 
+.custom-dialog .mat-dialog-container{
+  padding: 0;
+}
+
 .msg-content {
   font-weight: 500;
   font-size: 13px;
