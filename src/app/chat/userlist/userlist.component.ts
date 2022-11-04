@@ -1,40 +1,49 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { ChatService } from './../chat.service';
 import { Router } from '@angular/router';
-
+import { NewchatComponent } from '../newchat/newchat.component'
 @Component({
   selector: 'app-userlist',
   templateUrl: './userlist.component.html',
   styleUrls: ['./userlist.component.css']
 })
 export class UserlistComponent implements OnInit {
-ConversationList:any=[];
-  constructor(private leftsidenav: ChatService, public breakpointObserver: BreakpointObserver,private router:Router) { }
+  ConversationList: any = [];
+  constructor(private leftsidenav: ChatService, public dialog: MatDialog, public breakpointObserver: BreakpointObserver, private router: Router) { }
 
   ngOnInit(): void {
     this.showConvo();
-this.leftsidenav.getAllConversation().subscribe((data:any)=>{
-this.ConversationList = data
-// console.log(this.ConversationList);
+    this.leftsidenav.getAllConversation().subscribe((data: any) => {
+      this.ConversationList = data
+      // console.log(this.ConversationList);
 
-})
+    })
   }
 
-  showConvo(){
+  showConvo() {
     this.breakpointObserver
       .observe(['(max-width: 780px)'])
       .subscribe((state: BreakpointState) => {
         if (state.matches) {
-            this.leftsidenav.closeLeftNav();
+          this.leftsidenav.closeLeftNav();
         } else {
 
         }
       });
   }
- async chatDeatils(conversationid: any){
-this.leftsidenav.getAllconversationUser(conversationid).subscribe(()=>{
-  this.router.navigate([`/chat/${conversationid}`]);
-})
- }
+  async chatDeatils(conversationid: any) {
+    this.leftsidenav.getAllconversationUser(conversationid).subscribe(() => {
+      this.router.navigate([`/chat/${conversationid}`]);
+    })
+  }
+
+  newChat() { 
+    let dialogRef = this.dialog.open(NewchatComponent, { 
+      width: '480px',
+      panelClass: 'custom-dialog' 
+    });
+
+  }
 }

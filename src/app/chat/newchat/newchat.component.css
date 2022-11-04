@@ -1,0 +1,32 @@
+.innerTab ul{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    display: flex;
+}
+
+.innerTab ul li{
+    flex: 1 1 auto;
+    text-align: center;
+    padding: 5px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.search{
+
+}
+
+.search input{
+    border-color: #ccc;
+    border: 1px solid #ccc;
+    width: 100%;
+    border-inline: 0;
+    padding: 10px 15px;
+    font-size: 14px;
+}
+
+.user-grp-list{
+    padding: 10px 20px;
+}
