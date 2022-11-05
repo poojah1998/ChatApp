@@ -985,4 +985,19 @@ svg.disabled{
     max-width: 100vw !important;
     height: 100%;
   }
+
+  .newChatWindow{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .newChatWindow .mat-tab-group{
+    flex-grow: 1;
+  }
+  .newChatWindow button{
+    width: 100%;
+    color: #fff;
+    background-color: var(--theme-color);
+  }
 }
