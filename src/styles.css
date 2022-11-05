@@ -950,6 +950,10 @@ svg.disabled{
   background-color: var(--input-bg);
 }
 
+.newChatWindow .chat-area-header{
+  display: none;
+}
+
 @media (max-width: 1120px) {
   .detail-area {
     /* display: none; */
@@ -999,5 +1003,8 @@ svg.disabled{
     width: 100%;
     color: #fff;
     background-color: var(--theme-color);
+  }
+  .newChatWindow .chat-area-header{
+    display: flex;
   }
 }
