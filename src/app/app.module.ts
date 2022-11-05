@@ -11,6 +11,7 @@ import { ApiPrefixInterceptor } from './interceptors/api-prefix.interceptor';
 import { ErrorHandlerInterceptor } from './interceptors/error-handler.interceptor';
 import { MentionModule } from 'angular-mentions';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgxAudioPlayerModule } from 'ngx-audio-player';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     BrowserAnimationsModule,
     HttpClientModule,
     MentionModule,
-    NgbModule
+    NgbModule,
+    NgxAudioPlayerModule
     
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: ApiPrefixInterceptor, multi: true },

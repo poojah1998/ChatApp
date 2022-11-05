@@ -576,7 +576,7 @@ html {
   color: var(--settings-icon-hover);
 }
 .chat-area-footer svg + svg {
-  margin-left: 12px;
+  margin-left: 25px;
 }
 
 .chat-area-footer input,
@@ -875,11 +875,22 @@ svg.disabled{
   pointer-events: none;
 }
 
+ngx-audio-player > mat-card:nth-child(2){
+  display: none;
+}
+
+ngx-audio-player mat-card{
+  border-radius: 40px !important;
+  background: var(--chat-bubble-right-bg) !important;
+  box-shadow: none !important;
+  overflow: hidden;
+}
+
 .addiotnalBtns{
   visibility: hidden;
   position: absolute;
   top: -10px;
-  right: 35px;
+  right: 93px;
   transform: translateY(-100%);
 }
 .addiotnalBtns.isVisible{

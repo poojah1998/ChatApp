@@ -15,6 +15,7 @@ import { MentionModule } from 'angular-mentions';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
 import { NewchatComponent } from './newchat/newchat.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgxAudioPlayerModule } from 'ngx-audio-player';
 @NgModule({
   declarations: [
     UserlistComponent,
@@ -33,7 +34,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     ChatRoutingModule,
     MentionModule,
     PickerModule,
-    NgbModule 
+    NgbModule,
+    NgxAudioPlayerModule 
   ],
   providers:[
     DatePipe

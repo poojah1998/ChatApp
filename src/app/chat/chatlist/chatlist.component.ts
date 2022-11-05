@@ -4,12 +4,21 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SocketService } from 'src/app/services/socket.service';
 import { AudioService } from '../audio.service';
 import { ChatService } from './../chat.service';
+import { Track } from 'ngx-audio-player';
+
 @Component({
   selector: 'app-chatlist',
   templateUrl: './chatlist.component.html',
   styleUrls: ['./chatlist.component.css']
 })
 export class ChatlistComponent implements OnInit, AfterViewChecked {
+  msaapDisplayDuration = false;
+  msaapDisplayArtist = false;
+  msbapAudioUrl = "https://ia800905.us.archive.org/19/items/FREE_background_music_dhalius/backsound.mp3"
+  msaapDisablePositionSlider = false;
+  msaapDisplayVolumeControls = false;
+  msaapDisplayRepeatControls = false;
+  msaapDisplayPlayList = false;
   @ViewChild('scrollMe') private myScrollContainer: ElementRef;
   @Output() itemSelected: EventEmitter<any>;
   isMentionModalOpen: boolean = false;
@@ -44,7 +53,8 @@ export class ChatlistComponent implements OnInit, AfterViewChecked {
   file: any; // Variable to store file
   imageSrc: any = "";
   fileSrc: any = "";
-  constructor(private sidenav: ChatService, private activateRoute: ActivatedRoute, private datePipe: DatePipe, private router: Router, private socketService: SocketService,private audioService: AudioService) {
+  recordStart: boolean = true;
+  constructor(private sidenav: ChatService, private activateRoute: ActivatedRoute, private datePipe: DatePipe, private router: Router, private socketService: SocketService, private audioService: AudioService) {
 
   }
 
@@ -187,11 +197,15 @@ export class ChatlistComponent implements OnInit, AfterViewChecked {
 
   startPlay() {
     this.audioService.startPlay();
+    this.recordStart = false;
+    console.log('Record start')
   }
 
 
   stopPlay() {
     this.audioService.stopPlay();
+    this.recordStart = true;
+    console.log('Record stop')
   }
 
 
