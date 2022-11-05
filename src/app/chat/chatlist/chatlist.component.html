@@ -18,13 +18,13 @@
     </svg>
   </div>
 </div>
-<div class="chat-area-main" #scrollMe>
+<div class="chat-area-main" #scrollMe [style.display]="(imageSrc == '' && fileSrc == '') ? 'block' : 'none'">
   <ng-container *ngFor="let item of allMessage">
     <ng-container *ngIf="item.sender_id == userData._id ; else templateA">
       <div class="chat-msg owner">
         <div class="chat-msg-profile">
-          <img class="chat-msg-img" [ngbPopover]="userInfo" container="body" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png"
-            alt="" />
+          <img class="chat-msg-img" [ngbPopover]="userInfo" container="body"
+            src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png" alt="" />
           <div class="chat-msg-date">{{calculateDiff(item.createdAt)}} Message sent at {{getTime(item.createdAt)}}</div>
         </div>
         <div class="chat-msg-content">
@@ -47,21 +47,30 @@
     </ng-template>
   </ng-container>
 </div>
-<div class="chat-file-preview">
+<div class="chat-file-preview" [style.display]="((imageSrc == '' && fileSrc != '') || (imageSrc !== '' && fileSrc == '')) ? 'flex' : 'none'">
   <div class="preview-header">
     <div class="preview_close">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+      <svg (click)="closePreview()" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+        class="feather feather-x">
         <line x1="18" y1="6" x2="6" y2="18"></line>
         <line x1="6" y1="6" x2="18" y2="18"></line>
       </svg>
     </div>
   </div>
   <div class="file-container">
-    <img src="https://www.blog.motifphotos.com/wp-content/uploads/2021/05/panorama-photo-01-2308x632.jpg" alt="">
+    <ng-container *ngIf="imageSrc">
+      <img [src]="imageSrc" alt="">
+    </ng-container>
+    <ng-container *ngIf="fileSrc">
+      <img src="https://cdn-icons-png.flaticon.com/512/124/124837.png" alt="">
+    </ng-container>
   </div>
   <div class="add-multiple-files">
     <span>
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
+        class="feather feather-plus">
         <line x1="12" y1="5" x2="12" y2="19"></line>
         <line x1="5" y1="12" x2="19" y2="12"></line>
       </svg>
@@ -94,7 +103,7 @@
     [enableSearch]="false" [style.display]="isEmojiPickerVisible ? 'block' : 'none'" (emojiSelect)="addEmoji($event)"
     title="Choose your emoji"></emoji-mart>
   <div class="d-flex addiotnalBtns flex-column" [ngClass]="{'isVisible': additionalBtns}">
-    <input #file type="file" accept="*" hidden >
+    <input #file type="file" accept="*" hidden (change)="onChange($event)">
     <button (click)="file.click()">
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
         stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
@@ -103,7 +112,7 @@
         <polyline points="13 2 13 9 20 9"></polyline>
       </svg>
     </button>
-    <input #image type="file" accept="image/*" hidden >
+    <input #image type="file" accept="image/*" hidden (change)="onChange($event);">
     <button (click)="image.click()" #upload>
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
         stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
@@ -118,18 +127,20 @@
 
 <ng-template #userInfo>
   <div class="userCard">
-    <div class="userCoverPic" style="background: url('https://www.blog.motifphotos.com/wp-content/uploads/2021/05/panorama-photo-01-2308x632.jpg');"></div>
+    <div class="userCoverPic"
+      style="background: url('https://www.blog.motifphotos.com/wp-content/uploads/2021/05/panorama-photo-01-2308x632.jpg');">
+    </div>
     <div class="userProfileDetails pt-0">
-        <div class="profImg">
-          <img class="chat-msg-img" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png"
+      <div class="profImg">
+        <img class="chat-msg-img" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png"
           alt="" />
-        </div>
-        <div class="profName">
-         <h4>Mike Tyson</h4>
-        </div>
-        <div class="">
+      </div>
+      <div class="profName">
+        <h4>Mike Tyson</h4>
+      </div>
+      <div class="">
 
-        </div>
+      </div>
     </div>
   </div>
 </ng-template>

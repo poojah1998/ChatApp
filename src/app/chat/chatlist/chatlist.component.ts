@@ -38,8 +38,13 @@ export class ChatlistComponent implements OnInit, AfterViewChecked {
   isEmojiPickerVisible = false;
   disabledBtn: boolean = true;
   additionalBtns: boolean = false;
+  shortLink: string = "";
+  loading: boolean = false; // Flag variable
+  file: any; // Variable to store file
+  imageSrc: any = "";
+  fileSrc: any = "";
   constructor(private sidenav: ChatService, private activateRoute: ActivatedRoute, private datePipe: DatePipe, private router: Router, private socketService: SocketService) {
-    
+
   }
 
   ngOnInit(): void {
@@ -87,7 +92,51 @@ export class ChatlistComponent implements OnInit, AfterViewChecked {
 
 
   }
+  // On file Select
+  onChange(event) {
+    this.file = event.target.files[0];
+    console.log(this.file);
+    if (this.file.type.includes("image/")) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.imageSrc = reader.result;
+        console.log(this.imageSrc);
+      }
+      reader.readAsDataURL(this.file);
+    } else {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.fileSrc = reader.result;
+        console.log(this.fileSrc);
+      }
+      reader.readAsDataURL(this.file);
+    }
 
+  }
+
+  closePreview() {
+    this.imageSrc = "";
+    this.fileSrc = "";
+  }
+  // OnClick of button Upload
+  onUpload() {
+    const formData = new FormData();
+    formData.append('file', this.file)
+    this.loading = !this.loading;
+
+    this.sidenav.uploadMedia(formData).subscribe(
+      (event: any) => {
+
+        if (typeof (event) === 'object') {
+          this.closePreview();
+          // Short link via api response
+          this.shortLink = event.location;
+          console.log(this.shortLink);
+          this.loading = false; // Flag variable 
+        }
+      }
+    );
+  }
 
 
   closed(event: any) {
@@ -145,6 +194,11 @@ export class ChatlistComponent implements OnInit, AfterViewChecked {
   sendMessage() {
     if (this.userInput.trim() != '') {
       this.disabledBtn = true
+      // if (this.file.type.includes("image/") {
+      //    = ''
+      // } else {
+        
+      // }
       var data = {
         sender_id: this.userData._id,
         conversation_id: this.conversationid,
@@ -234,14 +288,14 @@ export class ChatlistComponent implements OnInit, AfterViewChecked {
     this.sidenav.openLeftNav();
   }
 
-                                                                                                                                                           
-  triggerBtns(){
+
+  triggerBtns() {
     this.additionalBtns = !this.additionalBtns
   }
-// meadiaUpload(data:any){
-//   this.sidenav.uploadMedia(data).subscribe((event: any) => {
-//     this.ngOnInit();
-//   })
-// }
+  // meadiaUpload(data:any){
+  //   this.sidenav.uploadMedia(data).subscribe((event: any) => {
+  //     this.ngOnInit();
+  //   })
+  // }
 
 }
