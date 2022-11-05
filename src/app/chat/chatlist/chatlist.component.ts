@@ -96,6 +96,7 @@ export class ChatlistComponent implements OnInit, AfterViewChecked {
   onChange(event) {
     this.file = event.target.files[0];
     console.log(this.file);
+    this.disabledBtn = false;
     if (this.file.type.includes("image/")) {
       const reader = new FileReader();
       reader.onload = (e: any) => {
@@ -117,21 +118,28 @@ export class ChatlistComponent implements OnInit, AfterViewChecked {
   closePreview() {
     this.imageSrc = "";
     this.fileSrc = "";
+    this.disabledBtn = true;
   }
   // OnClick of button Upload
-  onUpload() {
+  onUpload(data) {
     const formData = new FormData();
     formData.append('file', this.file)
     this.loading = !this.loading;
-
     this.sidenav.uploadMedia(formData).subscribe(
       (event: any) => {
-
+        console.log(event);
         if (typeof (event) === 'object') {
           this.closePreview();
           // Short link via api response
           this.shortLink = event.location;
-          console.log(this.shortLink);
+          if (this.file.type.includes("image/")) {
+            data['image'] = this.shortLink;
+            this.sendMessageApi(data);
+          } else {
+            data['files'] = this.shortLink;
+            this.sendMessageApi(data);
+          }
+
           this.loading = false; // Flag variable 
         }
       }
@@ -192,37 +200,40 @@ export class ChatlistComponent implements OnInit, AfterViewChecked {
 
   //send message
   sendMessage() {
-    if (this.userInput.trim() != '') {
+    console.log(this.shortLink);
+    if (this.file || this.userInput.trim() != '') {
       this.disabledBtn = true
-      // if (this.file.type.includes("image/") {
-      //    = ''
-      // } else {
-        
-      // }
       var data = {
         sender_id: this.userData._id,
         conversation_id: this.conversationid,
         message: this.userInput,
-        files: "",
-        image: "",
       }
-
       if (this.mentionArrayIds?.length > 0) {
         data['isMailAvailability'] = true;
         data['isMailDelivered'] = false;
         data['allMentionUsers'] = this.mentionArrayIds
       }
-      this.sidenav.sendMessage(data).subscribe((event: any) => {
-        this.userInput = '';
-        this.Usermessage = event;
-        this.chat = this.Usermessage.ChatData;
-        this.mentionArrayIds = [];
-        this.sendSoketMessage();
-        this.ngOnInit();
-      })
-
+      if (this.file) {
+        this.onUpload(data);
+      }
+      else {
+        this.sendMessageApi(data);
+      }
     }
 
+  }
+
+
+
+  sendMessageApi(payload) {
+    this.sidenav.sendMessage(payload).subscribe((event: any) => {
+      this.userInput = '';
+      this.Usermessage = event;
+      this.chat = this.Usermessage.ChatData;
+      this.mentionArrayIds = [];
+      this.sendSoketMessage();
+      this.ngOnInit();
+    })
   }
   //after enter send msg
   handleKeyUp(e: any) {
