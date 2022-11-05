@@ -1,3 +1,7 @@
+<div class="search-user-group">
+  <input type="text" placeholder="Search..">
+</div>
+
 <ng-container *ngFor="let item of ConversationList">
   <div class="msg" (click)="showConvo();chatDeatils(item._id)">
     <img class="msg-profile" src="{{item.image}}" alt="" />
