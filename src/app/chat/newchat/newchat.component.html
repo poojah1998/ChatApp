@@ -1,46 +1,63 @@
-<mat-tab-group mat-stretch-tabs animationDuration="0ms" (selectedTabChange)="tabClick($event)">
-    <mat-tab label="INDIVIDUAL">
-        <ng-container *ngTemplateOutlet="tabContent"></ng-container>
-    </mat-tab>
-    <mat-tab label="GROUP">
-        <ng-container *ngTemplateOutlet="tabContent"></ng-container>
-    </mat-tab>
-</mat-tab-group>
+<div class="newChatWindow">
+    <div class="chat-area-header">
+        <div class="msg p-0">
+            <div class="chat-area-group d-lg-none me-2" mat-dialog-close>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                    class="feather feather-arrow-left">
+                    <line x1="19" y1="12" x2="5" y2="12"></line>
+                    <polyline points="12 19 5 12 12 5"></polyline>
+                </svg>
+            </div>
+        </div>
+    </div>
+    <mat-tab-group mat-stretch-tabs animationDuration="0ms" (selectedTabChange)="tabClick($event)">
+        <mat-tab label="INDIVIDUAL">
+            <ng-container *ngTemplateOutlet="tabContent"></ng-container>
+        </mat-tab>
+        <mat-tab label="GROUP">
+            <ng-container *ngTemplateOutlet="tabContent"></ng-container>
+        </mat-tab>
+    </mat-tab-group>
 
-<ng-template #tabContent>
-    <div class="innerTab">
-        <ul>
-            <li (click)="tabs('Doctor')" [ngClass]="{'selected': selectedMenu == 'Doctor'}">
-               <span>Doctor</span>
-            </li>
-            <li (click)="tabs('Referral')" [ngClass]="{'selected': selectedMenu == 'Referral'}">
-               <span>Referral</span>
-            </li>
-            <li (click)="tabs('Partner')" [ngClass]="{'selected': selectedMenu == 'Partner'}">
-               <span>Partner</span>
-            </li>
-            <li (click)="tabs('Facilitator')" [ngClass]="{'selected': selectedMenu == 'Facilitator'}">
-               <span>Facilitator</span>
-            </li>
-        </ul>
-    </div>
-    <div class="search">
-        <input type="text" placeholder="Search">
-    </div>
-    <div class="user-grp-list">
-        <p  *ngFor="let item of usersData ">
-            <mat-checkbox>{{item.name}}</mat-checkbox>
-        </p>
-    </div>
-     
-</ng-template>
+    <ng-template #tabContent>
+        <div class="innerTab">
+            <ul>
+                <li (click)="tabs('Doctor')" [ngClass]="{'selected': selectedMenu == 'Doctor'}">
+                    <span>Doctor</span>
+                </li>
+                <li (click)="tabs('Referral')" [ngClass]="{'selected': selectedMenu == 'Referral'}">
+                    <span>Referral</span>
+                </li>
+                <li (click)="tabs('Partner')" [ngClass]="{'selected': selectedMenu == 'Partner'}">
+                    <span>Partner</span>
+                </li>
+                <li (click)="tabs('Facilitator')" [ngClass]="{'selected': selectedMenu == 'Facilitator'}">
+                    <span>Facilitator</span>
+                </li>
+            </ul>
+        </div>
+        <div class="search">
+            <input type="text" placeholder="Search">
+        </div>
+        <div class="user-grp-list">
+            <ng-container *ngIf="index == 0">
+                <mat-radio-group class="d-flex flex-column">
+                    <ng-container *ngFor="let item of usersData">
+                        <mat-radio-button [value]="item.name">{{item.name}}</mat-radio-button>
+                    </ng-container>
+                </mat-radio-group>
+            </ng-container>
+            <ng-container *ngIf="index == 1">
+                <p *ngFor="let item of usersData ">
+                    <mat-checkbox>{{item.name}}</mat-checkbox>
+                </p>
+            </ng-container>
+        </div>
+    </ng-template>
 
-<!-- <div class="d-flex justify-content-end p-3">
-    <button mat-button mat-dialog-close>Done</button>
-</div> -->
-<div class="d-flex justify-content-end p-3" *ngIf="index == 0">
-    <button mat-button mat-dialog-close>Chat</button>
-</div>
-<div class="d-flex justify-content-end p-3"  *ngIf="index == 1">
-    <button mat-button mat-dialog-close>Create Group</button>
+    <div class="d-flex justify-content-end p-2">
+        <button mat-button mat-dialog-close *ngIf="index == 0">Chat</button>
+        <button mat-button mat-dialog-close *ngIf="index == 1">Create Group</button>
+    </div>
 </div>
