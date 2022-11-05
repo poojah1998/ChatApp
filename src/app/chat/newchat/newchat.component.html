@@ -11,16 +11,16 @@
     <div class="innerTab">
         <ul>
             <li (click)="tabs('Doctor')" [ngClass]="{'selected': selectedMenu == 'Doctor'}">
-               <span>Doctor</span>
+                <span>Doctor</span>
             </li>
             <li (click)="tabs('Referral')" [ngClass]="{'selected': selectedMenu == 'Referral'}">
-               <span>Referral</span>
+                <span>Referral</span>
             </li>
             <li (click)="tabs('Partner')" [ngClass]="{'selected': selectedMenu == 'Partner'}">
-               <span>Partner</span>
+                <span>Partner</span>
             </li>
             <li (click)="tabs('Facilitator')" [ngClass]="{'selected': selectedMenu == 'Facilitator'}">
-               <span>Facilitator</span>
+                <span>Facilitator</span>
             </li>
         </ul>
     </div>
@@ -28,19 +28,22 @@
         <input type="text" placeholder="Search">
     </div>
     <div class="user-grp-list">
-        <p  *ngFor="let item of usersData ">
-            <mat-checkbox>{{item.name}}</mat-checkbox>
-        </p>
+        <ng-container *ngIf="index == 0">
+            <mat-radio-group class="d-flex flex-column">
+                <ng-container *ngFor="let item of usersData">
+                    <mat-radio-button [value]="item.name">{{item.name}}</mat-radio-button>
+                </ng-container>
+            </mat-radio-group>
+        </ng-container>
+        <ng-container *ngIf="index == 1">
+            <p *ngFor="let item of usersData ">
+                <mat-checkbox>{{item.name}}</mat-checkbox>
+            </p>
+        </ng-container>
     </div>
-     
 </ng-template>
 
-<!-- <div class="d-flex justify-content-end p-3">
-    <button mat-button mat-dialog-close>Done</button>
-</div> -->
-<div class="d-flex justify-content-end p-3" *ngIf="index == 0">
-    <button mat-button mat-dialog-close>Chat</button>
-</div>
-<div class="d-flex justify-content-end p-3"  *ngIf="index == 1">
-    <button mat-button mat-dialog-close>Create Group</button>
+<div class="d-flex justify-content-end p-3">
+    <button mat-button mat-dialog-close *ngIf="index == 0">Chat</button>
+    <button mat-button mat-dialog-close *ngIf="index == 1">Create Group</button>
 </div>
