@@ -2,6 +2,7 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit, AfterViewChecked, ElementRef, ViewChild, Output, EventEmitter, SimpleChanges, Input, OnChanges } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SocketService } from 'src/app/services/socket.service';
+import { AudioService } from '../audio.service';
 import { ChatService } from './../chat.service';
 @Component({
   selector: 'app-chatlist',
@@ -43,7 +44,7 @@ export class ChatlistComponent implements OnInit, AfterViewChecked {
   file: any; // Variable to store file
   imageSrc: any = "";
   fileSrc: any = "";
-  constructor(private sidenav: ChatService, private activateRoute: ActivatedRoute, private datePipe: DatePipe, private router: Router, private socketService: SocketService) {
+  constructor(private sidenav: ChatService, private activateRoute: ActivatedRoute, private datePipe: DatePipe, private router: Router, private socketService: SocketService,private audioService: AudioService) {
 
   }
 
@@ -183,6 +184,15 @@ export class ChatlistComponent implements OnInit, AfterViewChecked {
   }
 
 
+
+  startPlay() {
+    this.audioService.startPlay();
+  }
+
+
+  stopPlay() {
+    this.audioService.stopPlay();
+  }
 
 
   //scroll
