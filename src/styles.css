@@ -888,7 +888,7 @@ ngx-audio-player mat-card{
 
 .audio-player {
   height: 50px;
-  width: 350px;
+  width: 240px;
   background: var(--chat-bubble-right-bg);
   /* box-shadow: 0 0 20px 0 #000a; */
   font-family: arial;
