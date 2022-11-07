@@ -1120,10 +1120,13 @@ ngx-audio-player mat-card{
   width: 240px;
   padding: 10px;
   border-radius: 20px 20px 20px;
+  color: #000;
+  text-decoration: none;
 }
 
 .file > img{
   height: 40px;
+  width: auto;
 }
 
 .file > .file_details{
