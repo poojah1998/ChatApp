@@ -11,7 +11,22 @@
             </div>
         </div>
     </div>
-    <mat-tab-group mat-stretch-tabs animationDuration="0ms" (selectedTabChange)="tabClick($event)">
+    <div class="new-group-header" *ngIf="newGrpHeader">
+        <div class="msg p-0">
+            <div class="chat-area-group me-2">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                    class="feather feather-arrow-left">
+                    <line x1="19" y1="12" x2="5" y2="12"></line>
+                    <polyline points="12 19 5 12 12 5"></polyline>
+                </svg>
+            </div>
+            <div class="chat-area-title">
+                New Group
+            </div>
+        </div>
+    </div>
+    <mat-tab-group mat-stretch-tabs animationDuration="0ms" (selectedTabChange)="tabClick($event)" *ngIf="!newGrpHeader">
         <mat-tab label="INDIVIDUAL">
             <ng-container *ngTemplateOutlet="tabContent"></ng-container>
         </mat-tab>
@@ -40,17 +55,49 @@
         <div class="search">
             <input type="text" placeholder="Search">
         </div>
+        <div *ngIf="index == 1" class="usersSelected">
+            <mat-chip-list>
+                <mat-chip>
+                    <img matChipAvatar class="chat-msg-img"
+                        src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png" alt="" />
+                    Name <button matChipRemove>
+                        <mat-icon>cancel</mat-icon>
+                    </button>
+                </mat-chip>
+                <mat-chip color="primary">
+                    <img matChipAvatar class="chat-msg-img"
+                        src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png" alt="" />
+                    Name <button matChipRemove>
+                        <mat-icon>cancel</mat-icon>
+                    </button>
+                </mat-chip>
+                <mat-chip color="accent">
+                    <img matChipAvatar class="chat-msg-img"
+                        src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png" alt="" />
+                    Name <button matChipRemove>
+                        <mat-icon>cancel</mat-icon>
+                    </button>
+                </mat-chip>
+            </mat-chip-list>
+        </div>
+
         <div class="user-grp-list">
             <ng-container *ngIf="index == 0">
                 <mat-radio-group class="d-flex flex-column">
                     <ng-container *ngFor="let item of usersData">
-                        <mat-radio-button [value]="item.name">{{item.name}}</mat-radio-button>
+                        <mat-radio-button [value]="item.name">
+                            <img class="chat-msg-img me-2"
+                                src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png"
+                                alt="" />{{item.name}}
+                        </mat-radio-button>
                     </ng-container>
                 </mat-radio-group>
             </ng-container>
             <ng-container *ngIf="index == 1">
                 <p *ngFor="let item of usersData ">
-                    <mat-checkbox>{{item.name}}</mat-checkbox>
+                    <mat-checkbox> <img class="chat-msg-img me-2"
+                            src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png"
+                            alt="" />{{item.name}}</mat-checkbox>
                 </p>
             </ng-container>
         </div>
@@ -58,6 +105,9 @@
 
     <div class="d-flex justify-content-end p-2">
         <button mat-button mat-dialog-close *ngIf="index == 0">Chat</button>
+        <button mat-icon-button *ngIf="index == 1">
+            <mat-icon>arrow_forward</mat-icon>
+        </button>
         <button mat-button mat-dialog-close *ngIf="index == 1">Create Group</button>
     </div>
 </div>
