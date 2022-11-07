@@ -13,9 +13,9 @@ const credentialsKey = 'currentUser';
 export class ChatService {
 	private sidenav!: MatSidenav;
 	private leftsidenav!: MatSidenav;
-	userId: any;conversationId: any
+	userId: any; conversationId: any
 	constructor(private httpClient: HttpClient) { }
-  
+
 
 	public setSidenav(sidenav: MatSidenav) {
 		this.sidenav = sidenav;
@@ -45,39 +45,44 @@ export class ChatService {
 	}
 
 	public getAllConversation() {
-		return this.httpClient.get(environment.host +"getAllconversation");
-	  }
-	  public getAllconversationUser(id: string) {
-		return this.httpClient.get(environment.host +"getAllconversationUser/"+id);
-	  }
-	  public sendMessage(data:any) {
-		return this.httpClient.post(environment.host +"addChat", data);
-	  }
-	 
+		return this.httpClient.get(environment.host + "getAllconversation");
+	}
+	public getAllconversationUser(id: string) {
+		return this.httpClient.get(environment.host + "getAllconversationUser/" + id);
+	}
+	public sendMessage(data: any) {
+		return this.httpClient.post(environment.host + "addChat", data);
+	}
 
-	  public allMessageById(id: string) {
-		return this.httpClient.get(environment.host +"getAllChatbyId/"+ id);
-	  }
 
-	  public allHashtag() {
-		return this.httpClient.get(environment.host +"getAllhashtag");
-	  }
-	  public uploadMedia(data :any){
-		return this.httpClient.post(environment.host +"upload/media",data);
-	  }
-	  public getAllDoctors(){
-		return this.httpClient.get(environment.host +"getAllDoctors");
-	  }
-	  public getAllRefferals(){
-		return this.httpClient.get(environment.host +"allRefferals");
-	  }
-	 
-	  public getAllPhotos(id: string) {
-		return this.httpClient.get(environment.host + "getAllChatImage/" +id);
-	  }
-	  public getAllFiles(id: string) {
-		return this.httpClient.get(environment.host + "getAllChatFile/" +id);
-	  }
+	public allHashtag() {
+		return this.httpClient.get(environment.host + "getAllhashtag");
+	}
+	public uploadMedia(data: any) {
+		return this.httpClient.post(environment.host + "upload/media", data);
+	}
+	public getAllDoctors() {
+		return this.httpClient.get(environment.host + "getAllDoctors");
+	}
+	public getAllRefferals() {
+		return this.httpClient.get(environment.host + "allRefferals");
+	}
+
+	public getAllPhotos(id: string) {
+		return this.httpClient.get(environment.host + "getAllChatImage/" + id);
+	}
+	public getAllFiles(id: string) {
+		return this.httpClient.get(environment.host + "getAllChatFile/" + id);
+	}
+	public addConversationUser(payload: any) {
+		return this.httpClient.post(environment.host + "addconversationUser", {});
+	}
+	public addConversation(payload: any) {
+		return this.httpClient.post(environment.host + "addconversation", payload);
+	}
+	public addMoreUser(payload: any) {
+		return this.httpClient.post(environment.host + "addMoreUser" , payload);
+	}
 	// public getConversationListById(uid: string) {
 	// 	return this.httpClient.get(environment.host + uid +"/conversation");
 	//   }
@@ -91,7 +96,9 @@ export class ChatService {
 	// 	return this.httpClient.get(environment.host+uid+"/members")
 	//  }
 	//  public getConversationMembers(uid: string){
-    //     return this.httpClient.post(environment.host+uid+"/conversationmembers",{})
+	//     return this.httpClient.post(environment.host+uid+"/conversationmembers",{})
 	//  }
-
+	public allMessageById(id: string) {
+        return this.httpClient.get(environment.host +"getAllChatbyId/"+ id);
+      }
 }

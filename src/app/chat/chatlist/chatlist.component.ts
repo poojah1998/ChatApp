@@ -233,6 +233,18 @@ const audioName = 'audio.mp3';
   //send message
   sendMessage() {
     console.log(this.shortLink);
+    if (this.userInput.includes('@') || this.userInput.includes('#')) {
+      let data: any = [];
+      this.userInput.split(' ').forEach(element => {
+        if(element.includes('@') || element.includes('#')) {
+          data.push(`<span>${element}</span>`);
+        }
+        else {
+          data.push(element);
+        }
+      });
+      this.userInput = data.join(' ');
+    }
     if (this.file || this.userInput.trim() != '') {
       this.disabledBtn = true
       var data = {
