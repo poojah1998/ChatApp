@@ -15,6 +15,10 @@ export class UserinfoComponent implements OnInit {
   conversationId: any ="";
   allConversation: any = Array;
   userDetails: any ={};
+  allPhotos: any;
+  allFiles: any;
+  img: any;
+  file: any;
   constructor(private sidenav: ChatService, private activateRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -27,8 +31,16 @@ export class UserinfoComponent implements OnInit {
         this.allConversation = data;
         this.userDetails =data[0].user_id;
       })
-    
-
+    this.sidenav.getAllPhotos(this.conversationId).subscribe((photos: any)=>{
+    this.allPhotos = photos;
+    console.log(this.allPhotos);
+  
+    })
+    this.sidenav.getAllFiles(this.conversationId).subscribe((allfiles: any)=>{
+      this.allFiles = allfiles;
+      console.log(this.allFiles);
+      this.file =  allfiles.files
+      })
     })
   }
 
