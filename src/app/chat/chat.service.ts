@@ -77,7 +77,9 @@ export class ChatService {
 	public addConversationUser(payload: any) {
 		return this.httpClient.post(environment.host + "/addconversationUser", {});
 	}
-
+	public addConversation(payload: any) {
+		return this.httpClient.post(environment.host + "/addconversation", payload);
+	}
 	public addMoreUser(id: string, { }) {
 		return this.httpClient.post(environment.host + "addMoreUser/" + id, {});
 	}
@@ -96,5 +98,7 @@ export class ChatService {
 	//  public getConversationMembers(uid: string){
 	//     return this.httpClient.post(environment.host+uid+"/conversationmembers",{})
 	//  }
-
+	public allMessageById(id: string) {
+        return this.httpClient.get(environment.host +"getAllChatbyId/"+ id);
+      }
 }

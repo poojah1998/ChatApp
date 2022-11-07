@@ -67,11 +67,11 @@ export class NewchatComponent implements OnInit {
   }
 
   addUser() {
-    this.chatService.addConversationUser({
-      conversation_id: "",
-      user_id: "",
-      isAdmin: false,
-      isReferal: false
+    this.chatService.addConversation({
+      name:"",
+      type:"",
+      owner_id:"" ,
+      image:"",
 
     }).subscribe((result: any) => {
       this.chatService.addMoreUser("", {
