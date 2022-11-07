@@ -49,8 +49,8 @@
                 </mat-radio-group>
             </ng-container>
             <ng-container *ngIf="index == 1">
-                <p *ngFor="let item of usersData ">
-                    <mat-checkbox>{{item.name}}</mat-checkbox>
+                <p *ngFor="let item of usersData;let i=index">
+                    <mat-checkbox [checked]="isChecked(item)" [value]="item" (change)="showOptions($event)" >{{item.name}}</mat-checkbox>
                 </p>
             </ng-container>
         </div>
