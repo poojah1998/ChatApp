@@ -11,7 +11,6 @@ declare var MediaRecorder: any;
 })
 export class AudioService {
     blobFile: any;
-    sendObj:any = new BehaviorSubject('');
     audioContext = new (AudioContext)({ sampleRate: 16000 });
     recorder = new Recorder(this.audioContext, {});
     dataURItoBlob: any;
@@ -45,8 +44,6 @@ export class AudioService {
                                 reader.readAsDataURL(audioBlob);
                                 reader.addEventListener('load', () => {
                                     const base64data = reader.result;
-                                    this.sendObj.next(base64data);
-                                   
                                 }, false);
                                 const audioUrl = URL.createObjectURL(audioBlob);
                                 console.log('Audiourl', audioUrl);
