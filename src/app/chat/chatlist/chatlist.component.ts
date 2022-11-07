@@ -101,7 +101,6 @@ export class ChatlistComponent implements OnInit, AfterViewChecked {
     })
     this.getSoketMessage();
 
-
   }
   // On file Select
   onChange(event) {
