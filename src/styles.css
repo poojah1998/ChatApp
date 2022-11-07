@@ -737,6 +737,10 @@ html {
   grid-row-gap: 6px;
   grid-template-rows: repeat(3, 60px);
 }
+
+.detail-photo-grid.file_grid{
+  grid-template-columns: repeat(1, 1fr);
+}
 .detail-photo-grid img {
   height: 100%;
   width: 100%;
@@ -1113,6 +1117,34 @@ ngx-audio-player mat-card{
   opacity: 1;
 }
 
+
+.file{
+  display: flex;
+  background: var(--chat-bubble-right-bg);
+  width: 240px;
+  padding: 10px;
+  border-radius: 20px 20px 20px;
+  color: #000;
+  text-decoration: none;
+}
+
+.file > img{
+  height: 40px;
+  width: auto;
+}
+
+.file > .file_details{
+  padding-left: 10px;
+}
+
+.file > .file_details h4{
+  font-size: 15px;
+}
+
+.file > .file_details span{
+  color: #424242;
+  font-size: 10px;
+}
 
 .userCard{
 

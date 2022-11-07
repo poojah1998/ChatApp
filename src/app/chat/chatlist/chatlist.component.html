@@ -41,9 +41,22 @@
             <img src="{{item.image}}" alt="">
           </div>
         </div>
+        
 
-        <!-- audio section -->
-        <div class="audio-player" *ngIf="item.files !== ''">          
+        <!-- File -->
+        <div class="file">
+          <img src="./assets/image/pdf.png" alt="">
+          <div class="file_details">
+            <h4>Filename.pdf</h4>
+            <div class="d-flex">
+              <span>232 KB</span>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- Audio -->
+        <div class="audio-player">          
           <div class="controls">
             <div class="play-container">
               <div class="toggle-play play">
@@ -59,8 +72,6 @@
             </div>
           </div>
         </div>
-
-
       </div>
     </ng-container>
     <ng-template #templateA>
@@ -99,7 +110,7 @@
           </div>
         </div>
 
-        
+
       </div>
     </ng-template>
   </ng-container>
