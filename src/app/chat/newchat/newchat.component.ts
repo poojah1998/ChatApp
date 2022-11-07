@@ -13,15 +13,27 @@ export class NewchatComponent implements OnInit {
   event: any;
   selectedMenu: string = 'Doctor';
   groupArray: any[] = [];
+  groupName: any;
+  type: any = "INDIVIDUAL";
+  ownerId: any;
+  loginUserData: any;
+  image: any;
+  user_id: any;
+
   constructor(private chatService: ChatService) { }
 
   ngOnInit(): void {
     this.tabs("Doctor");
+    this.loginUserData = JSON.parse(localStorage.getItem("loginUserData") || '{}');
+    this.ownerId = this.loginUserData._id;
+    console.log(this.ownerId)
   }
 
   tabClick(event) {
     console.log(event.index.tab, event);
     this.index = event.index;
+    this.type = event.tab.textLabel
+    console.log(this.type);
   }
   tabs(type) {
 
@@ -53,7 +65,12 @@ export class NewchatComponent implements OnInit {
 
     console.log(this.groupArray)
 
+    this.groupArray.forEach((ele) => {
+      console.log(ele.profile.location)
+      this.image=ele.profile.location
+     this.user_id=ele._id
 
+    })
   }
 
   isChecked(item) {
@@ -67,16 +84,18 @@ export class NewchatComponent implements OnInit {
   }
 
   addUser() {
+
+
     this.chatService.addConversation({
-      name:"",
-      type:"",
-      owner_id:"" ,
-      image:"",
+      name: this.groupName,
+      type: this.type,
+      owner_id: this.ownerId,
+      image: this.image,
 
     }).subscribe((result: any) => {
-      this.chatService.addMoreUser("", {
-        conversation_id: "",
-        user_id: "",
+      this.chatService.addMoreUser( {
+        conversation_id: result._id,
+        user_id: this.user_id,
         isAdmin: false,
         isReferal: false
 

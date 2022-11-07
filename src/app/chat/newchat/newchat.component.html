@@ -114,7 +114,7 @@
             </div>
         </div>
         <div class="grpName">
-            <input type="text" placeholder="Group Name">
+            <input type="text" placeholder="Group Name" [(ngModel)]="groupName">
         </div>
     </div>
 
@@ -123,6 +123,6 @@
         <button mat-icon-button *ngIf="index == 1 && !newGrpHeader" (click)="newGrpHeader = true">
             <mat-icon>arrow_forward</mat-icon>
         </button>
-        <button mat-button mat-dialog-close *ngIf="newGrpHeader">Create Group</button>
+        <button mat-button mat-dialog-close *ngIf="newGrpHeader" (click)="addUser()">Create Group</button>
     </div>
 </div>

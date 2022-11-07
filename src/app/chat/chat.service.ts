@@ -75,13 +75,13 @@ export class ChatService {
 		return this.httpClient.get(environment.host + "getAllChatFile/" + id);
 	}
 	public addConversationUser(payload: any) {
-		return this.httpClient.post(environment.host + "/addconversationUser", {});
+		return this.httpClient.post(environment.host + "addconversationUser", {});
 	}
 	public addConversation(payload: any) {
-		return this.httpClient.post(environment.host + "/addconversation", payload);
+		return this.httpClient.post(environment.host + "addconversation", payload);
 	}
-	public addMoreUser(id: string, { }) {
-		return this.httpClient.post(environment.host + "addMoreUser/" + id, {});
+	public addMoreUser(payload: any) {
+		return this.httpClient.post(environment.host + "addMoreUser" , payload);
 	}
 	// public getConversationListById(uid: string) {
 	// 	return this.httpClient.get(environment.host + uid +"/conversation");
