@@ -886,9 +886,25 @@ ngx-audio-player mat-card{
   overflow: hidden;
 }
 
+.new-group-header{
+  display: flex;
+  width: 100%;
+  min-height: 60px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  background: var(--chat-header-bg);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.new-group-header .msg{
+  background-color: transparent;
+  border-left: 0;
+}
+
 .audio-player {
   height: 50px;
-  width: 350px;
+  width: 240px;
   background: var(--chat-bubble-right-bg);
   /* box-shadow: 0 0 20px 0 #000a; */
   font-family: arial;

@@ -12,6 +12,7 @@ import { ErrorHandlerInterceptor } from './interceptors/error-handler.intercepto
 import { MentionModule } from 'angular-mentions';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxAudioPlayerModule } from 'ngx-audio-player';
+import { ChatModule } from './chat/chat.module';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { NgxAudioPlayerModule } from 'ngx-audio-player';
     HttpClientModule,
     MentionModule,
     NgbModule,
+    ChatModule,
     NgxAudioPlayerModule
     
   ],

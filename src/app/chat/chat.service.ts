@@ -55,10 +55,6 @@ export class ChatService {
 	}
 
 
-	public allMessageById(id: string) {
-		return this.httpClient.get(environment.host + "getAllChatbyId/" + id);
-	}
-
 	public allHashtag() {
 		return this.httpClient.get(environment.host + "getAllhashtag");
 	}
@@ -72,12 +68,18 @@ export class ChatService {
 		return this.httpClient.get(environment.host + "allRefferals");
 	}
 
-	public addConversationUser(payload:any) {
+	public getAllPhotos(id: string) {
+		return this.httpClient.get(environment.host + "getAllChatImage/" + id);
+	}
+	public getAllFiles(id: string) {
+		return this.httpClient.get(environment.host + "getAllChatFile/" + id);
+	}
+	public addConversationUser(payload: any) {
 		return this.httpClient.post(environment.host + "/addconversationUser", {});
 	}
 
-	public addMoreUser(id: string,{}) {
-		return this.httpClient.post(environment.host + "addMoreUser/" + id,{});
+	public addMoreUser(id: string, { }) {
+		return this.httpClient.post(environment.host + "addMoreUser/" + id, {});
 	}
 	// public getConversationListById(uid: string) {
 	// 	return this.httpClient.get(environment.host + uid +"/conversation");
