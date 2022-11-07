@@ -34,8 +34,24 @@
           [displayVolumeControls]="msaapDisplayVolumeControls"
           [displayRepeatControls]="msaapDisplayRepeatControls" [disablePositionSlider]="msaapDisablePositionSlider">
         </ngx-audio-player> -->
-      </div>
 
+        <div class="audio-player">          
+          <div class="controls">
+            <div class="play-container">
+              <div class="toggle-play play">
+            </div>
+            </div>
+            <div class="time">
+              <div class="current">0:00</div>
+              <div class="divider">/</div>
+              <div class="length"></div>
+            </div>
+            <div class="timeline">
+              <div class="progress"></div>
+            </div>
+          </div>
+        </div>
+      </div>
     </ng-container>
     <ng-template #templateA>
       <div class="chat-msg">
