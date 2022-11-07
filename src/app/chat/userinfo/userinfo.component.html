@@ -77,7 +77,7 @@
           </svg>
         </div>
       </div>
-      <div class="detail-photo-grid" *ngIf="files">
+      <div class="detail-photo-grid file_grid" *ngIf="files">
         <ng-container *ngFor="let item of allFiles ">
           <a href="{{item.files}}" class="file" download>
             <img src="./assets/image/pdf.png" alt="">
