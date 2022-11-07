@@ -1114,6 +1114,31 @@ ngx-audio-player mat-card{
 }
 
 
+.file{
+  display: flex;
+  background: var(--chat-bubble-right-bg);
+  width: 240px;
+  padding: 10px;
+  border-radius: 20px 20px 20px;
+}
+
+.file > img{
+  height: 40px;
+}
+
+.file > .file_details{
+  padding-left: 10px;
+}
+
+.file > .file_details h4{
+  font-size: 15px;
+}
+
+.file > .file_details span{
+  color: #424242;
+  font-size: 10px;
+}
+
 .userCard{
 
 }
