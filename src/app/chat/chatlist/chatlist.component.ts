@@ -231,6 +231,8 @@ export class ChatlistComponent implements OnInit, AfterViewChecked {
         sender_id: this.userData._id,
         conversation_id: this.conversationid,
         message: this.userInput,
+        image:"",
+        files:"",
       }
       if (this.mentionArrayIds?.length > 0) {
         data['isMailAvailability'] = true;

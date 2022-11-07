@@ -71,6 +71,13 @@ export class ChatService {
 	  public getAllRefferals(){
 		return this.httpClient.get(environment.host +"allRefferals");
 	  }
+	 
+	  public getAllPhotos(id: string) {
+		return this.httpClient.get(environment.host + "getAllChatImage/" +id);
+	  }
+	  public getAllFiles(id: string) {
+		return this.httpClient.get(environment.host + "getAllChatFile/" +id);
+	  }
 	// public getConversationListById(uid: string) {
 	// 	return this.httpClient.get(environment.host + uid +"/conversation");
 	//   }
