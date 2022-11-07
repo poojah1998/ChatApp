@@ -54,6 +54,7 @@ export class ChatlistComponent implements OnInit, AfterViewChecked {
   imageSrc: any = "";
   fileSrc: any = "";
   recordStart: boolean = true;
+  dataURItoBlob: any;
   constructor(private sidenav: ChatService, private activateRoute: ActivatedRoute, private datePipe: DatePipe, private router: Router, private socketService: SocketService, private audioService: AudioService) {
 
   }
@@ -197,12 +198,20 @@ export class ChatlistComponent implements OnInit, AfterViewChecked {
   startPlay() {
     this.audioService.startPlay();
     this.recordStart = false;
-    console.log('Record start')
+    this.audioService.sendObj.subscribe(b64file => {
+      console.log(b64file);
+  //  contvertBase64toBinaray(b64file);
+  // var audiofile = atob(b64file)
+const audioName = 'audio.mp3';
+// const audioBlob = dataURItoBlob(b64file);
+// const imageFile = new File([audioBlob], audioName, { type: 'audio/mpeg"' });
+// console.log(imageFile);
+    })
   }
 
 
   stopPlay() {
-    this.audioService.stopPlay();
+    this.audioService.stopPlay(); 
     this.recordStart = true;
     console.log('Record stop')
   }
