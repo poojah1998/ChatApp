@@ -7,6 +7,7 @@ import { ChatService } from '../chat.service';
   styleUrls: ['./newchat.component.css']
 })
 export class NewchatComponent implements OnInit {
+  newGrpHeader: boolean = false;
   usersData: any;
   index: any = 0;
 
