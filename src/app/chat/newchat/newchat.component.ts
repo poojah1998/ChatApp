@@ -19,6 +19,7 @@ export class NewchatComponent implements OnInit {
   loginUserData: any;
   image: any;
   user_id: any;
+  filterData: any;
 
   constructor(private chatService: ChatService) { }
 
@@ -41,10 +42,12 @@ export class NewchatComponent implements OnInit {
     if (type == "Doctor") {
       this.chatService.getAllDoctors().subscribe((data: any) => {
         this.usersData = data;
+        this.filterData=this.usersData;
       })
     } else if (type == "Referral") {
       this.chatService.getAllRefferals().subscribe((data: any) => {
         this.usersData = data;
+        this.filterData=this.usersData;
       })
     }
   }
@@ -67,8 +70,8 @@ export class NewchatComponent implements OnInit {
 
     this.groupArray.forEach((ele) => {
       console.log(ele.profile.location)
-      this.image=ele.profile.location
-     this.user_id=ele._id
+      this.image = ele.profile.location
+      this.user_id = ele._id
 
     })
   }
@@ -82,6 +85,10 @@ export class NewchatComponent implements OnInit {
       return false;
     }
   }
+  filterdata(event: any) {
+    this.filterData = this.usersData.filter(ele => ele.name.toLowerCase().includes(event.target.value.toLowerCase()));
+    console.log(this.filterData)
+  }
 
   addUser() {
 
@@ -93,7 +100,7 @@ export class NewchatComponent implements OnInit {
       image: this.image,
 
     }).subscribe((result: any) => {
-      this.chatService.addMoreUser( {
+      this.chatService.addMoreUser({
         conversation_id: result._id,
         user_id: this.user_id,
         isAdmin: false,
