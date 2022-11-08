@@ -104,6 +104,7 @@ export class ChatlistComponent implements OnInit {
       //chatting page
       this.sidenav.allMessageById(this.conversationid).subscribe((data: any) => {
         this.allMessage = data;
+        this.scrollToBottom();
         console.log(this.allMessage);
       })
 
@@ -304,9 +305,9 @@ export class ChatlistComponent implements OnInit {
 
 
   // //scroll
-  // ngAfterViewChecked() {
-  //   this.scrollToBottom();
-  // }
+  ngAfterViewChecked() {
+    // this.scrollToBottom();
+  }
 
   scrollToBottom(): void {
     try {
