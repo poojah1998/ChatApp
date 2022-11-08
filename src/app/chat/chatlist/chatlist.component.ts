@@ -235,7 +235,7 @@ export class ChatlistComponent implements OnInit, AfterViewChecked {
         let data: any = [];
         this.userInput.split(' ').forEach(element => {
           if (element.includes('@') || element.includes('#')) {
-            data.push(`<span>${element}</span>`);
+            data.push(`<span class="mentions">${element}</span>`);
           }
           else {
             data.push(element);
