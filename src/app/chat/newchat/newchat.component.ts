@@ -130,7 +130,7 @@ export class NewchatComponent implements OnInit {
           isReferal: false
         })
         this.chatService.addMoreUser({ data }).subscribe((res: any) => {
-
+          this.chatService.newConv.next(true);
         })
       })
     }
@@ -160,7 +160,7 @@ export class NewchatComponent implements OnInit {
           })
           if (index === this.groupArray.length - 1) {
             this.chatService.addMoreUser({ data }).subscribe((res: any) => {
-
+              this.chatService.newConv.next(true);
             })
           }
         })

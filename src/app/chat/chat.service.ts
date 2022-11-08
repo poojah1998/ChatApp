@@ -15,6 +15,8 @@ export class ChatService {
 	private sidenav!: MatSidenav;
 	private leftsidenav!: MatSidenav;
 	userId: any; conversationId: any;
+	public newConv = new BehaviorSubject<boolean>(true)
+	public getNewConv() { return this.newConv.asObservable(); }
 	
 	constructor(private httpClient: HttpClient) { }
 	

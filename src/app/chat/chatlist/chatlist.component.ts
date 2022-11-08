@@ -118,6 +118,10 @@ export class ChatlistComponent implements OnInit {
     this.getSoketMessage();
 
   }
+
+  
+
+
   // On file Select
   onChange(event) {
     this.file = event.target.files[0];
