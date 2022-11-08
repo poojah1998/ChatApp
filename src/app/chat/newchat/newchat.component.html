@@ -123,6 +123,6 @@
         <button mat-icon-button *ngIf="index == 1 && !newGrpHeader && groupArray.length" class="primaryBtn" (click)="newGrpHeader = true">
             <mat-icon>arrow_forward</mat-icon>
         </button>
-        <button mat-button mat-dialog-close *ngIf="newGrpHeader" class="primaryBtn" (click)="addNewConversation()" >Create Group</button>
+        <button mat-button mat-dialog-close *ngIf="newGrpHeader" class="primaryBtn" (click)="addNewConversation()" [disabled]="!groupName">Create Group</button>
     </div>
 </div>
