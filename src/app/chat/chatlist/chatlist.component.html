@@ -59,12 +59,12 @@
         <!-- Audio -->
         <div class="audio-player" [style.display]="item.mediaName?.includes('.wav')? 'flex' : 'none'">
           <audio #ref (play)="onPlay(ref)"  (timeupdate)='updateTrackTime(ref,i)'
-            src="https://ia800905.us.archive.org/19/items/FREE_background_music_dhalius/backsound.mp3"></audio>
+            [src]="item.files"></audio>
           <div class="controls">
             <div class="play-container">
               <div class="toggle-play play" (click)="ref.play()">
               </div>
-              <div class="toggle-play pause" (click)="ref.pause()">
+              <div class="toggle-play pause" (click)="ref.pause()" >
               </div>
             </div>
             <div class="time">
@@ -186,7 +186,7 @@
     <line x1="8" y1="23" x2="16" y2="23"></line>
   </svg>
   <svg viewBox="0 0 24 24" width="24" height="24" class="send" (click)="sendMessage()"
-    [ngClass]="{'disabled': disabledBtn}">
+    [ngClass]="{'disabled': disabledBtn && !userInput}">
     <path fill="currentColor" d="M1.101 21.757 23.8 12.028 1.101 2.3l.011 7.912 13.623 1.816-13.623 1.817-.011 7.912z">
     </path>
   </svg>
