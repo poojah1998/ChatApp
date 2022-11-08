@@ -57,9 +57,13 @@
 
         <!-- Audio -->
         <div class="audio-player">
+          <audio #ref (play)="onPlay(ref)"
+            src="https://ia800905.us.archive.org/19/items/FREE_background_music_dhalius/backsound.mp3"></audio>
           <div class="controls">
             <div class="play-container">
-              <div class="toggle-play play">
+              <div class="toggle-play play" (click)="ref.play()">
+              </div>
+              <div class="toggle-play pause" (click)="ref.pause()">
               </div>
             </div>
             <div class="time">
@@ -227,7 +231,12 @@
         <h4>Mike Tyson</h4>
       </div>
       <div class="">
-
+        <p>
+          Role : DC
+        </p>
+        <p>
+          Lorem Ipsum
+        </p>
       </div>
     </div>
   </div>

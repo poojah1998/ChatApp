@@ -44,12 +44,12 @@ export class NewchatComponent implements OnInit {
     if (type == "Doctor") {
       this.chatService.getAllDoctors().subscribe((data: any) => {
         this.usersData = data;
-        this.filterData=this.usersData;
+        this.filterData = this.usersData;
       })
     } else if (type == "Referral") {
       this.chatService.getAllRefferals().subscribe((data: any) => {
         this.usersData = data;
-        this.filterData=this.usersData;
+        this.filterData = this.usersData;
       })
     }
   }
@@ -87,12 +87,18 @@ export class NewchatComponent implements OnInit {
     const formData = new FormData();
     formData.append('file', this.file)
     this.chatService.uploadMedia(formData).subscribe((event: any) => {
-        if (typeof (event) === 'object') {
-          this.image = event.location;
-        }
+      console.log(event.location, event);
+      if (typeof (event) === 'object') {
+        this.image = event.location;
       }
+    }
     );
 
+  }
+
+  removeItem(index) {
+    console.log(index);
+    this.groupArray.splice(index, 1)
   }
 
   addNewConversation() {
@@ -105,14 +111,15 @@ export class NewchatComponent implements OnInit {
         image: this.individualUser.profile.location,
 
       }).subscribe((result: any) => {
+        console.log(result._id, result)
         data.push({
-          conversation_id: result._id,
+          conversation_id: result.ConversationData._id,
           user_id: this.ownerId,
           isAdmin: true,
           isReferal: false
         })
         data.push({
-          conversation_id: result._id,
+          conversation_id: result.ConversationData._id,
           user_id: this.individualUser._id,
           isAdmin: false,
           isReferal: false
@@ -131,14 +138,14 @@ export class NewchatComponent implements OnInit {
 
       }).subscribe((result: any) => {
         data.push({
-          conversation_id: result._id,
+          conversation_id: result.ConversationData._id,
           user_id: this.ownerId,
           isAdmin: true,
           isReferal: false
         })
         this.groupArray.forEach((ele, index) => {
           data.push({
-            conversation_id: result._id,
+            conversation_id: result.ConversationData._id,
             user_id: ele._id,
             isAdmin: false,
             isReferal: false
