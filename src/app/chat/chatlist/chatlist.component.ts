@@ -230,8 +230,8 @@ export class ChatlistComponent implements OnInit {
     var progress: any = document.getElementById('progress-' + index);
     progress.style.width = track.currentTime / track.duration * 100 + '%'
     if (track.currentTime / track.duration * 100 == 100) {
-      this.audioPlayStatus[index] = false;
-      progress.style.width = 0;
+      this.audioPlayStatus[index]=false;
+      progress.style.width = 0
     }
 
   }
