@@ -968,7 +968,7 @@ ngx-audio-player mat-card{
   position: absolute;
   top: 0;
   left: 0px;
-  background: white;
+  background: rgb(0 0 0 / 90%);
   content: "";
   height: 15px;
   width: 3px;
@@ -977,7 +977,7 @@ ngx-audio-player mat-card{
   position: absolute;
   top: 0;
   right: 8px;
-  background: white;
+  background: rgb(0 0 0 / 90%);
   content: "";
   height: 15px;
   width: 3px;
