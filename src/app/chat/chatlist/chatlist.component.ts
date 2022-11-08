@@ -225,6 +225,7 @@ export class ChatlistComponent implements OnInit {
     progress.style.width = track.currentTime / track.duration * 100 + '%'
     if (track.currentTime / track.duration * 100 == 100) {
       this.audioPlayStatus[index]=false;
+      progress.style.width = 0
     }
   }
 
