@@ -62,9 +62,9 @@
             [src]="item.files"></audio>
           <div class="controls">
             <div class="play-container">
-              <div class="toggle-play play" (click)="ref.play()" *ngIf="!isPlaying">
+              <div class="toggle-play play" (click)="audioPlayStatus[i] = true;ref.play()"  *ngIf="audioPlayStatus[i]==false || audioPlayStatus[i]== undefined">
               </div>
-              <div class="toggle-play pause" (click)="ref.pause()" *ngIf="isPlaying">
+              <div class="toggle-play pause" (click)="audioPlayStatus[i] =false;ref.pause()" *ngIf="audioPlayStatus[i]==true">
               </div>
             </div>
             <div class="time">
