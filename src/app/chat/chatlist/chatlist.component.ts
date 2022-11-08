@@ -58,7 +58,7 @@ export class ChatlistComponent implements OnInit {
   dataURItoBlob: any;
   ownerId: any;
   fileName: any;
-  audioPlayStatus:any[]=[];
+  audioPlayStatus: any[] = [];
   private currentPlayedElem: HTMLAudioElement;
   isPaused: boolean;
   isPlaying: boolean = false;
@@ -212,18 +212,20 @@ export class ChatlistComponent implements OnInit {
 
     if (isNaN(duration)) {
       durationDiv.innerHTML = '00:00';
-      this.isPlaying = false
+      // this.isPlaying = false
     }
     else {
       durationDiv.innerHTML = this.formatSecondsAsTime(duration);
-      this.isPlaying = true
+      // this.isPlaying = true
     }
     this.getProgress(track, index)
   }
   getProgress(track, index) {
     var progress: any = document.getElementById('progress-' + index);
     progress.style.width = track.currentTime / track.duration * 100 + '%'
-
+    if (track.currentTime / track.duration * 100 == 100) {
+      this.audioPlayStatus[index]=false;
+    }
   }
 
   formatSecondsAsTime(secs) {
@@ -264,8 +266,8 @@ export class ChatlistComponent implements OnInit {
   public addEmoji(event: any) {
     this.userInput = `${this.userInput}${event.emoji.native}`;
     // this.userInput.focus();
-    this.isEmojiPickerVisible=false;
-    
+    this.isEmojiPickerVisible = false;
+
   }
 
 
@@ -315,7 +317,7 @@ export class ChatlistComponent implements OnInit {
 
   //send message
   sendMessage() {
-   
+
     if (this.file || this.userInput.trim() != '') {
       if (this.userInput.includes('@') || this.userInput.includes('#')) {
         let data: any = [];
@@ -441,13 +443,13 @@ export class ChatlistComponent implements OnInit {
   // }
 
   onPlay(elm: HTMLAudioElement) {
-  
+
     if (this.currentPlayedElem && this.currentPlayedElem !== elm) {
-   
+
       this.currentPlayedElem.pause();
-      
+
     } else {
-    
+
     }
 
     this.currentPlayedElem = elm;
