@@ -209,29 +209,34 @@ export class ChatlistComponent implements OnInit {
 
   updateTrackTime(track, index) {
     var currTimeDiv: any = document.getElementById('currentTime-' + index);
-    var durationDiv: any = document.getElementById('duration-' + index);
+    // var durationDiv: any = document.getElementById('duration-' + index);
 
     var currTime: any = Math.floor(track.currentTime).toString();
-    var duration: any = Math.floor(track.duration).toString();
+    // var duration: any = Math.floor(track.duration).toString();
 
     currTimeDiv.innerHTML = this.formatSecondsAsTime(currTime);
 
-    if (isNaN(duration)) {
-      durationDiv.innerHTML = '00:00';
-      // this.isPlaying = false
-    }
-    else {
-      durationDiv.innerHTML = this.formatSecondsAsTime(duration);
-      // this.isPlaying = true
-    }
+    // if (isNaN(duration)) {
+    //   durationDiv.innerHTML = '00:00';
+    //   // this.isPlaying = false
+    // }
+    // else {
+    //   durationDiv.innerHTML = this.formatSecondsAsTime(duration);
+    //   // this.isPlaying = true
+    // }
     this.getProgress(track, index)
   }
   getProgress(track, index) {
     var progress: any = document.getElementById('progress-' + index);
     progress.style.width = track.currentTime / track.duration * 100 + '%'
     if (track.currentTime / track.duration * 100 == 100) {
-      this.audioPlayStatus[index]=false;
+      this.audioPlayStatus[index] = false;
+      progress.style.width = 0;
     }
+
+  }
+  getLengthOfAudio(track) {
+    return Math.floor(track.duration);
   }
 
   formatSecondsAsTime(secs) {
