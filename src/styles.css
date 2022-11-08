@@ -931,7 +931,7 @@ ngx-audio-player mat-card{
   background: coral;
   height: 6px;
   width: 0%;
-  transition: 0.25s;
+  /* transition: 0.25s; */
 }
 .audio-player .controls {
   display: flex;
