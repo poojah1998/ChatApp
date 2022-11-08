@@ -45,7 +45,7 @@
 
         <!-- File -->
         <div class="file" *ngIf="item.mediaName?.includes('.pdf')">
-          <img src="./assets/image/pdf.png" alt="">
+          <img src="./assets/image/file.png" alt="">
           <!-- <img src="./assets/image/doc.png" alt="" *ngIf="item.mediaName?.includes('.docx')" > -->
           <div class="file_details">
             <h4>{{item.mediaName}}</h4>
@@ -62,9 +62,9 @@
             [src]="item.files"></audio>
           <div class="controls">
             <div class="play-container">
-              <div class="toggle-play play" (click)="ref.play()">
+              <div class="toggle-play play" (click)="ref.play()" *ngIf="!isPlaying">
               </div>
-              <div class="toggle-play pause" (click)="ref.pause()" >
+              <div class="toggle-play pause" (click)="ref.pause()" *ngIf="isPlaying">
               </div>
             </div>
             <div class="time">
@@ -140,7 +140,7 @@
       <img src="https://cdn-icons-png.flaticon.com/512/124/124837.png" alt="">
     </ng-container>
   </div>
-  <div class="add-multiple-files">
+  <!-- <div class="add-multiple-files">
     <span>
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
         stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
@@ -149,7 +149,7 @@
         <line x1="5" y1="12" x2="19" y2="12"></line>
       </svg>
     </span>
-  </div>
+  </div> -->
 </div>
 <div class="chat-area-footer">
   <textarea placeholder="Type something here..." (focus)="isEmojiPickerVisible = false" [mentionConfig]="mentionConfig"

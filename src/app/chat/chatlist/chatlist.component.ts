@@ -61,6 +61,7 @@ export class ChatlistComponent implements OnInit {
   audioPlayStatus:any[]=[];
   private currentPlayedElem: HTMLAudioElement;
   isPaused: boolean;
+  isPlaying: boolean = false;
   constructor(private sidenav: ChatService, private activateRoute: ActivatedRoute, private datePipe: DatePipe, private router: Router, private socketService: SocketService, private audioService: AudioService) {
 
   }
@@ -211,9 +212,11 @@ export class ChatlistComponent implements OnInit {
 
     if (isNaN(duration)) {
       durationDiv.innerHTML = '00:00';
+      this.isPlaying = false
     }
     else {
       durationDiv.innerHTML = this.formatSecondsAsTime(duration);
+      this.isPlaying = true
     }
     this.getProgress(track, index)
   }
