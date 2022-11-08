@@ -20,6 +20,7 @@ export class NewchatComponent implements OnInit {
   loginUserData: any;
   image: any;
   user_id: any;
+  filterData: any;
   file: any;
 
   constructor(private chatService: ChatService) { }
@@ -43,10 +44,12 @@ export class NewchatComponent implements OnInit {
     if (type == "Doctor") {
       this.chatService.getAllDoctors().subscribe((data: any) => {
         this.usersData = data;
+        this.filterData=this.usersData;
       })
     } else if (type == "Referral") {
       this.chatService.getAllRefferals().subscribe((data: any) => {
         this.usersData = data;
+        this.filterData=this.usersData;
       })
     }
   }
@@ -73,6 +76,10 @@ export class NewchatComponent implements OnInit {
     } else {
       return false;
     }
+  }
+  filterdata(event: any) {
+    this.filterData = this.usersData.filter(ele => ele.name.toLowerCase().includes(event.target.value.toLowerCase()));
+    console.log(this.filterData)
   }
 
   onChange(event) {

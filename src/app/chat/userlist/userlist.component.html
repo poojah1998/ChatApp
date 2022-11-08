@@ -1,8 +1,8 @@
 <div class="search-user-group">
-  <input type="text" placeholder="Search..">
+  <input type="text" placeholder="Search.."  (keyup)="filterdata($event)" >
 </div>
 
-<ng-container *ngFor="let item of ConversationList">
+<ng-container *ngFor="let item of filterData">
   <div class="msg" (click)="showConvo();chatDeatils(item._id)">
     <img class="msg-profile" src="{{item.image}}" alt="" />
     <div class="msg-detail">
