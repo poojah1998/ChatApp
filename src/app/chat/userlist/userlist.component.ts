@@ -22,6 +22,7 @@ export class UserlistComponent implements OnInit {
       console.log(this.ConversationList);
 
     })
+    this.leftsidenav.newConv.next(false);
     this.refreshPage();
   }
   filterdata(event: any) {
@@ -59,6 +60,7 @@ export class UserlistComponent implements OnInit {
 
   refreshPage() {
     this.leftsidenav.getNewConv().subscribe(result =>{
+      if(result === true)
       this.ngOnInit();
     })
   }
