@@ -150,7 +150,7 @@
   </div> -->
 </div>
 <div class="chat-area-footer">
-  <textarea placeholder="Type something here..." (focus)="isEmojiPickerVisible = false" [mentionConfig]="mentionConfig"
+  <textarea #messageInput placeholder="Type something here..." (focus)="isEmojiPickerVisible = false" [mentionConfig]="mentionConfig"
     (itemSelected)="closed($event)" (keyup)="handleKeyUp($event)" [(ngModel)]="userInput"></textarea>
 
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"

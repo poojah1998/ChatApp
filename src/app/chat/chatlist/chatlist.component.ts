@@ -20,6 +20,7 @@ export class ChatlistComponent implements OnInit {
   msaapDisplayRepeatControls = false;
   msaapDisplayPlayList = false;
   @ViewChild('scrollMe') private myScrollContainer: ElementRef;
+  @ViewChild('messageInput') private messageInput: ElementRef;
   @Output() itemSelected: EventEmitter<any>;
   isMentionModalOpen: boolean = false;
   allConversation: any = [];
@@ -271,6 +272,7 @@ export class ChatlistComponent implements OnInit {
   public addEmoji(event: any) {
     this.userInput = `${this.userInput}${event.emoji.native}`;
     // this.userInput.focus();
+    this.messageInput.nativeElement.focus();
     this.isEmojiPickerVisible = false;
 
   }
