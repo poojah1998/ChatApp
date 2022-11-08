@@ -1093,6 +1093,11 @@ ngx-audio-player mat-card{
   width: 100%;
 }
 
+.primaryBtn{
+  background-color: var(--theme-color);
+  color: #fff;
+}
+
 .editGrpIcon{
   opacity: 0;
   position: absolute;
