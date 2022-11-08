@@ -7,7 +7,7 @@
         <polyline points="12 19 5 12 12 5"></polyline>
       </svg>
     </div>
-    <img (click)="toggleRightSidenav()" class="msg-profile" src="{{userDetails.image}}" alt="" />
+    <img (click)="toggleRightSidenav()" class="msg-profile" [src]="userDetails.profile?.location? userDetails.profile?.location: this.userDetails.image" alt="" />
     <div class="chat-area-title" (click)="toggleRightSidenav()">{{userDetails.name}}</div>
   </div>
   <!-- <div class="chat-area-group">

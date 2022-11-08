@@ -61,6 +61,7 @@ export class ChatlistComponent implements OnInit {
 
   private currentPlayedElem: HTMLAudioElement;
   isPaused: boolean;
+  conversation: any;
   constructor(private sidenav: ChatService, private activateRoute: ActivatedRoute, private datePipe: DatePipe, private router: Router, private socketService: SocketService, private audioService: AudioService) {
 
   }
@@ -72,6 +73,7 @@ export class ChatlistComponent implements OnInit {
     this.scrollToBottom();
     //coming from userlist page
     this.activateRoute.params.subscribe(params => {
+      this.conversation = JSON.parse(localStorage.getItem("currentConversationData") || '{}');
       this.conversationid = params["conversationId"];
       this.userInput = '';
       this.sidenav.allHashtag().subscribe((hashtags: any) => {
@@ -95,8 +97,12 @@ export class ChatlistComponent implements OnInit {
             ]
           }
           this.newChatData = data.filter((o: any) => o.user_id._id != this.userData._id)
-          this.userDetails = this.newChatData[0].user_id;
-
+          if(this.conversation.type !== 'INDIVIDUAL') {
+            this.userDetails = this.conversation; // need to change for all user
+          }
+          else{
+            this.userDetails = this.newChatData[0].user_id;
+          }
           this.receiverIds = data.map((o: any) => o.user_id._id)
         })
       })
@@ -154,11 +160,11 @@ export class ChatlistComponent implements OnInit {
           this.mediaName = event.originalname;
           if (this.file.type.includes("image/")) {
             data['image'] = this.shortLink;
-            data['mediaName']=  this.mediaName;
+            data['mediaName'] = this.mediaName;
             this.sendMessageApi(data);
           } else {
             data['files'] = this.shortLink;
-            data['mediaName']=  this.mediaName;
+            data['mediaName'] = this.mediaName;
             this.sendMessageApi(data);
           }
 
@@ -167,42 +173,42 @@ export class ChatlistComponent implements OnInit {
       }
     );
   }
-//get name from url   
-getName(url:any){
-return url?.substring(url.lastIndexOf('/')+1,url.length) 
-  
-}
+  //get name from url   
+  getName(url: any) {
+    return url?.substring(url.lastIndexOf('/') + 1, url.length)
 
-fileExt(name) {
-  if (name && name.includes('.pdf')) {
-    return 'pdf';
   }
-  else if (name && name.includes('.js')) {
-    return 'js';
-  }
-  else if (name && name.includes('.css')) {
-    return 'css';
-  }
-  else if (name && name.includes('.docx')) {
-    return 'docx';
-  }
-  else if (name && name.includes('.gif')) {
-    return 'gif';
-  }
-  // else if (name && name.includes('.svg')) {
-  //   return 'svg';
-  // }
-  // else {
-  //   return 'image';
-  // }
-}
 
-
+  fileExt(name) {
+    if (name && name.includes('.pdf')) {
+      return 'pdf';
+    }
+    else if (name && name.includes('.js')) {
+      return 'js';
+    }
+    else if (name && name.includes('.css')) {
+      return 'css';
+    }
+    else if (name && name.includes('.docx')) {
+      return 'docx';
+    }
+    else if (name && name.includes('.gif')) {
+      return 'gif';
+    }
+    // else if (name && name.includes('.svg')) {
+    //   return 'svg';
+    // }
+    // else {
+    //   return 'image';
+    // }
+  }
 
 
-  updateTrackTime(track,index) {
-    var currTimeDiv: any = document.getElementById('currentTime-'+index);
-    var durationDiv: any = document.getElementById('duration-'+index);
+
+
+  updateTrackTime(track, index) {
+    var currTimeDiv: any = document.getElementById('currentTime-' + index);
+    var durationDiv: any = document.getElementById('duration-' + index);
 
     var currTime: any = Math.floor(track.currentTime).toString();
     var duration: any = Math.floor(track.duration).toString();
@@ -215,12 +221,12 @@ fileExt(name) {
     else {
       durationDiv.innerHTML = this.formatSecondsAsTime(duration);
     }
-    this.getProgress(track,index)
+    this.getProgress(track, index)
   }
-  getProgress(track,index) {
-    var progress:any=document.getElementById('progress-'+index);
-    progress.style.width= track.currentTime / track.duration* 100 + '%'
-   
+  getProgress(track, index) {
+    var progress: any = document.getElementById('progress-' + index);
+    progress.style.width = track.currentTime / track.duration * 100 + '%'
+
   }
 
   formatSecondsAsTime(secs) {
@@ -331,7 +337,7 @@ fileExt(name) {
         message: this.userInput,
         image: "",
         files: "",
-        mediaName:""
+        mediaName: ""
 
       }
       if (this.mentionArrayIds?.length > 0) {
@@ -415,10 +421,7 @@ fileExt(name) {
   toggleRightSidenav() {
     // this.sidenav.getUserinfoUpdate.subscribe((info:any)=>{
     this.sidenav.open();
-    // console.log(this.conversationid);
-    //console.log(this.userDetails._id);
-    
-      this.router.navigate([`/chat/${this.conversationid}/${this.userDetails._id}`]);
+    this.router.navigate([`/chat/${this.conversationid}/${this.userDetails._id}`]);
   }
 
   goUserList() {

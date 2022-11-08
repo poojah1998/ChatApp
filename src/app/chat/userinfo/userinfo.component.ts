@@ -19,18 +19,25 @@ export class UserinfoComponent implements OnInit {
   allFiles: any;
   img: any;
   file: any;
-  constructor(private sidenav: ChatService, private activateRoute: ActivatedRoute,private router: Router) { }
+  conversation: any;
+  constructor(private sidenav: ChatService, private activateRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     //coming from params 
 
     this.activateRoute.params.subscribe(params => {
+      this.conversation = JSON.parse(localStorage.getItem("currentConversationData") || '{}');
       this.userId = params["userId"];
       this.conversationId = params["conversationId"];
       // coming from chat list component
       this.sidenav.getAllconversationUser(this.conversationId).subscribe((data: any) => {
         this.allConversation = data;
-        this.userDetails = data[0].user_id;
+        if (this.conversation.type !== 'INDIVIDUAL') {
+          this.userDetails = this.conversation; // need to change for all user
+        }
+        else {
+          this.userDetails = data[0].user_id;
+        }
       })
       this.sidenav.getAllPhotos(this.conversationId).subscribe((photos: any) => {
         this.allPhotos = photos;
@@ -81,7 +88,7 @@ export class UserinfoComponent implements OnInit {
   }
 
   closeSidenav() {
-    
+
     this.sidenav.close();
     this.router.navigate([`/chat/${this.conversationId}`]);
   }
