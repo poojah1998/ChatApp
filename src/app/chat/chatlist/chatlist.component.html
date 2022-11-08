@@ -32,7 +32,7 @@
 
         <!-- chat section -->
         <div class="chat-msg-content" *ngIf="item.image === '' && item.files === ''">
-          <div class="chat-msg-text">{{item.message}}</div>
+          <div class="chat-msg-text" [innerHtml]="item.message"></div>
         </div>
 
         <!-- image section -->
@@ -82,7 +82,7 @@
         </div>
         <!-- chat section -->
         <div class="chat-msg-content" *ngIf="item.image === '' && item.files === ''">
-          <div class="chat-msg-text">{{item.message}}</div>
+          <div class="chat-msg-text" [innerHtml]="item.message"></div>
         </div>
 
         <!-- image section -->
