@@ -39,10 +39,13 @@ export class UserlistComponent implements OnInit {
         }
       });
   }
-  async chatDeatils(conversationid: any) {
-    this.leftsidenav.getAllconversationUser(conversationid).subscribe(() => {
-      this.router.navigate([`/chat/${conversationid}`]);
-    })
+  async chatDeatils(conversation: any) {
+    // this.leftsidenav.getAllconversationUser(conversationid).subscribe(() => {
+      localStorage.setItem("currentConversationData", JSON.stringify(conversation))
+      this.router.navigate([`/chat/${conversation._id}`]);
+    
+
+    // })
   }
 
   newChat() { 

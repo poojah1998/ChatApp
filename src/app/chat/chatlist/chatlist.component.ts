@@ -62,6 +62,7 @@ export class ChatlistComponent implements OnInit {
   audioPlayStatus: any[] = [];
   private currentPlayedElem: HTMLAudioElement;
   isPaused: boolean;
+  conversation: any;
   isPlaying: boolean = false;
   constructor(private sidenav: ChatService, private activateRoute: ActivatedRoute, private datePipe: DatePipe, private router: Router, private socketService: SocketService, private audioService: AudioService) {
 
@@ -74,6 +75,7 @@ export class ChatlistComponent implements OnInit {
     this.scrollToBottom();
     //coming from userlist page
     this.activateRoute.params.subscribe(params => {
+      this.conversation = JSON.parse(localStorage.getItem("currentConversationData") || '{}');
       this.conversationid = params["conversationId"];
       this.userInput = '';
       this.sidenav.allHashtag().subscribe((hashtags: any) => {
@@ -97,8 +99,12 @@ export class ChatlistComponent implements OnInit {
             ]
           }
           this.newChatData = data.filter((o: any) => o.user_id._id != this.userData._id)
-          this.userDetails = this.newChatData[0].user_id;
-
+          if(this.conversation.type !== 'INDIVIDUAL') {
+            this.userDetails = this.conversation; // need to change for all user
+          }
+          else{
+            this.userDetails = this.newChatData[0].user_id;
+          }
           this.receiverIds = data.map((o: any) => o.user_id._id)
         })
       })
@@ -225,8 +231,8 @@ export class ChatlistComponent implements OnInit {
     var progress: any = document.getElementById('progress-' + index);
     progress.style.width = track.currentTime / track.duration * 100 + '%'
     if (track.currentTime / track.duration * 100 == 100) {
-      this.audioPlayStatus[index] = false;
-      progress.style.width = 0;
+      this.audioPlayStatus[index]=false;
+      progress.style.width = 0
     }
 
   }
