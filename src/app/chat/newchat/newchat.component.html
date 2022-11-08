@@ -79,7 +79,7 @@
 
         <div class="user-grp-list">
             <ng-container *ngIf="index == 0">
-                <mat-radio-group class="d-flex flex-column">
+                <mat-radio-group class="d-flex flex-column" [(ngModel)]="individualUser">
                     <ng-container *ngFor="let item of filterData">
                         <mat-radio-button [value]="item.name">
                             <img class="chat-msg-img me-2"
@@ -103,7 +103,7 @@
         <div class="groupProfilePicContainer">
             <div class="grpPhoto">
                 <img src="./assets/image/group.png" alt="">
-                <input #file type="file" accept="image/*" hidden>
+                <input #file type="file" accept="image/*" (change)="onChange($event)" hidden>
                 <div class="editGrpIcon" (click)="file.click()">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-camera">
                         <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
@@ -123,6 +123,6 @@
         <button mat-icon-button *ngIf="index == 1 && !newGrpHeader" (click)="newGrpHeader = true">
             <mat-icon>arrow_forward</mat-icon>
         </button>
-        <button mat-button mat-dialog-close *ngIf="newGrpHeader" (click)="addUser()">Create Group</button>
+        <button mat-button mat-dialog-close *ngIf="newGrpHeader" (click)="addNewConversation()">Create Group</button>
     </div>
 </div>

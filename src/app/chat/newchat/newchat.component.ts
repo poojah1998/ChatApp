@@ -13,6 +13,7 @@ export class NewchatComponent implements OnInit {
   event: any;
   selectedMenu: string = 'Doctor';
   groupArray: any[] = [];
+  individualUser: any;
   groupName: any;
   type: any = "INDIVIDUAL";
   ownerId: any;
@@ -20,6 +21,7 @@ export class NewchatComponent implements OnInit {
   image: any;
   user_id: any;
   filterData: any;
+  file: any;
 
   constructor(private chatService: ChatService) { }
 
@@ -64,16 +66,6 @@ export class NewchatComponent implements OnInit {
       console.log(index)
       this.groupArray.splice(index, 1)
     }
-
-
-    console.log(this.groupArray)
-
-    this.groupArray.forEach((ele) => {
-      console.log(ele.profile.location)
-      this.image = ele.profile.location
-      this.user_id = ele._id
-
-    })
   }
 
   isChecked(item) {
@@ -90,26 +82,75 @@ export class NewchatComponent implements OnInit {
     console.log(this.filterData)
   }
 
-  addUser() {
+  onChange(event) {
+    this.file = event.target.files[0];
+    const formData = new FormData();
+    formData.append('file', this.file)
+    this.chatService.uploadMedia(formData).subscribe((event: any) => {
+        if (typeof (event) === 'object') {
+          this.image = event.location;
+        }
+      }
+    );
 
+  }
 
-    this.chatService.addConversation({
-      name: this.groupName,
-      type: this.type,
-      owner_id: this.ownerId,
-      image: this.image,
+  addNewConversation() {
+    let data: any = [];
+    if (this.type === 'INDIVIDUAL') {
+      this.chatService.addConversation({
+        name: this.groupName,
+        type: this.type,
+        owner_id: this.ownerId,
+        image: this.individualUser.profile.location,
 
-    }).subscribe((result: any) => {
-      this.chatService.addMoreUser({
-        conversation_id: result._id,
-        user_id: this.user_id,
-        isAdmin: false,
-        isReferal: false
+      }).subscribe((result: any) => {
+        data.push({
+          conversation_id: result._id,
+          user_id: this.ownerId,
+          isAdmin: true,
+          isReferal: false
+        })
+        data.push({
+          conversation_id: result._id,
+          user_id: this.individualUser._id,
+          isAdmin: false,
+          isReferal: false
+        })
+        this.chatService.addMoreUser({ data }).subscribe((res: any) => {
 
-      }).subscribe((res: any) => {
-
+        })
       })
-    })
+    }
+    else {
+      this.chatService.addConversation({
+        name: this.groupName,
+        type: this.type,
+        owner_id: this.ownerId,
+        image: this.image,
+
+      }).subscribe((result: any) => {
+        data.push({
+          conversation_id: result._id,
+          user_id: this.ownerId,
+          isAdmin: true,
+          isReferal: false
+        })
+        this.groupArray.forEach((ele, index) => {
+          data.push({
+            conversation_id: result._id,
+            user_id: ele._id,
+            isAdmin: false,
+            isReferal: false
+          })
+          if (index === this.groupArray.length - 1) {
+            this.chatService.addMoreUser({ data }).subscribe((res: any) => {
+
+            })
+          }
+        })
+      })
+    }
   }
 
 }

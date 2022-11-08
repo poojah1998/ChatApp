@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import Recorder from 'recorder-js';
+import { BehaviorSubject } from 'rxjs';
 
 declare var MediaRecorder: any;
 
@@ -10,9 +11,9 @@ declare var MediaRecorder: any;
 })
 export class AudioService {
     blobFile: any;
-    sendObj: any;
     audioContext = new (AudioContext)({ sampleRate: 16000 });
     recorder = new Recorder(this.audioContext, {});
+    dataURItoBlob: any;
 
     constructor(private http: HttpClient) { }
 
@@ -43,7 +44,6 @@ export class AudioService {
                                 reader.readAsDataURL(audioBlob);
                                 reader.addEventListener('load', () => {
                                     const base64data = reader.result;
-                                    this.sendObj = base64data;
                                 }, false);
                                 const audioUrl = URL.createObjectURL(audioBlob);
                                 console.log('Audiourl', audioUrl);

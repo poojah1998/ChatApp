@@ -54,11 +54,16 @@ export class ChatlistComponent implements OnInit, AfterViewChecked {
   imageSrc: any = "";
   fileSrc: any = "";
   recordStart: boolean = true;
+  dataURItoBlob: any;
+  ownerId: any;
+
   constructor(private sidenav: ChatService, private activateRoute: ActivatedRoute, private datePipe: DatePipe, private router: Router, private socketService: SocketService, private audioService: AudioService) {
 
   }
 
   ngOnInit(): void {
+    this.userData = JSON.parse(localStorage.getItem("loginUserData") || '{}');
+    this.ownerId = this.userData._id;
     this.sidenav.open();
     this.scrollToBottom();
     //coming from userlist page
@@ -67,7 +72,6 @@ export class ChatlistComponent implements OnInit, AfterViewChecked {
       this.userInput = '';
       this.sidenav.allHashtag().subscribe((hashtags: any) => {
         this.hashtag = hashtags.map((ele: any) => ele.name);
-        this.userData = JSON.parse(localStorage.getItem("loginUserData") || '{}');
         this.sidenav.getAllconversationUser(this.conversationid).subscribe((data: any[] | any) => {
           this.allConversation = data;
 
@@ -197,13 +201,16 @@ export class ChatlistComponent implements OnInit, AfterViewChecked {
   startPlay() {
     this.audioService.startPlay();
     this.recordStart = false;
-    console.log('Record start')
   }
 
 
   stopPlay() {
-    this.audioService.stopPlay();
-    this.recordStart = true;
+    this.audioService.stopPlay().then(audioBlob =>{
+      this.file = new File([audioBlob], `${this.ownerId}-${new Date().getTime()}.wav`, { type: 'audio/wav; codecs=MS_PCM' })
+      this.sendMessage();
+      this.recordStart = true;
+    });
+   
     console.log('Record stop')
   }
 
@@ -223,20 +230,19 @@ export class ChatlistComponent implements OnInit, AfterViewChecked {
 
   //send message
   sendMessage() {
-    console.log(this.shortLink);
-    if (this.userInput.includes('@') || this.userInput.includes('#')) {
-      let data: any = [];
-      this.userInput.split(' ').forEach(element => {
-        if(element.includes('@') || element.includes('#')) {
-          data.push(`<span>${element}</span>`);
-        }
-        else {
-          data.push(element);
-        }
-      });
-      this.userInput = data.join(' ');
-    }
     if (this.file || this.userInput.trim() != '') {
+      if (this.userInput.includes('@') || this.userInput.includes('#')) {
+        let data: any = [];
+        this.userInput.split(' ').forEach(element => {
+          if (element.includes('@') || element.includes('#')) {
+            data.push(`<span>${element}</span>`);
+          }
+          else {
+            data.push(element);
+          }
+        });
+        this.userInput = data.join(' ');
+      }
       this.disabledBtn = true
       var data = {
         sender_id: this.userData._id,
