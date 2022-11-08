@@ -49,6 +49,7 @@ export class ChatlistComponent implements OnInit {
   disabledBtn: boolean = true;
   additionalBtns: boolean = false;
   shortLink: string = "";
+  mediaName: string = "";
   loading: boolean = false; // Flag variable
   file: any; // Variable to store file
   imageSrc: any = "";
@@ -150,11 +151,14 @@ export class ChatlistComponent implements OnInit {
           this.closePreview();
           // Short link via api response
           this.shortLink = event.location;
+          this.mediaName = event.originalname;
           if (this.file.type.includes("image/")) {
             data['image'] = this.shortLink;
+            data['mediaName']=  this.mediaName;
             this.sendMessageApi(data);
           } else {
             data['files'] = this.shortLink;
+            data['mediaName']=  this.mediaName;
             this.sendMessageApi(data);
           }
 
@@ -327,6 +331,8 @@ fileExt(name) {
         message: this.userInput,
         image: "",
         files: "",
+        mediaName:""
+
       }
       if (this.mentionArrayIds?.length > 0) {
         data['isMailAvailability'] = true;
@@ -353,6 +359,7 @@ fileExt(name) {
       this.mentionArrayIds = [];
       this.sendSoketMessage();
       this.ngOnInit();
+      this.file = undefined;
     })
   }
   //after enter send msg
@@ -406,13 +413,12 @@ fileExt(name) {
   }
 
   toggleRightSidenav() {
+    // this.sidenav.getUserinfoUpdate.subscribe((info:any)=>{
     this.sidenav.open();
     // console.log(this.conversationid);
     //console.log(this.userDetails._id);
-    this.sidenav.getAllconversationUser(this.conversationid).subscribe(() => {
+    
       this.router.navigate([`/chat/${this.conversationid}/${this.userDetails._id}`]);
-      // 
-    })
   }
 
   goUserList() {

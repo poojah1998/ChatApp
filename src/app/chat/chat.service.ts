@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
+import { BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 
@@ -13,9 +14,11 @@ const credentialsKey = 'currentUser';
 export class ChatService {
 	private sidenav!: MatSidenav;
 	private leftsidenav!: MatSidenav;
-	userId: any; conversationId: any
+	userId: any; conversationId: any;
+	
 	constructor(private httpClient: HttpClient) { }
-
+	public userinfo = new BehaviorSubject<boolean>(true)
+	public getUserinfoUpdate = this.userinfo.asObservable();
 
 	public setSidenav(sidenav: MatSidenav) {
 		this.sidenav = sidenav;
@@ -81,7 +84,7 @@ export class ChatService {
 		return this.httpClient.post(environment.host + "addconversation", payload);
 	}
 	public addMoreUser(payload: any) {
-		return this.httpClient.post(environment.host + "addMoreUser" , payload);
+		return this.httpClient.post(environment.host + "addMoreUser", payload);
 	}
 	// public getConversationListById(uid: string) {
 	// 	return this.httpClient.get(environment.host + uid +"/conversation");
@@ -99,6 +102,6 @@ export class ChatService {
 	//     return this.httpClient.post(environment.host+uid+"/conversationmembers",{})
 	//  }
 	public allMessageById(id: string) {
-        return this.httpClient.get(environment.host +"getAllChatbyId/"+ id);
-      }
+		return this.httpClient.get(environment.host + "getAllChatbyId/" + id);
+	}
 }

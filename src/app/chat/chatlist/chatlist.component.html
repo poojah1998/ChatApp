@@ -44,10 +44,11 @@
 
 
         <!-- File -->
-        <div class="file">
+        <div class="file" *ngIf="item.mediaName?.includes('.pdf')">
           <img src="./assets/image/pdf.png" alt="">
+          <!-- <img src="./assets/image/doc.png" alt="" *ngIf="item.mediaName?.includes('.docx')" > -->
           <div class="file_details">
-            <h4>{{getName(item.files)}}</h4>
+            <h4>{{item.mediaName}}</h4>
             <!-- <div class="d-flex">
               <span>232 KB</span>
             </div> -->
@@ -56,7 +57,7 @@
 
 
         <!-- Audio -->
-        <div class="audio-player">
+        <div class="audio-player" [style.display]="item.mediaName?.includes('.wav')? 'flex' : 'none'">
           <audio #ref (play)="onPlay(ref)"  (timeupdate)='updateTrackTime(ref,i)'
             src="https://ia800905.us.archive.org/19/items/FREE_background_music_dhalius/backsound.mp3"></audio>
           <div class="controls">
