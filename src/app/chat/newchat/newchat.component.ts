@@ -108,7 +108,7 @@ export class NewchatComponent implements OnInit {
         name: this.groupName,
         type: this.type,
         owner_id: this.ownerId,
-        image: this.individualUser.profile.location,
+        image: this.individualUser.profile?.location,
 
       }).subscribe((result: any) => {
         console.log(result._id, result)
