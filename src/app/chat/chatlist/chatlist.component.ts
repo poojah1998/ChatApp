@@ -20,6 +20,7 @@ export class ChatlistComponent implements OnInit {
   msaapDisplayRepeatControls = false;
   msaapDisplayPlayList = false;
   @ViewChild('scrollMe') private myScrollContainer: ElementRef;
+  @ViewChild('messageInput') private messageInput: ElementRef;
   @Output() itemSelected: EventEmitter<any>;
   isMentionModalOpen: boolean = false;
   allConversation: any = [];
@@ -61,6 +62,7 @@ export class ChatlistComponent implements OnInit {
   audioPlayStatus: any[] = [];
   private currentPlayedElem: HTMLAudioElement;
   isPaused: boolean;
+  conversation: any;
   isPlaying: boolean = false;
   constructor(private sidenav: ChatService, private activateRoute: ActivatedRoute, private datePipe: DatePipe, private router: Router, private socketService: SocketService, private audioService: AudioService) {
 
@@ -73,6 +75,7 @@ export class ChatlistComponent implements OnInit {
     this.scrollToBottom();
     //coming from userlist page
     this.activateRoute.params.subscribe(params => {
+      this.conversation = JSON.parse(localStorage.getItem("currentConversationData") || '{}');
       this.conversationid = params["conversationId"];
       this.userInput = '';
       this.sidenav.allHashtag().subscribe((hashtags: any) => {
@@ -96,8 +99,12 @@ export class ChatlistComponent implements OnInit {
             ]
           }
           this.newChatData = data.filter((o: any) => o.user_id._id != this.userData._id)
-          this.userDetails = this.newChatData[0].user_id;
-
+          if(this.conversation.type !== 'INDIVIDUAL') {
+            this.userDetails = this.conversation; // need to change for all user
+          }
+          else{
+            this.userDetails = this.newChatData[0].user_id;
+          }
           this.receiverIds = data.map((o: any) => o.user_id._id)
         })
       })
@@ -204,21 +211,21 @@ export class ChatlistComponent implements OnInit {
 
   updateTrackTime(track, index) {
     var currTimeDiv: any = document.getElementById('currentTime-' + index);
-    var durationDiv: any = document.getElementById('duration-' + index);
+    // var durationDiv: any = document.getElementById('duration-' + index);
 
     var currTime: any = Math.floor(track.currentTime).toString();
-    var duration: any = Math.floor(track.duration).toString();
+    // var duration: any = Math.floor(track.duration).toString();
 
     currTimeDiv.innerHTML = this.formatSecondsAsTime(currTime);
 
-    if (isNaN(duration)) {
-      durationDiv.innerHTML = '00:00';
-      // this.isPlaying = false
-    }
-    else {
-      durationDiv.innerHTML = this.formatSecondsAsTime(duration);
-      // this.isPlaying = true
-    }
+    // if (isNaN(duration)) {
+    //   durationDiv.innerHTML = '00:00';
+    //   // this.isPlaying = false
+    // }
+    // else {
+    //   durationDiv.innerHTML = this.formatSecondsAsTime(duration);
+    //   // this.isPlaying = true
+    // }
     this.getProgress(track, index)
   }
   getProgress(track, index) {
@@ -228,6 +235,10 @@ export class ChatlistComponent implements OnInit {
       this.audioPlayStatus[index]=false;
       progress.style.width = 0
     }
+
+  }
+  getLengthOfAudio(track) {
+    return Math.floor(track.duration);
   }
 
   formatSecondsAsTime(secs) {
@@ -268,6 +279,7 @@ export class ChatlistComponent implements OnInit {
   public addEmoji(event: any) {
     this.userInput = `${this.userInput}${event.emoji.native}`;
     // this.userInput.focus();
+    this.messageInput.nativeElement.focus();
     this.isEmojiPickerVisible = false;
 
   }

@@ -22,6 +22,7 @@ export class NewchatComponent implements OnInit {
   user_id: any;
   filterData: any;
   file: any;
+  user_type: any;
 
   constructor(private chatService: ChatService) { }
 
@@ -29,6 +30,7 @@ export class NewchatComponent implements OnInit {
     this.tabs("Doctor");
     this.loginUserData = JSON.parse(localStorage.getItem("loginUserData") || '{}');
     this.ownerId = this.loginUserData._id;
+    this.user_type =this.loginUserData.user_type;
     console.log(this.ownerId)
   }
 
@@ -105,8 +107,9 @@ export class NewchatComponent implements OnInit {
     let data: any = [];
     if (this.type === 'INDIVIDUAL') {
       this.chatService.addConversation({
-        name: this.groupName,
+        name: this.individualUser.name,
         type: this.type,
+        user_type:this.selectedMenu,
         owner_id: this.ownerId,
         image: this.individualUser.profile?.location,
 
@@ -115,12 +118,14 @@ export class NewchatComponent implements OnInit {
         data.push({
           conversation_id: result.ConversationData._id,
           user_id: this.ownerId,
+          user_type:this.selectedMenu,
           isAdmin: true,
           isReferal: false
         })
         data.push({
           conversation_id: result.ConversationData._id,
           user_id: this.individualUser._id,
+          user_type:this.selectedMenu,
           isAdmin: false,
           isReferal: false
         })
@@ -133,6 +138,7 @@ export class NewchatComponent implements OnInit {
       this.chatService.addConversation({
         name: this.groupName,
         type: this.type,
+         user_type:this.selectedMenu,
         owner_id: this.ownerId,
         image: this.image,
 
@@ -140,6 +146,7 @@ export class NewchatComponent implements OnInit {
         data.push({
           conversation_id: result.ConversationData._id,
           user_id: this.ownerId,
+          user_type:this.selectedMenu,
           isAdmin: true,
           isReferal: false
         })
@@ -147,6 +154,7 @@ export class NewchatComponent implements OnInit {
           data.push({
             conversation_id: result.ConversationData._id,
             user_id: ele._id,
+            user_type:this.selectedMenu,
             isAdmin: false,
             isReferal: false
           })

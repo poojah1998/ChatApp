@@ -3,8 +3,8 @@
 </div>
 
 <ng-container *ngFor="let item of filterData">
-  <div class="msg" (click)="showConvo();chatDeatils(item._id)">
-    <img class="msg-profile" src="{{item.image}}" alt="" />
+  <div class="msg" (click)="showConvo();chatDeatils(item)">
+    <img class="msg-profile" [src]="item.image? item.image:'https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png'" alt="" />
     <div class="msg-detail">
       <div class="msg-username">{{item.name}}</div>
       <div class="msg-content">

@@ -7,7 +7,7 @@
         <polyline points="12 19 5 12 12 5"></polyline>
       </svg>
     </div>
-    <img (click)="toggleRightSidenav()" class="msg-profile" src="{{userDetails.image}}" alt="" />
+    <img (click)="toggleRightSidenav()" class="msg-profile" [src]="userDetails.profile?.location? userDetails.profile?.location: this.userDetails.image" alt="" />
     <div class="chat-area-title" (click)="toggleRightSidenav()">{{userDetails.name}}</div>
   </div>
   <!-- <div class="chat-area-group">
@@ -70,8 +70,6 @@
             </div>
             <div class="time">
               <div id="currentTime-{{i}}" class="current">0:00</div>
-              <div class="divider">/</div>
-              <div id="duration-{{i}}" class="length"></div>
             </div>
             <div class="timeline">
               <div id="progress-{{i}}" class="progress" ></div>
@@ -153,7 +151,7 @@
   </div> -->
 </div>
 <div class="chat-area-footer">
-  <textarea placeholder="Type something here..." (focus)="isEmojiPickerVisible = false" [mentionConfig]="mentionConfig"
+  <textarea #messageInput placeholder="Type something here..." (focus)="isEmojiPickerVisible = false" [mentionConfig]="mentionConfig"
     (itemSelected)="closed($event)" (keyup)="handleKeyUp($event)" [(ngModel)]="userInput"></textarea>
 
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
@@ -195,13 +193,13 @@
     <path fill="currentColor" d="M1.101 21.757 23.8 12.028 1.101 2.3l.011 7.912 13.623 1.816-13.623 1.817-.011 7.912z">
     </path>
   </svg>
-  <div class="emoj_overlay" [style.display]="isEmojiPickerVisible || additionalBtns ? 'block' : 'none'"
+  <div class="emoj_overlay" [style.display]="(isEmojiPickerVisible || additionalBtns) ? 'block' : 'none'"
     (click)="isEmojiPickerVisible = false; additionalBtns = false"></div>
   <emoji-mart class="emoji-mart" [emojiTooltip]="false" [darkMode]="false" [emojiSize]="30" [showPreview]="false"
     [enableSearch]="false" [style.display]="isEmojiPickerVisible ? 'block' : 'none'" (emojiSelect)="addEmoji($event)"
     title="Choose your emoji"></emoji-mart>
   <div class="d-flex addiotnalBtns flex-column" [ngClass]="{'isVisible': additionalBtns}">
-    <input #file type="file" accept="*" hidden (change)="onChange($event)">
+    <input #file type="file" accept=".pdf" hidden (change)="onChange($event)">
     <button (click)="file.click()">
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
         stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"

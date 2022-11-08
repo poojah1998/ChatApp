@@ -81,7 +81,7 @@
             <ng-container *ngIf="index == 0">
                 <mat-radio-group class="d-flex flex-column" [(ngModel)]="individualUser">
                     <ng-container *ngFor="let item of filterData">
-                        <mat-radio-button [value]="item.name">
+                        <mat-radio-button [value]="item">
                             <img class="chat-msg-img me-2"
                                 [src]="item.profile?.location? item.profile?.location:'https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png'"
                                 alt="" />{{item.name}}
