@@ -11,7 +11,7 @@ import { Track } from 'ngx-audio-player';
   templateUrl: './chatlist.component.html',
   styleUrls: ['./chatlist.component.css']
 })
-export class ChatlistComponent implements OnInit, AfterViewChecked {
+export class ChatlistComponent implements OnInit {
   msaapDisplayDuration = false;
   msaapDisplayArtist = false;
   msbapAudioUrl = "https://ia800905.us.archive.org/19/items/FREE_background_music_dhalius/backsound.mp3"
@@ -162,6 +162,50 @@ export class ChatlistComponent implements OnInit, AfterViewChecked {
   }
 
 
+
+
+  updateTrackTime(track,index) {
+    var currTimeDiv: any = document.getElementById('currentTime-'+index);
+    var durationDiv: any = document.getElementById('duration-'+index);
+
+    var currTime: any = Math.floor(track.currentTime).toString();
+    var duration: any = Math.floor(track.duration).toString();
+
+    currTimeDiv.innerHTML = this.formatSecondsAsTime(currTime);
+
+    if (isNaN(duration)) {
+      durationDiv.innerHTML = '00:00';
+    }
+    else {
+      durationDiv.innerHTML = this.formatSecondsAsTime(duration);
+    }
+    this.getProgress(track,index)
+  }
+  getProgress(track,index) {
+    var progress:any=document.getElementById('progress-'+index);
+    progress.style.width= track.currentTime / track.duration* 100 + '%'
+   
+  }
+
+  formatSecondsAsTime(secs) {
+    var hr = Math.floor(secs / 3600);
+    var min: any = Math.floor((secs - (hr * 3600)) / 60);
+    var sec: any = Math.floor(secs - (hr * 3600) - (min * 60));
+
+    if (min < 10) {
+      min = "0" + min;
+    }
+    if (sec < 10) {
+      sec = "0" + sec;
+    }
+
+    return min + ':' + sec;
+  }
+
+
+
+
+
   closed(event: any) {
     if (event.label) {
       this.isMentionModalOpen = true;
@@ -206,20 +250,20 @@ export class ChatlistComponent implements OnInit, AfterViewChecked {
 
 
   stopPlay() {
-    this.audioService.stopPlay().then(audioBlob =>{
+    this.audioService.stopPlay().then(audioBlob => {
       this.file = new File([audioBlob], `${this.ownerId}-${new Date().getTime()}.wav`, { type: 'audio/wav; codecs=MS_PCM' })
       this.sendMessage();
       this.recordStart = true;
     });
-   
+
     console.log('Record stop')
   }
 
 
-  //scroll
-  ngAfterViewChecked() {
-    this.scrollToBottom();
-  }
+  // //scroll
+  // ngAfterViewChecked() {
+  //   this.scrollToBottom();
+  // }
 
   scrollToBottom(): void {
     try {
@@ -354,9 +398,9 @@ export class ChatlistComponent implements OnInit, AfterViewChecked {
   // }
 
   onPlay(elm: HTMLAudioElement) {
-    if (this.currentPlayedElem && this.currentPlayedElem !== elm ) {
+    if (this.currentPlayedElem && this.currentPlayedElem !== elm) {
       this.currentPlayedElem.pause();
-    } else{
+    } else {
     }
 
     this.currentPlayedElem = elm;
