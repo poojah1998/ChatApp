@@ -82,5 +82,8 @@ export class UserinfoComponent implements OnInit {
   closeSidenav() {
 		this.sidenav.close();
 	}
-
+  getName(url:any){
+    return url?.substring(url.lastIndexOf('/')+1,url.length) 
+      
+    }
 }
