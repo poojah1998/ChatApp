@@ -56,7 +56,8 @@ export class ChatlistComponent implements OnInit, AfterViewChecked {
   recordStart: boolean = true;
   dataURItoBlob: any;
   ownerId: any;
-
+  private currentPlayedElem: HTMLAudioElement;
+  isPaused: boolean;
   constructor(private sidenav: ChatService, private activateRoute: ActivatedRoute, private datePipe: DatePipe, private router: Router, private socketService: SocketService, private audioService: AudioService) {
 
   }
@@ -351,5 +352,14 @@ export class ChatlistComponent implements OnInit, AfterViewChecked {
   //     this.ngOnInit();
   //   })
   // }
+
+  onPlay(elm: HTMLAudioElement) {
+    if (this.currentPlayedElem && this.currentPlayedElem !== elm ) {
+      this.currentPlayedElem.pause();
+    } else{
+    }
+
+    this.currentPlayedElem = elm;
+  }
 
 }
