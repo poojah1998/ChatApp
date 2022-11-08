@@ -20,6 +20,7 @@ export class ChatlistComponent implements OnInit {
   msaapDisplayRepeatControls = false;
   msaapDisplayPlayList = false;
   @ViewChild('scrollMe') private myScrollContainer: ElementRef;
+  @ViewChild('messageInput') private messageInput: ElementRef;
   @Output() itemSelected: EventEmitter<any>;
   isMentionModalOpen: boolean = false;
   allConversation: any = [];
@@ -110,6 +111,7 @@ export class ChatlistComponent implements OnInit {
       //chatting page
       this.sidenav.allMessageById(this.conversationid).subscribe((data: any) => {
         this.allMessage = data;
+        this.scrollToBottom();
         console.log(this.allMessage);
       })
 
@@ -281,6 +283,7 @@ export class ChatlistComponent implements OnInit {
   public addEmoji(event: any) {
     this.userInput = `${this.userInput}${event.emoji.native}`;
     // this.userInput.focus();
+    this.messageInput.nativeElement.focus();
     this.isEmojiPickerVisible = false;
 
   }
@@ -318,9 +321,9 @@ export class ChatlistComponent implements OnInit {
 
 
   // //scroll
-  // ngAfterViewChecked() {
-  //   this.scrollToBottom();
-  // }
+  ngAfterViewChecked() {
+    // this.scrollToBottom();
+  }
 
   scrollToBottom(): void {
     try {
