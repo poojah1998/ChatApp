@@ -17,8 +17,7 @@ export class ChatService {
 	userId: any; conversationId: any;
 	
 	constructor(private httpClient: HttpClient) { }
-	public userinfo = new BehaviorSubject<boolean>(true)
-	public getUserinfoUpdate = this.userinfo.asObservable();
+	
 
 	public setSidenav(sidenav: MatSidenav) {
 		this.sidenav = sidenav;

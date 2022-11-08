@@ -1070,6 +1070,7 @@ ngx-audio-player mat-card{
   height: 130px;
   width: 130px;
   object-fit: cover;
+  border-radius: 50%;
 }
 
 .grpPhoto{
@@ -1090,6 +1091,11 @@ ngx-audio-player mat-card{
   border-radius: 6px;
   font-size: 15px;
   width: 100%;
+}
+
+.primaryBtn{
+  background-color: var(--theme-color);
+  color: #fff;
 }
 
 .editGrpIcon{
