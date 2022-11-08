@@ -19,7 +19,7 @@
   </div>
 </div>
 <div class="chat-area-main" #scrollMe [style.display]="(imageSrc == '' && fileSrc == '') ? 'block' : 'none'">
-  <ng-container *ngFor="let item of allMessage">
+  <ng-container *ngFor="let item of allMessage;let i = index">
     <ng-container *ngIf="item.sender_id == userData._id ; else templateA">
       <div class="chat-msg owner">
 
@@ -58,7 +58,7 @@
 
         <!-- Audio -->
         <div class="audio-player" [style.display]="item.mediaName?.includes('.wav')? 'flex' : 'none'">
-          <audio #ref (play)="onPlay(ref)"
+          <audio #ref (play)="onPlay(ref)"  (timeupdate)='updateTrackTime(ref,i)'
             src="https://ia800905.us.archive.org/19/items/FREE_background_music_dhalius/backsound.mp3"></audio>
           <div class="controls">
             <div class="play-container">
@@ -68,12 +68,12 @@
               </div>
             </div>
             <div class="time">
-              <div class="current">0:00</div>
+              <div id="currentTime-{{i}}" class="current">0:00</div>
               <div class="divider">/</div>
-              <div class="length"></div>
+              <div id="duration-{{i}}" class="length"></div>
             </div>
             <div class="timeline">
-              <div class="progress"></div>
+              <div id="progress-{{i}}" class="progress" ></div>
             </div>
           </div>
         </div>
