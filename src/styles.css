@@ -1070,6 +1070,7 @@ ngx-audio-player mat-card{
   height: 130px;
   width: 130px;
   object-fit: cover;
+  border-radius: 50%;
 }
 
 .grpPhoto{
