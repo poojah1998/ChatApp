@@ -39,6 +39,7 @@
         <div class="chat-msg-content" *ngIf="item.image !== ''">
           <div class="chat-msg-text">
             <img src="{{item.image}}" alt="">
+            <p [innerHtml]="item.message" style="margin: 10px 0px 0;"></p>
           </div>
         </div>
 
