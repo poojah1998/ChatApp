@@ -56,6 +56,7 @@ export class ChatlistComponent implements OnInit, AfterViewChecked {
   recordStart: boolean = true;
   dataURItoBlob: any;
   ownerId: any;
+  fileName: any;
 
   constructor(private sidenav: ChatService, private activateRoute: ActivatedRoute, private datePipe: DatePipe, private router: Router, private socketService: SocketService, private audioService: AudioService) {
 
@@ -99,6 +100,7 @@ export class ChatlistComponent implements OnInit, AfterViewChecked {
       //chatting page
       this.sidenav.allMessageById(this.conversationid).subscribe((data: any) => {
         this.allMessage = data;
+        console.log(this.allMessage);
       })
 
       //
@@ -159,6 +161,35 @@ export class ChatlistComponent implements OnInit, AfterViewChecked {
       }
     );
   }
+//get name from url   
+getName(url:any){
+return url?.substring(url.lastIndexOf('/')+1,url.length) 
+  
+}
+
+fileExt(name) {
+  if (name && name.includes('.pdf')) {
+    return 'pdf';
+  }
+  else if (name && name.includes('.js')) {
+    return 'js';
+  }
+  else if (name && name.includes('.css')) {
+    return 'css';
+  }
+  else if (name && name.includes('.docx')) {
+    return 'docx';
+  }
+  else if (name && name.includes('.gif')) {
+    return 'gif';
+  }
+  // else if (name && name.includes('.svg')) {
+  //   return 'svg';
+  // }
+  // else {
+  //   return 'image';
+  // }
+}
 
 
   closed(event: any) {

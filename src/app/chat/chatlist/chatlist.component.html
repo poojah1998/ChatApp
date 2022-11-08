@@ -41,26 +41,26 @@
             <img src="{{item.image}}" alt="">
           </div>
         </div>
-        
+
 
         <!-- File -->
         <div class="file">
           <img src="./assets/image/pdf.png" alt="">
           <div class="file_details">
-            <h4>Filename.pdf</h4>
-            <div class="d-flex">
+            <h4>{{getName(item.files)}}</h4>
+            <!-- <div class="d-flex">
               <span>232 KB</span>
-            </div>
+            </div> -->
           </div>
         </div>
 
 
         <!-- Audio -->
-        <div class="audio-player">          
+        <div class="audio-player">
           <div class="controls">
             <div class="play-container">
               <div class="toggle-play play">
-            </div>
+              </div>
             </div>
             <div class="time">
               <div class="current">0:00</div>
@@ -93,11 +93,11 @@
         </div>
 
         <!-- audio section -->
-        <div class="audio-player" *ngIf="item.files !== ''">          
+        <div class="audio-player" *ngIf="item.files !== ''">
           <div class="controls">
             <div class="play-container">
               <div class="toggle-play play">
-            </div>
+              </div>
             </div>
             <div class="time">
               <div class="current">0:00</div>
