@@ -64,6 +64,7 @@ export class ChatlistComponent implements OnInit {
   isPaused: boolean;
   conversation: any;
   isPlaying: boolean = false;
+  convData: any[] = [];
   constructor(private sidenav: ChatService, private activateRoute: ActivatedRoute, private datePipe: DatePipe, private router: Router, private socketService: SocketService, private audioService: AudioService) {
 
   }
@@ -81,8 +82,10 @@ export class ChatlistComponent implements OnInit {
       this.sidenav.allHashtag().subscribe((hashtags: any) => {
         this.hashtag = hashtags.map((ele: any) => ele.name);
         this.sidenav.getAllconversationUser(this.conversationid).subscribe((data: any[] | any) => {
-          this.allConversation = data;
 
+          this.allConversation = data;
+          this.convData = this.allConversation.filter((o: any) => o.user_id._id != this.ownerId);
+          console.log(this.convData);
           this.mentionUsers = data.map((ele: any) => ele.user_id.name);
           this.mentionConfig = {
             mentions: [
@@ -99,10 +102,10 @@ export class ChatlistComponent implements OnInit {
             ]
           }
           this.newChatData = data.filter((o: any) => o.user_id._id != this.userData._id)
-          if(this.conversation.type !== 'INDIVIDUAL') {
+          if (this.conversation.type !== 'INDIVIDUAL') {
             this.userDetails = this.conversation; // need to change for all user
           }
-          else{
+          else {
             this.userDetails = this.newChatData[0].user_id;
           }
           this.receiverIds = data.map((o: any) => o.user_id._id)
@@ -112,7 +115,6 @@ export class ChatlistComponent implements OnInit {
       this.sidenav.allMessageById(this.conversationid).subscribe((data: any) => {
         this.allMessage = data;
         this.scrollToBottom();
-        console.log(this.allMessage);
       })
 
       //
@@ -120,8 +122,11 @@ export class ChatlistComponent implements OnInit {
     this.getSoketMessage();
 
   }
+  convrsationDetails(id: any) {
 
-  
+    return this.convData.filter(o => o.user_id._id == id)[0]?.user_id;
+  }
+
 
 
   // On file Select
@@ -164,7 +169,12 @@ export class ChatlistComponent implements OnInit {
           this.closePreview();
           // Short link via api response
           this.shortLink = event.location;
-          this.mediaName = event.originalname;
+          
+          let str = event.originalname;
+          let value = str.lastIndexOf('.');
+          let newString = str.substring(7, value);
+          console.log(newString);
+          this.mediaName = str.replace(newString, "...");
           if (this.file.type.includes("image/")) {
             data['image'] = this.shortLink;
             data['mediaName'] = this.mediaName;
@@ -186,29 +196,29 @@ export class ChatlistComponent implements OnInit {
 
   }
 
-  fileExt(name) {
-    if (name && name.includes('.pdf')) {
-      return 'pdf';
-    }
-    else if (name && name.includes('.js')) {
-      return 'js';
-    }
-    else if (name && name.includes('.css')) {
-      return 'css';
-    }
-    else if (name && name.includes('.docx')) {
-      return 'docx';
-    }
-    else if (name && name.includes('.gif')) {
-      return 'gif';
-    }
-    // else if (name && name.includes('.svg')) {
-    //   return 'svg';
-    // }
-    // else {
-    //   return 'image';
-    // }
-  }
+  // fileExt(name) {
+  //   if (name && name.includes('.pdf')) {
+  //     return 'pdf';
+  //   }
+  //   else if (name && name.includes('.js')) {
+  //     return 'js';
+  //   }
+  //   else if (name && name.includes('.css')) {
+  //     return 'css';
+  //   }
+  //   else if (name && name.includes('.docx')) {
+  //     return 'docx';
+  //   }
+  //   else if (name && name.includes('.gif')) {
+  //     return 'gif';
+  //   }
+  //   // else if (name && name.includes('.svg')) {
+  //   //   return 'svg';
+  //   // }
+  //   // else {
+  //   //   return 'image';
+  //   // }
+  // }
 
 
 
@@ -236,7 +246,7 @@ export class ChatlistComponent implements OnInit {
     var progress: any = document.getElementById('progress-' + index);
     progress.style.width = track.currentTime / track.duration * 100 + '%'
     if (track.currentTime / track.duration * 100 == 100) {
-      this.audioPlayStatus[index]=false;
+      this.audioPlayStatus[index] = false;
       progress.style.width = 0
     }
 
@@ -290,7 +300,7 @@ export class ChatlistComponent implements OnInit {
 
 
   sendSoketMessage() {
-    this.socketService.sendSoketMessage(true, this.userDetails._id, this.receiverIds);
+    this.socketService.sendSoketMessage(true, this.ownerId, this.receiverIds);
 
   }
   getSoketMessage() {
