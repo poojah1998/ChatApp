@@ -31,6 +31,7 @@ export class ChatlistComponent implements OnInit {
   Usermessage: any = {};
   userData: any;
   chat: any = {};
+  repeat: any = [1, 2, 3];
   allMessage: any = [];
   userDetails: any = {};
   receiverIds: any[] = [];
@@ -112,14 +113,16 @@ export class ChatlistComponent implements OnInit {
       //chatting page
       this.sidenav.allMessageById(this.conversationid).subscribe((data: any) => {
         this.allMessage = data;
-        this.scrollToBottom();
+        setTimeout(() => {
+          this.scrollToBottom();
+        }, 500);
         console.log(this.allMessage);
       })
 
       //
     })
     this.getSoketMessage();
-
+    this.scrollToBottom();
   }
 
 
