@@ -25,7 +25,7 @@
     </svg>
   </div> -->
 </div>
-<div class="chat-area-main" #scrollMe [style.display]="(imageSrc == '' && fileSrc == '') ? 'block' : 'none'">
+<div class="chat-area-main skeleton-placeholder" #scrollMe [style.display]="(imageSrc == '' && fileSrc == '') ? 'block' : 'none'">
   <ng-container *ngFor="let item of allMessage;let i = index">
     <ng-container *ngIf="item.sender_id == userData._id ; else templateA">
       <div class="chat-msg owner">
@@ -130,6 +130,45 @@
       </div>
     </ng-template>
   </ng-container>
+
+  <ng-container *ngIf="allMessage.length == 0">
+    <ng-container *ngFor="let item of repeat">
+      <div class="chat-msg">
+        <div class="chat-msg-profile" style="width: 40px;">
+          <span class="chat-msg-img load" style="display: block;"></span>
+          <div class="chat-msg-date load" style="position: absolute; width: 124px; height: 18px;border-radius: 5px;"></div>
+        </div>
+        <div class="chat-msg-content">
+          <div class="chat-msg-text load" style="width: 180px;"></div>
+          <div class="chat-msg-text" style="padding: 0;">
+            <span class="chat-msg-img load" style="width: 310px; height: 250px; display: block; border-radius: 20px 20px 20px 0; background-size: 800px 250px;"></span>
+          </div>
+          <div class="chat-msg-text load"  style="width: 180px;"></div>
+        </div>
+      </div>
+      <div class="chat-msg owner">
+        <div class="chat-msg-profile"  style="width: 40px;">
+          <span class="chat-msg-img load"  style="display: block;"></span>
+          <div class="chat-msg-date load" style="position: absolute; width: 124px; height: 18px;border-radius: 5px;"></div>
+        </div>
+        <div class="chat-msg-content">
+          <div class="chat-msg-text load" style="width: 180px;"></div>
+          <div class="chat-msg-text load"  style="width: 180px;"></div>
+        </div>
+      </div>
+      <div class="chat-msg owner">
+        <div class="chat-msg-profile"  style="width: 40px;">
+          <span class="chat-msg-img load"  style="display: block;"></span>
+          <div class="chat-msg-date load" style="position: absolute; width: 124px; height: 18px;border-radius: 5px;"></div>
+        </div>
+        <div class="chat-msg-content">
+          <div class="chat-msg-text load" style="width: 180px;"></div>
+          <div class="chat-msg-text load"  style="width: 180px;"></div>
+        </div>
+      </div>
+    </ng-container>
+  </ng-container>
+
 </div>
 <div class="chat-file-preview"
   [style.display]="((imageSrc == '' && fileSrc != '') || (imageSrc !== '' && fileSrc == '')) ? 'flex' : 'none'">

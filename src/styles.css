@@ -262,7 +262,7 @@ html {
 
 .conversation-area {
   border-right: 1px solid var(--border-color);
-  overflow-y: auto;
+  overflow-y: hidden;
   overflow-x: hidden;
   display: flex;
   flex-direction: column;
@@ -382,10 +382,10 @@ html {
   position: sticky;
   bottom: 0;
   left: 0;
-  width: 340px;
+  width: 100%;
   flex-shrink: 0;
   background: var(--overlay-bg);
-  height: 80px;
+  height: 120px;
 }
 
 .chat-area {
@@ -421,6 +421,10 @@ html {
   font-size: 18px;
   font-weight: 600;
 }
+.chat-area-main{
+  padding-top: 20px;
+}
+
 .chat-area-main,
 .chat-file-preview {
   flex-grow: 1;

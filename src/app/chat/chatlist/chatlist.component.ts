@@ -31,6 +31,7 @@ export class ChatlistComponent implements OnInit {
   Usermessage: any = {};
   userData: any;
   chat: any = {};
+  repeat: any = [1, 2, 3];
   allMessage: any = [];
   userDetails: any = {};
   receiverIds: any[] = [];
