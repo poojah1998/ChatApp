@@ -439,6 +439,8 @@ html {
 .chat-area-main{
   padding-top: 20px;
   scroll-behavior: smooth;
+  background-color: var(--input-bg);
+  background-image: url('./assets/image/chat-bg-pattern.png');
 }
 
 .chat-area-main,
