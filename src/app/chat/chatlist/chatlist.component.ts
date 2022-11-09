@@ -85,6 +85,7 @@ export class ChatlistComponent implements OnInit {
           this.allConversation = data;
 
           this.mentionUsers = data.map((ele: any) => ele.user_id.name);
+          console.log(this.mentionUsers)
           this.mentionConfig = {
             mentions: [
               {
@@ -343,6 +344,7 @@ export class ChatlistComponent implements OnInit {
       if (this.userInput.includes('@') || this.userInput.includes('#')) {
         let data: any = [];
         this.userInput.split(' ').forEach(element => {
+          console.log(element)
           if (element.includes('@') || element.includes('#')) {
             data.push(`<span class="mentions">${element}</span>`);
           }
@@ -475,5 +477,17 @@ export class ChatlistComponent implements OnInit {
 
     this.currentPlayedElem = elm;
   }
+
+  singleAudioPlay(index) {
+
+    this.audioPlayStatus = Array(this.allMessage.length).fill(false);
+    this.audioPlayStatus[index] = true;
+
+  }
+
+  showDurationOfAudio(ref) {
+    console.log(ref.duration);
+  }
+
 
 }
