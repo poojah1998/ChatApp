@@ -100,10 +100,10 @@ export class ChatlistComponent implements OnInit {
             ]
           }
           this.newChatData = data.filter((o: any) => o.user_id._id != this.userData._id)
-          if(this.conversation.type !== 'INDIVIDUAL') {
+          if (this.conversation.type !== 'INDIVIDUAL') {
             this.userDetails = this.conversation; // need to change for all user
           }
-          else{
+          else {
             this.userDetails = this.newChatData[0].user_id;
           }
           this.receiverIds = data.map((o: any) => o.user_id._id)
@@ -112,7 +112,9 @@ export class ChatlistComponent implements OnInit {
       //chatting page
       this.sidenav.allMessageById(this.conversationid).subscribe((data: any) => {
         this.allMessage = data;
-        this.scrollToBottom();
+        setTimeout(() => {
+          this.scrollToBottom();
+        }, 500);
         console.log(this.allMessage);
       })
 
@@ -122,7 +124,7 @@ export class ChatlistComponent implements OnInit {
     this.scrollToBottom();
   }
 
-  
+
 
 
   // On file Select
@@ -237,7 +239,7 @@ export class ChatlistComponent implements OnInit {
     var progress: any = document.getElementById('progress-' + index);
     progress.style.width = track.currentTime / track.duration * 100 + '%'
     if (track.currentTime / track.duration * 100 == 100) {
-      this.audioPlayStatus[index]=false;
+      this.audioPlayStatus[index] = false;
       progress.style.width = 0
     }
 

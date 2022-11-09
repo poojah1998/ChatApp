@@ -423,6 +423,7 @@ html {
 }
 .chat-area-main{
   padding-top: 20px;
+  scroll-behavior: smooth;
 }
 
 .chat-area-main,
