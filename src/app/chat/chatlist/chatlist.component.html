@@ -32,7 +32,7 @@
 
         <!-- user image section -->
         <div class="chat-msg-profile">
-          <img class="chat-msg-img" [ngbPopover]="userInfo" container="body"
+          <img class="chat-msg-img" [ngbPopover]="userInfo" container="body" (click)="setUserInfo(item._id)"
             src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png" alt="" />
           <div class="chat-msg-date">{{calculateDiff(item.createdAt)}} Message sent at {{getTime(item.createdAt)}}</div>
         </div>

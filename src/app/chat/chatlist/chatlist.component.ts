@@ -87,6 +87,7 @@ export class ChatlistComponent implements OnInit {
 
           this.allConversation = data;
           this.convData = this.allConversation.filter((o: any) => o.user_id._id != this.ownerId);
+          
           console.log(this.convData);
           this.mentionUsers = data.map((ele: any) => ele.user_id.name);
           console.log(this.mentionUsers)
@@ -134,7 +135,10 @@ export class ChatlistComponent implements OnInit {
   }
 
 
+  setUserInfo(user_id) {
 
+    console.log(user_id)
+  }
   // On file Select
   onChange(event) {
     this.file = event.target.files[0];
@@ -285,7 +289,7 @@ export class ChatlistComponent implements OnInit {
 
     this.mentionUserName = event.label;
     this.mentionUserNameArray.push(event.label);
-    console.log(this.mentionUserNameArray, this.mentionUserName )
+    console.log(this.mentionUserNameArray, this.mentionUserName)
     const newarray = this.allConversation.filter((ele: any) => ele.user_id.name.includes(this.mentionUserName));
     this.mentionArrayIds = [...new Set(newarray.map((it: any) => it.user_id._id))];
     // }
@@ -367,15 +371,15 @@ export class ChatlistComponent implements OnInit {
       // }
       let data: any = [];
       this.mentionUserNameArray.forEach(element => {
-        if(this.userInput.includes(element)) {
+        if (this.userInput.includes(element)) {
           if (this.userInput.includes('@')) {
-          data.push(`<span class="mentions">@${element}</span>`);
-          let arr = this.userInput.split('@'+element);
-          this.userInput = arr.join('');
+            data.push(`<span class="mentions">@${element}</span>`);
+            let arr = this.userInput.split('@' + element);
+            this.userInput = arr.join('');
           }
           else {
             data.push(`<span class="mentions">#${element}</span>`);
-            let arr = this.userInput.split('#'+element);
+            let arr = this.userInput.split('#' + element);
             this.userInput = arr.join('');
           }
         }
