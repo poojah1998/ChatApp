@@ -83,14 +83,14 @@
             <div class="play-container">
               <div class="toggle-play play" (click)="singleAudioPlay(i);ref.play()" [style.display]="audioPlayStatus[i]==false || audioPlayStatus[i]== undefined ? 'block' : 'none'" >
               </div>
-              <div class="toggle-play pause" (click)="singleAudioPlay(i);ref.pause()"  [style.display]="audioPlayStatus[i]==true ? 'block' : 'none'">
+              <div class="toggle-play pause" (click)="singleAudioPause(i);ref.pause()"  [style.display]="audioPlayStatus[i]==true ? 'block' : 'none'">
               </div>
             </div>
             <div class="time">
               <div id="currentTime-{{i}}" class="current">0:00</div>
             </div>
             <div class="timeline">
-              <div id="progress-{{i}} " class="progress" ></div>
+              <div id="progress-{{i}}" class="progress" ></div>
             </div>
           </div>
         </div>
@@ -99,10 +99,12 @@
     <ng-template #templateA>
       <div class="chat-msg">
         <div class="chat-msg-profile">
-          <img class="chat-msg-img" src="{{userDetails.image}}" alt="">
-          <!-- <p>{{userDetails.name}}</p> -->
+         
+          <img class="chat-msg-img" [src]="convrsationDetails(item.sender_id)?.profile?.location?convrsationDetails(item.sender_id)?.profile?.location:'https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png'" alt="">
+       <p style="font-size: 12px;">{{convrsationDetails(item.sender_id)?.name}}</p>
           <div class="chat-msg-date">Message seen 3.16pm</div>
         </div>
+
         <!-- chat section -->
         <div class="chat-msg-content" *ngIf="item.image === '' && item.files === ''">
           <div class="chat-msg-text" [innerHtml]="item.message"></div>
@@ -112,24 +114,15 @@
         <div class="chat-msg-content" *ngIf="item.image !== ''">
           <div class="chat-msg-text">
             <img src="{{item.image}}" alt="">
+            <p [innerHtml]="item.message" style="margin: 10px 0px 0;"></p>
           </div>
         </div>
 
         <!-- audio section -->
-        <div class="chat-msg-content" *ngIf="item.files !== ''">
-          <div class="audio-player">
-            <div class="controls">
-              <div class="play-container">
-                <div class="toggle-play play">
-                </div>
-              </div>
-              <div class="time">
-                <div class="current">0:00</div>
-                <div class="divider">/</div>
-                <div class="length"></div>
-              </div>
-              <div class="timeline">
-                <div class="progress"></div>
+        <div class="audio-player" [style.display]="item.mediaName?.includes('.wav')? 'flex' : 'none'">
+          <div class="controls">
+            <div class="play-container">
+              <div class="toggle-play play">
               </div>
             </div>
           </div>
