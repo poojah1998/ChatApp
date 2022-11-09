@@ -774,6 +774,7 @@ html {
   font-weight: 600;
   font-size: 15px;
   margin: 25px 0;
+  cursor: pointer;
 }
 
 .follow-me {
