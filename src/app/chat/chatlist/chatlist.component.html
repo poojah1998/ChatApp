@@ -1,5 +1,5 @@
 <div class="chat-area-header">
-  <div class="msg p-0">
+  <div class="msg p-0 skeleton-placeholder">
     <div class="chat-area-group d-lg-none me-2" (click)="goUserList()">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
         stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left">
@@ -7,8 +7,15 @@
         <polyline points="12 19 5 12 12 5"></polyline>
       </svg>
     </div>
-    <img (click)="toggleRightSidenav()" class="msg-profile" [src]="userDetails.profile?.location? userDetails.profile?.location: this.userDetails.image" alt="" />
-    <div class="chat-area-title" (click)="toggleRightSidenav()">{{userDetails.name}}</div>
+    <ng-container *ngIf="allMessage.length != 0">
+      <img (click)="toggleRightSidenav()" class="msg-profile"
+        [src]="userDetails.profile?.location? userDetails.profile?.location: this.userDetails.image" alt="" />
+      <div class="chat-area-title" (click)="toggleRightSidenav()">{{userDetails.name}}</div>
+    </ng-container>
+    <ng-container *ngIf="allMessage.length == 0">
+      <span class="msg-profile load"></span>
+      <div class="chat-area-title load" style="width: 160px; height: 28px;border-radius: 5px;"></div>
+    </ng-container>
   </div>
   <!-- <div class="chat-area-group">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
@@ -18,7 +25,7 @@
     </svg>
   </div> -->
 </div>
-<div class="chat-area-main" #scrollMe [style.display]="(imageSrc == '' && fileSrc == '') ? 'block' : 'none'">
+<div class="chat-area-main skeleton-placeholder" #scrollMe [style.display]="(imageSrc == '' && fileSrc == '') ? 'block' : 'none'">
   <ng-container *ngFor="let item of allMessage;let i = index">
     <ng-container *ngIf="item.sender_id == userData._id ; else templateA">
       <div class="chat-msg owner">
@@ -59,13 +66,24 @@
 
         <!-- Audio -->
         <div class="audio-player" [style.display]="item.mediaName?.includes('.wav')? 'flex' : 'none'">
-          <audio #ref (play)="onPlay(ref)"  (timeupdate)='updateTrackTime(ref,i)'
+          <audio #ref (play)="onPlay(ref)"  (timeupdate)='updateTrackTime(ref,i)' (loadeddata)="showDurationOfAudio(ref)"
             [src]="item.files"></audio>
           <div class="controls">
-            <div class="play-container">
+            <!-- <div class="play-container">
               <div class="toggle-play play" (click)="audioPlayStatus[i] = true;ref.play()"  *ngIf="audioPlayStatus[i]==false || audioPlayStatus[i]== undefined">
               </div>
-              <div class="toggle-play pause" (click)="audioPlayStatus[i] =false;ref.pause()" *ngIf="audioPlayStatus[i]==true">
+              <div class="time">
+                <div id="currentTime-{{i}}" class="current">0:00</div>
+              </div>
+              <div class="timeline">
+                <div id="progress-{{i}}" class="progress"></div>
+              </div>
+            </div> -->
+             
+            <div class="play-container">
+              <div class="toggle-play play" (click)="singleAudioPlay(i);ref.play()" [style.display]="audioPlayStatus[i]==false || audioPlayStatus[i]== undefined ? 'block' : 'none'" >
+              </div>
+              <div class="toggle-play pause" (click)="singleAudioPause(i);ref.pause()"  [style.display]="audioPlayStatus[i]==true ? 'block' : 'none'">
               </div>
             </div>
             <div class="time">
@@ -107,14 +125,6 @@
               <div class="toggle-play play">
               </div>
             </div>
-            <div class="time">
-              <div class="current">0:00</div>
-              <div class="divider">/</div>
-              <div class="length"></div>
-            </div>
-            <div class="timeline">
-              <div class="progress"></div>
-            </div>
           </div>
         </div>
 
@@ -122,6 +132,45 @@
       </div>
     </ng-template>
   </ng-container>
+
+  <ng-container *ngIf="allMessage.length == 0">
+    <ng-container *ngFor="let item of repeat">
+      <div class="chat-msg">
+        <div class="chat-msg-profile" style="width: 40px;">
+          <span class="chat-msg-img load" style="display: block;"></span>
+          <div class="chat-msg-date load" style="position: absolute; width: 124px; height: 18px;border-radius: 5px;"></div>
+        </div>
+        <div class="chat-msg-content">
+          <div class="chat-msg-text load" style="width: 180px;"></div>
+          <div class="chat-msg-text" style="padding: 0;">
+            <span class="chat-msg-img load" style="width: 310px; height: 250px; display: block; border-radius: 20px 20px 20px 0; background-size: 800px 250px;"></span>
+          </div>
+          <div class="chat-msg-text load"  style="width: 180px;"></div>
+        </div>
+      </div>
+      <div class="chat-msg owner">
+        <div class="chat-msg-profile"  style="width: 40px;">
+          <span class="chat-msg-img load"  style="display: block;"></span>
+          <div class="chat-msg-date load" style="position: absolute; width: 124px; height: 18px;border-radius: 5px;"></div>
+        </div>
+        <div class="chat-msg-content">
+          <div class="chat-msg-text load" style="width: 180px;"></div>
+          <div class="chat-msg-text load"  style="width: 180px;"></div>
+        </div>
+      </div>
+      <div class="chat-msg owner">
+        <div class="chat-msg-profile"  style="width: 40px;">
+          <span class="chat-msg-img load"  style="display: block;"></span>
+          <div class="chat-msg-date load" style="position: absolute; width: 124px; height: 18px;border-radius: 5px;"></div>
+        </div>
+        <div class="chat-msg-content">
+          <div class="chat-msg-text load" style="width: 180px;"></div>
+          <div class="chat-msg-text load"  style="width: 180px;"></div>
+        </div>
+      </div>
+    </ng-container>
+  </ng-container>
+
 </div>
 <div class="chat-file-preview"
   [style.display]="((imageSrc == '' && fileSrc != '') || (imageSrc !== '' && fileSrc == '')) ? 'flex' : 'none'">
@@ -155,8 +204,9 @@
   </div> -->
 </div>
 <div class="chat-area-footer">
-  <textarea #messageInput placeholder="Type something here..." (focus)="isEmojiPickerVisible = false" [mentionConfig]="mentionConfig"
-    (itemSelected)="closed($event)" (keyup)="handleKeyUp($event)" [(ngModel)]="userInput"></textarea>
+  <textarea #messageInput placeholder="Type something here..." (focus)="isEmojiPickerVisible = false"
+    [mentionConfig]="mentionConfig" (itemSelected)="closed($event)" (keyup)="handleKeyUp($event)"
+    [(ngModel)]="userInput"></textarea>
 
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
     stroke-linecap="round" stroke-linejoin="round" class="feather feather-smile"
@@ -182,7 +232,7 @@
 
   <button mat-icon-button *ngIf="!recordStart" class="" (click)="stopPlay()" style="margin-left: 14px;">
     <mat-icon>stop_circle</mat-icon>
-  </button> 
+  </button>
   <!-- <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
     stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mic-off"
     (click)="stopPlay()" *ngIf="!recordStart">

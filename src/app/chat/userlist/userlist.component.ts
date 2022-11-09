@@ -11,7 +11,9 @@ import { NewchatComponent } from '../newchat/newchat.component'
 })
 export class UserlistComponent implements OnInit {
   ConversationList: any = [];
-  filterData: any;
+  filterData: any = [];
+  selectedUserlist: any;
+  repeat: any = [1, 2, 3, 4, 5, 6, 7];
   constructor(private leftsidenav: ChatService, public dialog: MatDialog, public breakpointObserver: BreakpointObserver, private router: Router) { }
 
   ngOnInit(): void {
@@ -42,6 +44,8 @@ export class UserlistComponent implements OnInit {
       });
   }
   async chatDeatils(conversation: any) {
+    this.selectedUserlist = conversation._id;
+      console.log(conversation._id)
     // this.leftsidenav.getAllconversationUser(conversationid).subscribe(() => {
       localStorage.setItem("currentConversationData", JSON.stringify(conversation))
       this.router.navigate([`/chat/${conversation._id}`]);
