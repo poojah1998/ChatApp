@@ -176,11 +176,7 @@ export class ChatlistComponent implements OnInit {
           // Short link via api response
           this.shortLink = event.location;
           
-          let str = event.originalname;
-          let value = str.lastIndexOf('.');
-          let newString = str.substring(7, value);
-          console.log(newString);
-          this.mediaName = str.replace(newString, "...");
+          this.mediaName = event.originalname;
           if (this.file.type.includes("image/")) {
             data['image'] = this.shortLink;
             data['mediaName'] = this.mediaName;
@@ -197,9 +193,10 @@ export class ChatlistComponent implements OnInit {
     );
   }
   //get name from url   
-  getName(url: any) {
-    return url?.substring(url.lastIndexOf('/') + 1, url.length)
-
+  getName(url: string) {
+    let str = url?.substring(7, url.lastIndexOf('.'))
+    url.replace(str, "...");
+    return url;
   }
 
   // fileExt(name) {
