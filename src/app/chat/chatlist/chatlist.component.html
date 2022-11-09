@@ -1,5 +1,5 @@
 <div class="chat-area-header">
-  <div class="msg p-0">
+  <div class="msg p-0 skeleton-placeholder">
     <div class="chat-area-group d-lg-none me-2" (click)="goUserList()">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
         stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left">
@@ -7,9 +7,15 @@
         <polyline points="12 19 5 12 12 5"></polyline>
       </svg>
     </div>
-    <img (click)="toggleRightSidenav()" class="msg-profile"
-      [src]="userDetails.profile?.location? userDetails.profile?.location: this.userDetails.image" alt="" />
-    <div class="chat-area-title" (click)="toggleRightSidenav()">{{userDetails.name}}</div>
+    <ng-container *ngIf="allMessage.length != 0">
+      <img (click)="toggleRightSidenav()" class="msg-profile"
+        [src]="userDetails.profile?.location? userDetails.profile?.location: this.userDetails.image" alt="" />
+      <div class="chat-area-title" (click)="toggleRightSidenav()">{{userDetails.name}}</div>
+    </ng-container>
+    <ng-container *ngIf="allMessage.length == 0">
+      <span class="msg-profile load"></span>
+      <div class="chat-area-title load" style="width: 160px; height: 28px;border-radius: 5px;"></div>
+    </ng-container>
   </div>
   <!-- <div class="chat-area-group">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
