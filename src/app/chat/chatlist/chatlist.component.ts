@@ -84,6 +84,7 @@ export class ChatlistComponent implements OnInit {
           this.allConversation = data;
 
           this.mentionUsers = data.map((ele: any) => ele.user_id.name);
+          console.log(this.mentionUsers)
           this.mentionConfig = {
             mentions: [
               {
@@ -99,10 +100,10 @@ export class ChatlistComponent implements OnInit {
             ]
           }
           this.newChatData = data.filter((o: any) => o.user_id._id != this.userData._id)
-          if(this.conversation.type !== 'INDIVIDUAL') {
+          if (this.conversation.type !== 'INDIVIDUAL') {
             this.userDetails = this.conversation; // need to change for all user
           }
-          else{
+          else {
             this.userDetails = this.newChatData[0].user_id;
           }
           this.receiverIds = data.map((o: any) => o.user_id._id)
@@ -121,7 +122,7 @@ export class ChatlistComponent implements OnInit {
 
   }
 
-  
+
 
 
   // On file Select
@@ -236,7 +237,7 @@ export class ChatlistComponent implements OnInit {
     var progress: any = document.getElementById('progress-' + index);
     progress.style.width = track.currentTime / track.duration * 100 + '%'
     if (track.currentTime / track.duration * 100 == 100) {
-      this.audioPlayStatus[index]=false;
+      this.audioPlayStatus[index] = false;
       progress.style.width = 0
     }
 
@@ -340,6 +341,7 @@ export class ChatlistComponent implements OnInit {
       if (this.userInput.includes('@') || this.userInput.includes('#')) {
         let data: any = [];
         this.userInput.split(' ').forEach(element => {
+          console.log(element)
           if (element.includes('@') || element.includes('#')) {
             data.push(`<span class="mentions">${element}</span>`);
           }
@@ -472,5 +474,17 @@ export class ChatlistComponent implements OnInit {
 
     this.currentPlayedElem = elm;
   }
+
+  singleAudioPlay(index) {
+
+    this.audioPlayStatus = Array(this.allMessage.length).fill(false);
+    this.audioPlayStatus[index] = true;
+
+  }
+
+  showDurationOfAudio(ref) {
+    console.log(ref.duration);
+  }
+
 
 }

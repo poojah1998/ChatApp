@@ -59,20 +59,27 @@
 
         <!-- Audio -->
         <div class="audio-player" [style.display]="item.mediaName?.includes('.wav')? 'flex' : 'none'">
-          <audio #ref (play)="onPlay(ref)"  (timeupdate)='updateTrackTime(ref,i)'
+          <audio #ref (play)="onPlay(ref)"  (timeupdate)='updateTrackTime(ref,i)' (loadeddata)="showDurationOfAudio(ref)"
             [src]="item.files"></audio>
           <div class="controls">
-            <div class="play-container">
+            <!-- <div class="play-container">
               <div class="toggle-play play" (click)="audioPlayStatus[i] = true;ref.play()"  *ngIf="audioPlayStatus[i]==false || audioPlayStatus[i]== undefined">
               </div>
               <div class="toggle-play pause" (click)="audioPlayStatus[i] =false;ref.pause()" *ngIf="audioPlayStatus[i]==true">
+              </div>
+            </div> -->
+             
+            <div class="play-container">
+              <div class="toggle-play play" (click)="singleAudioPlay(i);ref.play()" [style.display]="audioPlayStatus[i]==false || audioPlayStatus[i]== undefined ? 'block' : 'none'" >
+              </div>
+              <div class="toggle-play pause" (click)="singleAudioPlay(i);ref.pause()"  [style.display]="audioPlayStatus[i]==true ? 'block' : 'none'">
               </div>
             </div>
             <div class="time">
               <div id="currentTime-{{i}}" class="current">0:00</div>
             </div>
             <div class="timeline">
-              <div id="progress-{{i}}" class="progress" ></div>
+              <div id="progress-{{i}} " class="progress" ></div>
             </div>
           </div>
         </div>
@@ -82,6 +89,7 @@
       <div class="chat-msg">
         <div class="chat-msg-profile">
           <img class="chat-msg-img" src="{{userDetails.image}}" alt="">
+          <!-- <p>{{userDetails.name}}</p> -->
           <div class="chat-msg-date">Message seen 3.16pm</div>
         </div>
         <!-- chat section -->
