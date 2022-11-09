@@ -557,6 +557,7 @@ html {
   background-color: var(--chat-bubble-right-bg);
   color: #000;
   border-radius: 20px 20px 0 20px;
+  word-break: break-all;
 }
 .owner .chat-msg-date {
   left: auto;
@@ -1165,7 +1166,7 @@ ngx-audio-player mat-card{
 }
 
 .file > img{
-  height: 40px;
+  height: 25px;
   width: auto;
 }
 
@@ -1175,6 +1176,7 @@ ngx-audio-player mat-card{
 
 .file > .file_details h4{
   font-size: 15px;
+  word-break: break-all;
 }
 
 .file > .file_details span{
