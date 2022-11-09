@@ -83,14 +83,14 @@
             <div class="play-container">
               <div class="toggle-play play" (click)="singleAudioPlay(i);ref.play()" [style.display]="audioPlayStatus[i]==false || audioPlayStatus[i]== undefined ? 'block' : 'none'" >
               </div>
-              <div class="toggle-play pause" (click)="singleAudioPlay(i);ref.pause()"  [style.display]="audioPlayStatus[i]==true ? 'block' : 'none'">
+              <div class="toggle-play pause" (click)="singleAudioPause(i);ref.pause()"  [style.display]="audioPlayStatus[i]==true ? 'block' : 'none'">
               </div>
             </div>
             <div class="time">
               <div id="currentTime-{{i}}" class="current">0:00</div>
             </div>
             <div class="timeline">
-              <div id="progress-{{i}} " class="progress" ></div>
+              <div id="progress-{{i}}" class="progress" ></div>
             </div>
           </div>
         </div>

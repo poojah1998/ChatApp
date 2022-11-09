@@ -20,6 +20,7 @@ export class UserinfoComponent implements OnInit {
   img: any;
   file: any;
   conversation: any;
+  repeat: any = [1];
   constructor(private sidenav: ChatService, private activateRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {

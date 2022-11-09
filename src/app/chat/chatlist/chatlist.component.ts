@@ -27,7 +27,7 @@ export class ChatlistComponent implements OnInit {
   conversationid: any = "";
   userId: any = "";
   message: any;
-  userInput: any = '';
+  userInput: string = '';
   Usermessage: any = {};
   userData: any;
   chat: any = {};
@@ -38,7 +38,7 @@ export class ChatlistComponent implements OnInit {
   newChatData: any
   hashtag_id: any;
   tagUserAraay: any = [];
-  mentionUserArray: any = [];
+  mentionUserArray: any[] = [];
   taggedUsers: any;
   hashtag: any = [];
   mentionUsers: any;
@@ -64,6 +64,7 @@ export class ChatlistComponent implements OnInit {
   private currentPlayedElem: HTMLAudioElement;
   isPaused: boolean;
   conversation: any;
+  mentionUserNameArray: any[] = [];
   isPlaying: boolean = false;
   constructor(private sidenav: ChatService, private activateRoute: ActivatedRoute, private datePipe: DatePipe, private router: Router, private socketService: SocketService, private audioService: AudioService) {
 
@@ -238,6 +239,7 @@ export class ChatlistComponent implements OnInit {
   }
   getProgress(track, index) {
     var progress: any = document.getElementById('progress-' + index);
+
     progress.style.width = track.currentTime / track.duration * 100 + '%'
     if (track.currentTime / track.duration * 100 == 100) {
       this.audioPlayStatus[index] = false;
@@ -274,7 +276,8 @@ export class ChatlistComponent implements OnInit {
     }
 
     this.mentionUserName = event.label;
-
+    this.mentionUserNameArray.push(event.label);
+    console.log(this.mentionUserNameArray, this.mentionUserName )
     const newarray = this.allConversation.filter((ele: any) => ele.user_id.name.includes(this.mentionUserName));
     this.mentionArrayIds = [...new Set(newarray.map((it: any) => it.user_id._id))];
     // }
@@ -341,21 +344,40 @@ export class ChatlistComponent implements OnInit {
   sendMessage() {
 
     if (this.file || this.userInput.trim() != '') {
-      if (this.userInput.includes('@') || this.userInput.includes('#')) {
-        let data: any = [];
-        this.userInput.split(' ').forEach(element => {
-          console.log(element)
-          if (element.includes('@') || element.includes('#')) {
-            data.push(`<span class="mentions">${element}</span>`);
+      // if (this.userInput.includes('@') || this.userInput.includes('#')) {
+      //   let data: any = [];
+      //   this.userInput.split(' ').forEach(element => {
+      //     console.log(element)
+      //     if (element.includes('@') || element.includes('#')) {
+      //       data.push(`<span class="mentions">${element}</span>`);
+      //     }
+      //     else {
+      //       data.push(element);
+      //     }
+      //   });
+      //   this.userInput = data.join(' ');
+      // }
+      let data: any = [];
+      this.mentionUserNameArray.forEach(element => {
+        if(this.userInput.includes(element)) {
+          if (this.userInput.includes('@')) {
+          data.push(`<span class="mentions">@${element}</span>`);
+          let arr = this.userInput.split('@'+element);
+          this.userInput = arr.join('');
           }
           else {
-            data.push(element);
+            data.push(`<span class="mentions">#${element}</span>`);
+            let arr = this.userInput.split('#'+element);
+            this.userInput = arr.join('');
           }
-        });
-        this.userInput = data.join(' ');
-      }
+        }
+        else {
+          data.push(element);
+        }
+      })
+      this.userInput = data.join(' ') + this.userInput;
       this.disabledBtn = true
-      var data = {
+      var payload = {
         sender_id: this.userData._id,
         conversation_id: this.conversationid,
         message: this.userInput,
@@ -365,15 +387,15 @@ export class ChatlistComponent implements OnInit {
 
       }
       if (this.mentionArrayIds?.length > 0) {
-        data['isMailAvailability'] = true;
-        data['isMailDelivered'] = false;
-        data['allMentionUsers'] = this.mentionArrayIds
+        payload['isMailAvailability'] = true;
+        payload['isMailDelivered'] = false;
+        payload['allMentionUsers'] = this.mentionArrayIds
       }
       if (this.file) {
-        this.onUpload(data);
+        this.onUpload(payload);
       }
       else {
-        this.sendMessageApi(data);
+        this.sendMessageApi(payload);
       }
     }
 
@@ -387,6 +409,7 @@ export class ChatlistComponent implements OnInit {
       this.Usermessage = event;
       this.chat = this.Usermessage.ChatData;
       this.mentionArrayIds = [];
+      this.mentionUserNameArray = [];
       this.sendSoketMessage();
       this.ngOnInit();
       this.file = undefined;
@@ -482,6 +505,13 @@ export class ChatlistComponent implements OnInit {
 
     this.audioPlayStatus = Array(this.allMessage.length).fill(false);
     this.audioPlayStatus[index] = true;
+
+  }
+
+  singleAudioPause(index) {
+
+    this.audioPlayStatus = Array(this.allMessage.length).fill(false);
+    this.audioPlayStatus[index] = false;
 
   }
 
