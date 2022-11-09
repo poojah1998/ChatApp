@@ -22,6 +22,8 @@ export class UserlistComponent implements OnInit {
       console.log(this.ConversationList);
 
     })
+    this.leftsidenav.newConv.next(false);
+    this.refreshPage();
   }
   filterdata(event: any) {
     this.filterData = this.ConversationList.filter(ele => ele.name?.toLowerCase().includes(event.target.value.toLowerCase()));
@@ -54,5 +56,12 @@ export class UserlistComponent implements OnInit {
       panelClass: 'custom-dialog' 
     });
 
+  }
+
+  refreshPage() {
+    this.leftsidenav.getNewConv().subscribe(result =>{
+      if(result === true)
+      this.ngOnInit();
+    })
   }
 }
