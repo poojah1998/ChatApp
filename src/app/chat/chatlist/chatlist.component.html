@@ -7,7 +7,8 @@
         <polyline points="12 19 5 12 12 5"></polyline>
       </svg>
     </div>
-    <img (click)="toggleRightSidenav()" class="msg-profile" [src]="userDetails.profile?.location? userDetails.profile?.location: this.userDetails.image" alt="" />
+    <img (click)="toggleRightSidenav()" class="msg-profile"
+      [src]="userDetails.profile?.location? userDetails.profile?.location: this.userDetails.image" alt="" />
     <div class="chat-area-title" (click)="toggleRightSidenav()">{{userDetails.name}}</div>
   </div>
   <!-- <div class="chat-area-group">
@@ -58,21 +59,24 @@
 
 
         <!-- Audio -->
-        <div class="audio-player" [style.display]="item.mediaName?.includes('.wav')? 'flex' : 'none'">
-          <audio #ref (play)="onPlay(ref)"  (timeupdate)='updateTrackTime(ref,i)'
-            [src]="item.files"></audio>
-          <div class="controls">
-            <div class="play-container">
-              <div class="toggle-play play" (click)="audioPlayStatus[i] = true;ref.play()"  *ngIf="audioPlayStatus[i]==false || audioPlayStatus[i]== undefined">
+        <div class="chat-msg-content" [style.display]="item.mediaName?.includes('.wav')? 'flex' : 'none'">
+          <div class="audio-player">
+            <audio #ref (play)="onPlay(ref)" (timeupdate)='updateTrackTime(ref,i)' [src]="item.files"></audio>
+            <div class="controls">
+              <div class="play-container">
+                <div class="toggle-play play" (click)="audioPlayStatus[i] = true;ref.play()"
+                  *ngIf="audioPlayStatus[i]==false || audioPlayStatus[i]== undefined">
+                </div>
+                <div class="toggle-play pause" (click)="audioPlayStatus[i] =false;ref.pause()"
+                  *ngIf="audioPlayStatus[i]==true">
+                </div>
               </div>
-              <div class="toggle-play pause" (click)="audioPlayStatus[i] =false;ref.pause()" *ngIf="audioPlayStatus[i]==true">
+              <div class="time">
+                <div id="currentTime-{{i}}" class="current">0:00</div>
               </div>
-            </div>
-            <div class="time">
-              <div id="currentTime-{{i}}" class="current">0:00</div>
-            </div>
-            <div class="timeline">
-              <div id="progress-{{i}}" class="progress" ></div>
+              <div class="timeline">
+                <div id="progress-{{i}}" class="progress"></div>
+              </div>
             </div>
           </div>
         </div>
@@ -97,19 +101,21 @@
         </div>
 
         <!-- audio section -->
-        <div class="audio-player" *ngIf="item.files !== ''">
-          <div class="controls">
-            <div class="play-container">
-              <div class="toggle-play play">
+        <div class="chat-msg-content" *ngIf="item.files !== ''">
+          <div class="audio-player">
+            <div class="controls">
+              <div class="play-container">
+                <div class="toggle-play play">
+                </div>
               </div>
-            </div>
-            <div class="time">
-              <div class="current">0:00</div>
-              <div class="divider">/</div>
-              <div class="length"></div>
-            </div>
-            <div class="timeline">
-              <div class="progress"></div>
+              <div class="time">
+                <div class="current">0:00</div>
+                <div class="divider">/</div>
+                <div class="length"></div>
+              </div>
+              <div class="timeline">
+                <div class="progress"></div>
+              </div>
             </div>
           </div>
         </div>
@@ -151,8 +157,9 @@
   </div> -->
 </div>
 <div class="chat-area-footer">
-  <textarea #messageInput placeholder="Type something here..." (focus)="isEmojiPickerVisible = false" [mentionConfig]="mentionConfig"
-    (itemSelected)="closed($event)" (keyup)="handleKeyUp($event)" [(ngModel)]="userInput"></textarea>
+  <textarea #messageInput placeholder="Type something here..." (focus)="isEmojiPickerVisible = false"
+    [mentionConfig]="mentionConfig" (itemSelected)="closed($event)" (keyup)="handleKeyUp($event)"
+    [(ngModel)]="userInput"></textarea>
 
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
     stroke-linecap="round" stroke-linejoin="round" class="feather feather-smile"
@@ -178,7 +185,7 @@
 
   <button mat-icon-button *ngIf="!recordStart" class="" (click)="stopPlay()" style="margin-left: 14px;">
     <mat-icon>stop_circle</mat-icon>
-  </button> 
+  </button>
   <!-- <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
     stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mic-off"
     (click)="stopPlay()" *ngIf="!recordStart">
