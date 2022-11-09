@@ -118,7 +118,7 @@ export class ChatlistComponent implements OnInit {
       //
     })
     this.getSoketMessage();
-
+    this.scrollToBottom();
   }
   // On file Select
   onChange(event) {
