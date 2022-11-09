@@ -15,6 +15,9 @@
           <span class="msg-date">20m</span>
         </div>
       </div>
+      <div class="msg-type" *ngIf="item.type == 'GROUP'">
+        {{item.type}}
+      </div>
     </div>
   </ng-container>
 

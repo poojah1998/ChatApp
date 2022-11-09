@@ -13,7 +13,7 @@ export class UserlistComponent implements OnInit {
   ConversationList: any = [];
   filterData: any = [];
   selectedUserlist: any;
-  repeat: any = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  repeat: any = [1, 2, 3, 4, 5, 6, 7];
   constructor(private leftsidenav: ChatService, public dialog: MatDialog, public breakpointObserver: BreakpointObserver, private router: Router) { }
 
   ngOnInit(): void {
