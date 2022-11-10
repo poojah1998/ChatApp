@@ -68,6 +68,7 @@ export class ChatlistComponent implements OnInit {
   isPlaying: boolean = false;
   convData: any[] = [];
   filterUserDetail: any;
+  apiexecute = false;
   constructor(private sidenav: ChatService, private activateRoute: ActivatedRoute, private datePipe: DatePipe, private router: Router, private socketService: SocketService, private audioService: AudioService) {
 
   }
@@ -85,19 +86,19 @@ export class ChatlistComponent implements OnInit {
       this.sidenav.allHashtag().subscribe((hashtags: any) => {
         this.hashtag = hashtags.map((ele: any) => ele.name);
         this.sidenav.getAllconversationUser(this.conversationid).subscribe((data: any[] | any) => {
-
+          this.apiexecute = true;
           this.allConversation = data;
           console.log(this.allConversation);
-    
+
           this.convData = this.allConversation.filter((o: any) => o.user_id && o.user_id._id != this.ownerId);
-          
+
           console.log(this.convData);
           this.mentionUsers = data.map((ele: any) => {
-            if(ele.user_id){
+            if (ele.user_id) {
               return ele.user_id.name
             }
           });
-          this.mentionUsers = this.mentionUsers.filter((o: any)=>o != undefined);
+          this.mentionUsers = this.mentionUsers.filter((o: any) => o != undefined);
           console.log(this.mentionUsers)
           this.mentionConfig = {
             mentions: [
@@ -138,13 +139,13 @@ export class ChatlistComponent implements OnInit {
     this.scrollToBottom();
   }
   convrsationDetails(id: any) {
-
+    
     return this.convData.filter(o => o.user_id._id == id)[0]?.user_id;
   }
 
 
   setUserInfo(user_id) {
-    this.filterUserDetail=this.allConversation.filter(o=> o.user_id && o.user_id._id == user_id)[0]
+    this.filterUserDetail = this.allConversation.filter(o => o.user_id && o.user_id._id == user_id)[0]
     console.log(this.filterUserDetail)
     console.log(this.allConversation)
   }
@@ -188,7 +189,7 @@ export class ChatlistComponent implements OnInit {
           this.closePreview();
           // Short link via api response
           this.shortLink = event.location;
-          
+
           this.mediaName = event.originalname;
           if (this.file.type.includes("image/")) {
             data['image'] = this.shortLink;
