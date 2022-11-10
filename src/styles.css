@@ -441,6 +441,7 @@ html {
   scroll-behavior: smooth;
   background-color: var(--input-bg);
   background-image: url('./assets/image/chat-bg-pattern.png');
+  background-size: 470px;
 }
 
 .chat-area-main,
