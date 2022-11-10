@@ -39,9 +39,9 @@
     </ng-container>
   </div>
   <div class="detail-changes">
-    <div class="detail-change flex-column">
+    <div class="detail-change flex-column" >
       <div class="d-flex align-items-center" (click)="additionalDetails('about')"
-        [ngClass]="{'detail-photo-title': about}">
+        [ngClass]="{'detail-photo-title': about}" *ngIf="userDetails.type !== 'GROUP'">
         About
         <div class="colors">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -57,9 +57,19 @@
         </div>
       </div>
       <div class="" *ngIf="about">
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ea debitis, maiores deserunt veniam pariatur illo,
-        esse
-        totam mollitia aperiam, eligendi provident eveniet nemo nam velit voluptate molestiae illum ad dicta?
+        <div class="profName">
+          <h4>{{conversation.name}}</h4>
+        </div>
+        <div class="">
+          <p>
+            Type : {{conversation.type
+            }}
+          </p>
+          <!-- <p>Email : {{conversation.emailid ? conversation.emailid : '--' }} </p>
+          <p>Country : {{conversation.country ? conversation.country : '--'}}</p>
+          <p>Contact : {{conversation.contact ? conversation.contact : '--'}}</p>
+          <p>Partnercategory : {{conversation.partnercategory ? conversation.partnercategory : '--'}}</p> -->
+        </div>
       </div>
     </div>
     <div class="detail-change flex-column">
