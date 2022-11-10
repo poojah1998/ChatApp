@@ -8,34 +8,21 @@
   </div>
 </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 <div class="detail-area-body">
   <div class="detail-area-header skeleton-placeholder">
     <ng-container *ngIf="userDetails">
-    <div class="msg-profile group">
-      <img src="{{userDetails.image}}" alt="" class="msg-profile mb-0">
-    </div>
-    <div class="detail-title">{{userDetails.name}}</div>
-    <div class="detail-subtitle">{{userDetails.user_type}}</div>
-  </ng-container>
+      <div class="msg-profile group">
+        <img src="{{userDetails.image}}" alt="" class="msg-profile mb-0">
+      </div>
+      <div class="detail-title">{{userDetails.name}}</div>
+      <div class="detail-subtitle">{{userDetails.user_type}}</div>
+    </ng-container>
     <ng-container *ngIf="!userDetails">
-        <div class="msg-profile group">
-          <span class="msg-profile mb-0 load"></span>
-        </div>
-        <div class="detail-title load" style="width:155px; height: 28px;border-radius: 5px;"></div>
-        <div class="detail-subtitle load"></div>
+      <div class="msg-profile group">
+        <span class="msg-profile mb-0 load"></span>
+      </div>
+      <div class="detail-title load" style="width:155px; height: 28px;border-radius: 5px;"></div>
+      <div class="detail-subtitle load"></div>
     </ng-container>
   </div>
   <div class="detail-changes">
@@ -84,7 +71,7 @@
           <img src="{{item.image}}" />
         </ng-container>
         <ng-container *ngIf="allPhotos.length == 0">
-              <span class="load" style="height: 100%; width: 100%;border-radius: 8px;"></span>
+          <span class="load" style="height: 100%; width: 100%;border-radius: 8px;"></span>
         </ng-container>
       </div>
       <div class="view-more" *ngIf="images">View More</div>
@@ -121,6 +108,47 @@
         </ng-container>
       </div>
       <div class="view-more" *ngIf="files">View More</div>
+    </div>
+  </div>
+
+
+  <div class="detail-changes">
+    <div class="detail-change flex-column">
+      <div class="d-flex align-items-center">
+        Participants
+        <div class="colors">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+            class="feather feather-chevron-right">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </div>
+      </div>
+      <div class="participants-fakeSearch">
+        <input type="text" placeholder="Search..">
+      </div>
+      <div class="participant-lists">
+        <span>
+          <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png" alt="">
+        </span>
+        <span>
+          <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png" alt="">
+        </span>
+        <span>
+          <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png" alt="">
+        </span>
+        <span>
+          <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png" alt="">
+        </span>
+        <span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
+            class="feather feather-plus">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+        </span>
+      </div>
     </div>
   </div>
 </div>
