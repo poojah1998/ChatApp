@@ -15,7 +15,7 @@
       <polyline points="12 19 5 12 12 5"></polyline>
     </svg>
   </div>
-  <input type="text" placeholder="Search..">
+  <input type="text" placeholder="Search.." (keyup)="filterdata($event)">
 </div>
 
 <div class="detail-area-body" *ngIf="!participantSearchWindow">
@@ -144,9 +144,9 @@
   </div>
 
 
-  <div class="detail-changes">
+  <div class="detail-changes"  *ngIf="conversation.type == 'GROUP'">
     <div class="detail-change flex-column">
-      <div class="d-flex align-items-center" (click)="allParticipantsSearch()" style="cursor: pointer">
+      <div class="d-flex align-items-center" (click)="allParticipantsSearch()" style="cursor: pointer" >
         Participants <span class="ms-auto">12</span>
         <div class="colors ms-2">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -164,8 +164,11 @@
         </svg>
         <div class="fake-placeholder">Search..</div>
       </div>
-      <div class="participant-lists">
-        <span>
+      <div class="participant-lists" >
+        <span *ngFor="let data of allConversation">
+          <img [src]="data.user_id?.profile?.location ? data.user_id?.profile?.location:'https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png'" alt="">
+        </span>
+        <!-- <span>
           <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png" alt="">
         </span>
         <span>
@@ -176,10 +179,7 @@
         </span>
         <span>
           <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png" alt="">
-        </span>
-        <span>
-          <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png" alt="">
-        </span>
+        </span> -->
         <span (click)="newChat()">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
             stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
@@ -194,16 +194,16 @@
 </div>
 
 <div class="detail-area-body" *ngIf="participantSearchWindow">
-  <div class="msg border-0">
-    <img class="msg-profile" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png" alt="" />
+  <div class="msg border-0" *ngFor="let data of filterData">
+    <img class="msg-profile" [src]="data.user_id?.profile?.location ? data.user_id?.profile?.location:'https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png'" alt="" />
     <div class="msg-detail">
-      <div class="msg-username">Name</div>
+      <div class="msg-username">{{data.user_id?.name}}</div>
     </div>
     <div class="msg-type align-self-center">
       Admin
     </div>
   </div>
-  <div class="msg border-0">
+  <!-- <div class="msg border-0">
     <img class="msg-profile" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png" alt="" />
     <div class="msg-detail">
       <div class="msg-username">Name</div>
@@ -292,15 +292,7 @@
     <div class="msg-detail">
       <div class="msg-username">Name</div>
     </div>
-    <button mat-icon-button (click)="remove(removeUser)">
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-        class="feather feather-trash">
-        <polyline points="3 6 5 6 21 6"></polyline>
-        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-      </svg>
-    </button>
-  </div>
+  </div> -->
 </div>
 <ng-template #removeUser>
   <div mat-dialog-content>
