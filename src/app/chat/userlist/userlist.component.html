@@ -24,6 +24,7 @@
         <div class="msg-username">{{item.name}}</div>
         <div class="msg-content">
           <span class="msg-message">Last chated on</span>
+          <span></span>
           <span class="msg-date">20m</span>
         </div>
       </div>
@@ -33,7 +34,7 @@
     </div>
   </ng-container>
 
-  <ng-container *ngIf="filterData.length == 0">
+  <ng-container *ngIf="filterData.length == 0 && !apiexecute">
     <ng-container *ngFor="let item of repeat">
       <div class="msg skeleton-placeholder">
         <span class="msg-profile load"></span>
@@ -46,6 +47,10 @@
     </ng-container>
   </ng-container>
   <div class="overlay"></div>
+</div>
+
+<div class="noRecord" *ngIf="filterData.length == 0 && apiexecute">
+  No Record Found
 </div>
 
 <button class="add" (click)="newChat()"></button>

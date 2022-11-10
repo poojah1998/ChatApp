@@ -23,7 +23,7 @@
 
       <div class="chat-area-title" (click)="toggleRightSidenav()">{{userDetails.name}}</div>
     </ng-container>
-    <ng-container *ngIf="allMessage.length == 0">
+    <ng-container *ngIf="allMessage.length == 0 && !apiexecute">
       <span class="msg-profile load"></span>
       <div class="chat-area-title load" style="width: 160px; height: 28px;border-radius: 5px;"></div>
     </ng-container>
@@ -44,8 +44,8 @@
 
         <!-- user image section -->
         <div class="chat-msg-profile">
-          <img class="chat-msg-img" [ngbPopover]="userInfo" container="body" (click)="setUserInfo(item._id)"
-            src="./assets/image/myphoto.png" alt="" />
+          <img class="chat-msg-img" [ngbPopover]="userInfo" container="body" (click)="setUserInfo(item.sender_id)"
+            src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png" alt="" />
           <div class="chat-msg-date">{{calculateDiff(item.createdAt)}} Message sent at {{getTime(item.createdAt)}}</div>
         </div>
 
@@ -113,10 +113,9 @@
       <div class="chat-msg">
         <!-- OTHERSIDE OF USERS -->
         <div class="chat-msg-profile">
-          <img class="chat-msg-img"
-            [src]="convrsationDetails(item.sender_id)?.profile?.location?convrsationDetails(item.sender_id)?.profile?.location:'https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png'"
-            alt="">
-          <p style="font-size: 12px;">{{convrsationDetails(item.sender_id)?.name}}</p>
+         
+          <img class="chat-msg-img"  [ngbPopover]="userInfo" (click)="setUserInfo(item.sender_id)" [src]="convrsationDetails(item.sender_id)?.profile?.location?convrsationDetails(item.sender_id)?.profile?.location:'https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png'" alt="">
+       <p style="font-size: 12px;">{{convrsationDetails(item.sender_id)?.name}}</p>
           <div class="chat-msg-date">{{calculateDiff(item.createdAt)}} Message sent at {{getTime(item.createdAt)}}</div>
         </div>
 
@@ -180,7 +179,7 @@
     </ng-template>
   </ng-container>
 
-  <ng-container *ngIf="allMessage.length == 0">
+  <ng-container *ngIf="allMessage.length == 0 && !apiexecute">
     <ng-container *ngFor="let item of repeat">
       <div class="chat-msg">
         <div class="chat-msg-profile" style="width: 40px;">
@@ -221,6 +220,10 @@
       </div>
     </ng-container>
   </ng-container>
+
+
+  
+
 
 </div>
 <div class="chat-file-preview"
@@ -333,19 +336,21 @@
     </div>
     <div class="userProfileDetails pt-0">
       <div class="profImg">
-        <img class="chat-msg-img" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png"
+        <img class="chat-msg-img" [src]="filterUserDetail.user_id.profile.location ? filterUserDetail.user_id.profile.location : 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png'"
           alt="" />
       </div>
       <div class="profName">
-        <h4>Mike Tyson</h4>
+        <h4>{{filterUserDetail.user_id.name}}</h4>
       </div>
       <div class="">
         <p>
-          Role : DC
+          Role : {{filterUserDetail.user_type
+          }}
         </p>
-        <p>
-          Lorem Ipsum
-        </p>
+        <p>Email : {{filterUserDetail.emailid ? filterUserDetail.emailid : '--' }} </p>
+        <p>Country : {{filterUserDetail.country ? filterUserDetail.country : '--'}}</p>
+        <p>Contact : {{filterUserDetail.contact ? filterUserDetail.contact : '--'}}</p>
+        <p>Partnercategory : {{filterUserDetail.partnercategory ? filterUserDetail.partnercategory : '--'}}</p>
       </div>
     </div>
   </div>
