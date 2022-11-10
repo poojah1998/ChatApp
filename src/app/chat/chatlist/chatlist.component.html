@@ -339,21 +339,21 @@
     </div>
     <div class="userProfileDetails pt-0">
       <div class="profImg">
-        <img class="chat-msg-img" [src]="filterUserDetail.user_id.profile.location ? filterUserDetail.user_id.profile.location : 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png'"
+        <img class="chat-msg-img" [src]="filterUserDetail?.user_id.profile.location ? filterUserDetail?.user_id.profile.location : 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png'"
           alt="" />
       </div>
       <div class="profName">
-        <h4>{{filterUserDetail.user_id.name}}</h4>
+        <h4>{{filterUserDetail?.user_id.name}}</h4>
       </div>
       <div class="">
         <p>
-          Role : {{filterUserDetail.user_type
+          Role : {{filterUserDetail?.user_type
           }}
         </p>
-        <p>Email : {{filterUserDetail.emailid ? filterUserDetail.emailid : '--' }} </p>
-        <p>Country : {{filterUserDetail.country ? filterUserDetail.country : '--'}}</p>
-        <p>Contact : {{filterUserDetail.contact ? filterUserDetail.contact : '--'}}</p>
-        <p>Partnercategory : {{filterUserDetail.partnercategory ? filterUserDetail.partnercategory : '--'}}</p>
+        <p>Email : {{filterUserDetail?.emailid ? filterUserDetail.emailid : '--' }} </p>
+        <p>Country : {{filterUserDetail?.country ? filterUserDetail.country : '--'}}</p>
+        <p>Contact : {{filterUserDetail?.contact ? filterUserDetail.contact : '--'}}</p>
+        <p>Partnercategory : {{filterUserDetail?.partnercategory ? filterUserDetail.partnercategory : '--'}}</p>
       </div>
     </div>
   </div>

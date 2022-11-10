@@ -99,12 +99,16 @@
         </div>
       </div>
       <div class="detail-photo-grid skeleton-placeholder" *ngIf="images">
-        <ng-container *ngFor="let item of allPhotos ">
+        <ng-container *ngFor="let item of allPhotos">
           <img src="{{item.image}}" />
         </ng-container>
-        <ng-container *ngIf="allPhotos.length == 0">
+     
+        <ng-container *ngIf="allPhotos.length == 0 && !apiexecute">
           <span class="load" style="height: 100%; width: 100%;border-radius: 8px;"></span>
         </ng-container>
+        <div class="noRecord" *ngIf="allPhotos.length == 0 && apiexecute">
+          No photos 
+        </div>
       </div>
       <div class="view-more" *ngIf="images">View More</div>
     </div>
@@ -143,6 +147,8 @@
     </div>
   </div>
 
+  
+  
 
   <div class="detail-changes"  *ngIf="conversation.type == 'GROUP'">
     <div class="detail-change flex-column">
@@ -194,7 +200,7 @@
 </div>
 
 <div class="detail-area-body" *ngIf="participantSearchWindow">
-  <div class="msg border-0" *ngFor="let data of filterData">
+  <div class="msg border-0" *ngFor="let data of allConversation">
     <img class="msg-profile" [src]="data.user_id?.profile?.location ? data.user_id?.profile?.location:'https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png'" alt="" />
     <div class="msg-detail">
       <div class="msg-username">{{data.user_id?.name}}</div>
