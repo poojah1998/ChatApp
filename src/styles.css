@@ -445,6 +445,31 @@ html {
   background-size: 470px;
 }
 
+.msg-date-grp{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.msg-date-grp::before,
+.msg-date-grp::after{
+   content: '';
+   height: 1px;
+   background: var(--border-color); 
+   flex-grow: 1;
+}
+
+.msg-date-grp span{
+  background: #fff;
+  padding: 4px 15px;
+  display: inline-block;
+  margin: 0 10px;
+  border-radius: 8px;
+  font-size: 12px;
+  text-transform: uppercase;
+  border: 1px solid var(--border-color);
+}
+
 .chat-area-main,
 .chat-file-preview {
   flex-grow: 1;
