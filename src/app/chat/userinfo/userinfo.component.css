@@ -1,0 +1,21 @@
+.search-user-group {
+    min-height: 60px;
+    border-bottom: 1px solid var(--border-color);
+    padding: 0 22px;
+    display: flex;
+    align-items: center;
+}
+
+.search-user-group input{
+    border: none;
+    color: var(--body-color);
+    background-color: var(--input-bg);
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 15px;
+    width: 100%;
+}
+
+.msg{
+    border-radius: 8px;
+}

@@ -23,6 +23,7 @@ export class UserinfoComponent implements OnInit {
   file: any;
   conversation: any;
   repeat: any = [1];
+  participantSearchWindow: boolean;
   constructor(private sidenav: ChatService, public dialog: MatDialog, private activateRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
@@ -100,6 +101,10 @@ export class UserinfoComponent implements OnInit {
       width: '480px',
       panelClass: 'custom-dialog' 
     });
+  }
+
+  allParticipantsSearch(){
+    this.participantSearchWindow = true
   }
 
 }

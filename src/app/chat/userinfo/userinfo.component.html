@@ -1,4 +1,4 @@
-<div class="chat-area-header">
+<div class="chat-area-header" *ngIf="!participantSearchWindow">
   <div class="chat-area-group" (click)="closeSidenav()">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
       stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
@@ -7,8 +7,18 @@
     </svg>
   </div>
 </div>
+<div class="search-user-group" *ngIf="participantSearchWindow">
+  <div class="chat-area-group me-2" (click)="participantSearchWindow = false">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+      stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left">
+      <line x1="19" y1="12" x2="5" y2="12"></line>
+      <polyline points="12 19 5 12 12 5"></polyline>
+    </svg>
+  </div>
+  <input type="text" placeholder="Search..">
+</div>
 
-<div class="detail-area-body">
+<div class="detail-area-body" *ngIf="!participantSearchWindow">
   <div class="detail-area-header skeleton-placeholder">
     <ng-container *ngIf="userDetails">
       <div class="msg-profile group">
@@ -114,7 +124,7 @@
 
   <div class="detail-changes">
     <div class="detail-change flex-column">
-      <div class="d-flex align-items-center">
+      <div class="d-flex align-items-center" (click)="allParticipantsSearch()" style="cursor: pointer">
         Participants <span class="ms-auto">12</span>
         <div class="colors ms-2">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -124,7 +134,7 @@
           </svg>
         </div>
       </div>
-      <div class="participants-fakeSearch">
+      <div class="participants-fakeSearch" (click)="allParticipantsSearch()">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
           stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
           <circle cx="11" cy="11" r="8"></circle>
@@ -157,6 +167,57 @@
           </svg>
         </span>
       </div>
+    </div>
+  </div>
+</div>
+
+<div class="detail-area-body" *ngIf="participantSearchWindow">
+  <div class="msg border-0">
+    <img class="msg-profile" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png" alt="" />
+    <div class="msg-detail">
+      <div class="msg-username">Name</div>
+    </div>
+  </div>
+  <div class="msg border-0">
+    <img class="msg-profile" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png" alt="" />
+    <div class="msg-detail">
+      <div class="msg-username">Name</div>
+    </div>
+  </div>
+  <div class="msg border-0">
+    <img class="msg-profile" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png" alt="" />
+    <div class="msg-detail">
+      <div class="msg-username">Name</div>
+    </div>
+  </div>
+  <div class="msg border-0">
+    <img class="msg-profile" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png" alt="" />
+    <div class="msg-detail">
+      <div class="msg-username">Name</div>
+    </div>
+  </div>
+  <div class="msg border-0">
+    <img class="msg-profile" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png" alt="" />
+    <div class="msg-detail">
+      <div class="msg-username">Name</div>
+    </div>
+  </div>
+  <div class="msg border-0">
+    <img class="msg-profile" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png" alt="" />
+    <div class="msg-detail">
+      <div class="msg-username">Name</div>
+    </div>
+  </div>
+  <div class="msg border-0">
+    <img class="msg-profile" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png" alt="" />
+    <div class="msg-detail">
+      <div class="msg-username">Name</div>
+    </div>
+  </div>
+  <div class="msg border-0">
+    <img class="msg-profile" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png" alt="" />
+    <div class="msg-detail">
+      <div class="msg-username">Name</div>
     </div>
   </div>
 </div>
