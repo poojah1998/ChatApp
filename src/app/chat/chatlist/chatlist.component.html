@@ -54,9 +54,8 @@
         <!-- File -->
         <div class="file" *ngIf="item.mediaName?.includes('.pdf')">
           <img src="./assets/image/file.png" alt="">
-          <!-- <img src="./assets/image/doc.png" alt="" *ngIf="item.mediaName?.includes('.docx')" > -->
           <div class="file_details">
-            <h4>{{item.mediaName}}</h4>
+            <h4>{{getName(item.mediaName)}}</h4>
             <!-- <div class="d-flex">
               <span>232 KB</span>
             </div> -->
@@ -98,11 +97,12 @@
     </ng-container>
     <ng-template #templateA>
       <div class="chat-msg">
+        <!-- OTHERSIDE OF USERS -->
         <div class="chat-msg-profile">
          
           <img class="chat-msg-img"  [ngbPopover]="userInfo" (click)="setUserInfo(item.sender_id)" [src]="convrsationDetails(item.sender_id)?.profile?.location?convrsationDetails(item.sender_id)?.profile?.location:'https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png'" alt="">
        <p style="font-size: 12px;">{{convrsationDetails(item.sender_id)?.name}}</p>
-          <div class="chat-msg-date">Message seen 3.16pm</div>
+          <div class="chat-msg-date">{{calculateDiff(item.createdAt)}} Message sent at {{getTime(item.createdAt)}}</div>
         </div>
 
         <!-- chat section -->
@@ -117,16 +117,46 @@
             <p [innerHtml]="item.message" style="margin: 10px 0px 0;"></p>
           </div>
         </div>
-
-        <!-- audio section -->
-        <div class="audio-player" [style.display]="item.mediaName?.includes('.wav')? 'flex' : 'none'">
-          <div class="controls">
-            <div class="play-container">
-              <div class="toggle-play play">
-              </div>
+  <!-- File -->
+  <div class="file" *ngIf="item.mediaName?.includes('.pdf')">
+    <img src="./assets/image/file.png" alt="">
+    <div class="file_details">
+      <h4>{{getName(item.mediaName)}}</h4>
+      <!-- <div class="d-flex">
+        <span>232 KB</span>
+      </div> -->
+    </div>
+  </div>
+       <!-- Audio -->
+       <div class="audio-player" [style.display]="item.mediaName?.includes('.wav')? 'flex' : 'none'">
+        <audio #ref (play)="onPlay(ref)"  (timeupdate)='updateTrackTime(ref,i)' (loadeddata)="showDurationOfAudio(ref)"
+          [src]="item.files"></audio>
+        <div class="controls">
+          <!-- <div class="play-container">
+            <div class="toggle-play play" (click)="audioPlayStatus[i] = true;ref.play()"  *ngIf="audioPlayStatus[i]==false || audioPlayStatus[i]== undefined">
+            </div>
+            <div class="time">
+              <div id="currentTime-{{i}}" class="current">0:00</div>
+            </div>
+            <div class="timeline">
+              <div id="progress-{{i}}" class="progress"></div>
+            </div>
+          </div> -->
+           
+          <div class="play-container">
+            <div class="toggle-play play" (click)="singleAudioPlay(i);ref.play()" [style.display]="audioPlayStatus[i]==false || audioPlayStatus[i]== undefined ? 'block' : 'none'" >
+            </div>
+            <div class="toggle-play pause" (click)="singleAudioPause(i);ref.pause()"  [style.display]="audioPlayStatus[i]==true ? 'block' : 'none'">
             </div>
           </div>
+          <div class="time">
+            <div id="currentTime-{{i}}" class="current">0:00</div>
+          </div>
+          <div class="timeline">
+            <div id="progress-{{i}}" class="progress" ></div>
+          </div>
         </div>
+      </div>
 
 
       </div>
