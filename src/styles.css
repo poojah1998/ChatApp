@@ -265,7 +265,7 @@ html {
 }
 
 .conversation-area {
-  border-right: 1px solid var(--border-color);
+  /* border-right: 1px solid var(--border-color); */
   overflow-y: hidden;
   overflow-x: hidden;
   display: flex;
@@ -1225,7 +1225,8 @@ ngx-audio-player mat-card{
 
 .popover{
   min-width: 330px;
-  border: 0 !important;
+  /* border: 0 !important; */
+  overflow: hidden;
 }
 
 .popover-body{
@@ -1262,11 +1263,41 @@ ngx-audio-player mat-card{
 
 
 .participant-lists{
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-column-gap: 5px;
+  padding-top: 14px;
+}
 
+.participants-fakeSearch{
+  display: flex;
+  border: none;
+  background-color: var(--input-bg);
+  padding: 6px 12px;
+  border-radius: 6px;
+  margin-top: 10px;
+  font-size: 15px;
+  width: 100%;
+  user-select: none;
+  cursor: pointer;
+}
+.participants-fakeSearch svg{
+  margin-left: 0;
+}
+.participants-fakeSearch .fake-placeholder{
+  margin-left: 10px;
+  font-weight: 400;
 }
 
 .participant-lists span{
-  
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  box-shadow: 0px 0px 0px 1px var(--border-color);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .participant-lists span img{
