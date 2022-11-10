@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Route, Router } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ChatService } from './../chat.service';
 import { NewchatComponent } from '../newchat/newchat.component'
 @Component({
@@ -116,4 +116,10 @@ export class UserinfoComponent implements OnInit {
     this.participantSearchWindow = true
   }
 
+
+  remove(templateRef) {
+    let dialogRef = this.dialog.open(templateRef, {
+     width: '300px'
+   });
+  }
 }
