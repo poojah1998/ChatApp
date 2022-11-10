@@ -505,8 +505,8 @@ html {
 }
 
 .chat-msg-profile {
-  flex-shrink: 0;
-  margin-top: auto;
+  /* flex-shrink: 0;
+  margin-top: auto; */
   margin-bottom: -20px;
   position: relative;
 }
@@ -535,13 +535,20 @@ html {
 .chat-msg-text {
   background-color: var(--chat-text-bg);
   padding: 15px;
-  border-radius: 20px 20px 20px 0;
+  border-radius: 0 20px 20px 20px;
   line-height: 1.5;
   font-size: 14px;
   font-weight: 500;
 }
 .chat-msg-text + .chat-msg-text {
   margin-top: 10px;
+}
+
+.chat-msg-profile-name{
+  font-weight: bold;
+  font-size: 12px;
+  margin-bottom: 5px;
+  color: #729cdd;
 }
 
 .chat-msg-text {
@@ -559,7 +566,7 @@ html {
 .owner .chat-msg-text {
   background-color: var(--chat-bubble-right-bg);
   color: #000;
-  border-radius: 20px 20px 0 20px;
+  border-radius: 20px 0 20px 20px;
   word-break: break-all;
 }
 .owner .chat-msg-date {

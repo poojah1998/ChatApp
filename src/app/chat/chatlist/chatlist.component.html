@@ -39,14 +39,14 @@
 
         <!-- chat section -->
         <div class="chat-msg-content" *ngIf="item.image === '' && item.files === ''">
-          <div class="chat-msg-text" [innerHtml]="item.message"></div>
+          <div class="chat-msg-text" [innerHtml]="item.message | safeHtml"></div>
         </div>
 
         <!-- image section -->
         <div class="chat-msg-content" *ngIf="item.image !== ''">
           <div class="chat-msg-text">
             <img src="{{item.image}}" alt="">
-            <p [innerHtml]="item.message" style="margin: 10px 0px 0;"></p>
+            <p [innerHtml]="item.message | safeHtml" style="margin: 10px 0px 0;"></p>
           </div>
         </div>
 
@@ -101,20 +101,20 @@
         <div class="chat-msg-profile">
          
           <img class="chat-msg-img" [src]="convrsationDetails(item.sender_id)?.profile?.location?convrsationDetails(item.sender_id)?.profile?.location:'https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png'" alt="">
-       <p style="font-size: 12px;">{{convrsationDetails(item.sender_id)?.name}}</p>
           <div class="chat-msg-date">Message seen 3.16pm</div>
         </div>
 
         <!-- chat section -->
         <div class="chat-msg-content" *ngIf="item.image === '' && item.files === ''">
-          <div class="chat-msg-text" [innerHtml]="item.message"></div>
+          <div class="chat-msg-profile-name">{{convrsationDetails(item.sender_id)?.name}}</div>
+          <div class="chat-msg-text" [innerHtml]="item.message | safeHtml"></div>
         </div>
 
         <!-- image section -->
         <div class="chat-msg-content" *ngIf="item.image !== ''">
           <div class="chat-msg-text">
             <img src="{{item.image}}" alt="">
-            <p [innerHtml]="item.message" style="margin: 10px 0px 0;"></p>
+            <p [innerHtml]="item.message | safeHtml" style="margin: 10px 0px 0;"></p>
           </div>
         </div>
 

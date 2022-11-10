@@ -16,6 +16,7 @@ import { PickerModule } from '@ctrl/ngx-emoji-mart';
 import { NewchatComponent } from './newchat/newchat.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxAudioPlayerModule } from 'ngx-audio-player';
+import { SafeHtmlPipe } from './safe-html.pipe';
 @NgModule({
   declarations: [
     UserlistComponent,
@@ -23,6 +24,7 @@ import { NgxAudioPlayerModule } from 'ngx-audio-player';
     UserinfoComponent,
     ChatComponent,
     NewchatComponent,
+    SafeHtmlPipe,
    
   ],
  
