@@ -116,7 +116,7 @@ export class UserinfoComponent implements OnInit {
     let dialogRef = this.dialog.open(NewchatComponent, { 
       width: '480px',
       panelClass: 'custom-dialog' ,
-     
+    
     });
   }
 
