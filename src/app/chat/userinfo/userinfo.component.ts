@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Route, Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
 import { ChatService } from './../chat.service';
+import { NewchatComponent } from '../newchat/newchat.component'
 @Component({
   selector: 'app-userinfo',
   templateUrl: './userinfo.component.html',
@@ -23,7 +25,9 @@ export class UserinfoComponent implements OnInit {
   repeat: any = [1];
   allMessage:any[]=[];
   filterUserDetail:any;
-  constructor(private sidenav: ChatService, private activateRoute: ActivatedRoute, private router: Router) { }
+  // constructor(private sidenav: ChatService, private activateRoute: ActivatedRoute, private router: Router) { }
+  participantSearchWindow: boolean;
+  constructor(private sidenav: ChatService, public dialog: MatDialog, private activateRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     //coming from params 
@@ -33,15 +37,18 @@ export class UserinfoComponent implements OnInit {
       console.log(this.conversation)
       this.userId = params["userId"];
       this.conversationId = params["conversationId"];
+     
       // coming from chat list component
       this.sidenav.getAllconversationUser(this.conversationId).subscribe((data: any) => {
         this.allConversation = data;
-        console.log(this.allConversation)
+        console.log(this.conversation);
         if (this.conversation.type !== 'INDIVIDUAL') {
           this.userDetails = this.conversation; // need to change for all user
+          console.log(this.userDetails);
         }
         else {
           this.userDetails = data[0].user_id;
+          console.log(this.userDetails);
         }
       })
       this.sidenav.getAllPhotos(this.conversationId).subscribe((photos: any) => {
@@ -94,9 +101,19 @@ export class UserinfoComponent implements OnInit {
   }
 
   closeSidenav() {
-
     this.sidenav.close();
     this.router.navigate([`/chat/${this.conversationId}`]);
+  }
+
+  newChat() { 
+    let dialogRef = this.dialog.open(NewchatComponent, { 
+      width: '480px',
+      panelClass: 'custom-dialog' 
+    });
+  }
+
+  allParticipantsSearch(){
+    this.participantSearchWindow = true
   }
 
 }

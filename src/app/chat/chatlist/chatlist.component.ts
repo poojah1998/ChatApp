@@ -117,9 +117,11 @@ export class ChatlistComponent implements OnInit {
           this.newChatData = data.filter((o: any) => o.user_id && o.user_id._id != this.userData._id)
           if (this.conversation.type !== 'INDIVIDUAL') {
             this.userDetails = this.conversation; // need to change for all user
+            console.log(this.userDetails);
           }
           else {
             this.userDetails = this.newChatData[0].user_id;
+            console.log(this.userDetails);
           }
           this.receiverIds = data.map((o: any) => o.user_id && o.user_id._id)
         })
@@ -127,6 +129,7 @@ export class ChatlistComponent implements OnInit {
       //chatting page
       this.sidenav.allMessageById(this.conversationid).subscribe((data: any) => {
         this.allMessage = data;
+        console.log(this.allMessage);
         setTimeout(() => {
           this.scrollToBottom();
         }, 500);
