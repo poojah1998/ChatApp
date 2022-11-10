@@ -23,7 +23,12 @@ export class UserinfoComponent implements OnInit {
   file: any;
   conversation: any;
   repeat: any = [1];
+  allMessage:any[]=[];
+  filterUserDetail:any;
+  // constructor(private sidenav: ChatService, private activateRoute: ActivatedRoute, private router: Router) { }
   participantSearchWindow: boolean;
+  filterData: any;
+  apiexecute = false;
   constructor(private sidenav: ChatService, public dialog: MatDialog, private activateRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
@@ -31,13 +36,15 @@ export class UserinfoComponent implements OnInit {
 
     this.activateRoute.params.subscribe(params => {
       this.conversation = JSON.parse(localStorage.getItem("currentConversationData") || '{}');
+      console.log(this.conversation)
       this.userId = params["userId"];
       this.conversationId = params["conversationId"];
      
       // coming from chat list component
       this.sidenav.getAllconversationUser(this.conversationId).subscribe((data: any) => {
         this.allConversation = data;
-        console.log(this.conversation);
+        this.filterData= this.allConversation;
+        console.log(this.allConversation);
         if (this.conversation.type !== 'INDIVIDUAL') {
           this.userDetails = this.conversation; // need to change for all user
           console.log(this.userDetails);
@@ -48,6 +55,7 @@ export class UserinfoComponent implements OnInit {
         }
       })
       this.sidenav.getAllPhotos(this.conversationId).subscribe((photos: any) => {
+        this.apiexecute = true;
         this.allPhotos = photos;
       })
       this.sidenav.getAllFiles(this.conversationId).subscribe((allfiles: any) => {
@@ -56,11 +64,15 @@ export class UserinfoComponent implements OnInit {
         this.file = allfiles.files
       })
     })
-
+    
 
   }
-
+  filterdata(event: any) {
+    // this.apiexecute = true;
+    this.filterData = this.allConversation.filter(ele => ele.user_id?.name.toLowerCase().includes(event.target.value.toLowerCase()));
+  }
   additionalDetails(name: any) {
+  
     if (name == 'about') {
       this.about = !this.about;
       if (this.about == true) {
@@ -103,7 +115,8 @@ export class UserinfoComponent implements OnInit {
   newChat() { 
     let dialogRef = this.dialog.open(NewchatComponent, { 
       width: '480px',
-      panelClass: 'custom-dialog' 
+      panelClass: 'custom-dialog' ,
+    
     });
   }
 

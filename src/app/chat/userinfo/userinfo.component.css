@@ -19,3 +19,9 @@
 .msg{
     border-radius: 8px;
 }
+
+.noRecord{
+    text-align: center;
+    padding: 10vw 10px;
+    color: #000;
+  }

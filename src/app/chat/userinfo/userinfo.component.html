@@ -15,7 +15,7 @@
       <polyline points="12 19 5 12 12 5"></polyline>
     </svg>
   </div>
-  <input type="text" placeholder="Search..">
+  <input type="text" placeholder="Search.." (keyup)="filterdata($event)">
 </div>
 
 <div class="detail-area-body" *ngIf="!participantSearchWindow">
@@ -48,9 +48,9 @@
     </ng-container>
   </div>
   <div class="detail-changes">
-    <div class="detail-change flex-column">
+    <div class="detail-change flex-column" >
       <div class="d-flex align-items-center" (click)="additionalDetails('about')"
-        [ngClass]="{'detail-photo-title': about}">
+        [ngClass]="{'detail-photo-title': about}" *ngIf="userDetails.type !== 'GROUP'">
         About
         <div class="colors">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -66,9 +66,19 @@
         </div>
       </div>
       <div class="" *ngIf="about">
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ea debitis, maiores deserunt veniam pariatur illo,
-        esse
-        totam mollitia aperiam, eligendi provident eveniet nemo nam velit voluptate molestiae illum ad dicta?
+        <div class="profName">
+          <h4>{{conversation.name}}</h4>
+        </div>
+        <div class="">
+          <p>
+            Type : {{conversation.type
+            }}
+          </p>
+          <!-- <p>Email : {{conversation.emailid ? conversation.emailid : '--' }} </p>
+          <p>Country : {{conversation.country ? conversation.country : '--'}}</p>
+          <p>Contact : {{conversation.contact ? conversation.contact : '--'}}</p>
+          <p>Partnercategory : {{conversation.partnercategory ? conversation.partnercategory : '--'}}</p> -->
+        </div>
       </div>
     </div>
     <div class="detail-change flex-column">
@@ -89,12 +99,16 @@
         </div>
       </div>
       <div class="detail-photo-grid skeleton-placeholder" *ngIf="images">
-        <ng-container *ngFor="let item of allPhotos ">
+        <ng-container *ngFor="let item of allPhotos">
           <img src="{{item.image}}" />
         </ng-container>
-        <ng-container *ngIf="allPhotos.length == 0">
+     
+        <ng-container *ngIf="allPhotos.length == 0 && !apiexecute">
           <span class="load" style="height: 100%; width: 100%;border-radius: 8px;"></span>
         </ng-container>
+        <div class="noRecord" *ngIf="allPhotos.length == 0 && apiexecute">
+          No photos 
+        </div>
       </div>
       <div class="view-more" *ngIf="images">View More</div>
     </div>
@@ -133,10 +147,12 @@
     </div>
   </div>
 
+  
+  
 
-  <div class="detail-changes">
+  <div class="detail-changes"  *ngIf="conversation.type == 'GROUP'">
     <div class="detail-change flex-column">
-      <div class="d-flex align-items-center" (click)="allParticipantsSearch()" style="cursor: pointer">
+      <div class="d-flex align-items-center" (click)="allParticipantsSearch()" style="cursor: pointer" >
         Participants <span class="ms-auto">12</span>
         <div class="colors ms-2">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -154,8 +170,11 @@
         </svg>
         <div class="fake-placeholder">Search..</div>
       </div>
-      <div class="participant-lists">
-        <span>
+      <div class="participant-lists" >
+        <span *ngFor="let data of allConversation">
+          <img [src]="data.user_id?.profile?.location ? data.user_id?.profile?.location:'https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png'" alt="">
+        </span>
+        <!-- <span>
           <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png" alt="">
         </span>
         <span>
@@ -166,10 +185,7 @@
         </span>
         <span>
           <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png" alt="">
-        </span>
-        <span>
-          <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png" alt="">
-        </span>
+        </span> -->
         <span (click)="newChat()">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
             stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
@@ -184,7 +200,13 @@
 </div>
 
 <div class="detail-area-body" *ngIf="participantSearchWindow">
-  <div class="msg border-0">
+  <div class="msg border-0" *ngFor="let data of allConversation">
+    <img class="msg-profile" [src]="data.user_id?.profile?.location ? data.user_id?.profile?.location:'https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png'" alt="" />
+    <div class="msg-detail">
+      <div class="msg-username">{{data.user_id?.name}}</div>
+    </div>
+  </div>
+  <!-- <div class="msg border-0">
     <img class="msg-profile" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png" alt="" />
     <div class="msg-detail">
       <div class="msg-username">Name</div>
@@ -225,12 +247,6 @@
     <div class="msg-detail">
       <div class="msg-username">Name</div>
     </div>
-  </div>
-  <div class="msg border-0">
-    <img class="msg-profile" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png" alt="" />
-    <div class="msg-detail">
-      <div class="msg-username">Name</div>
-    </div>
-  </div>
+  </div> -->
 </div>
 <div></div>

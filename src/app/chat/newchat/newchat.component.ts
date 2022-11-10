@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { ChatService } from '../chat.service';
 
 @Component({
@@ -7,6 +7,7 @@ import { ChatService } from '../chat.service';
   styleUrls: ['./newchat.component.css']
 })
 export class NewchatComponent implements OnInit {
+ 
   newGrpHeader: boolean = false;
   usersData: any;
   index: any = 0;
@@ -31,7 +32,8 @@ export class NewchatComponent implements OnInit {
     this.loginUserData = JSON.parse(localStorage.getItem("loginUserData") || '{}');
     this.ownerId = this.loginUserData._id;
     this.user_type =this.loginUserData.user_type;
-    console.log(this.ownerId)
+    console.log(this.ownerId);
+
   }
 
   tabClick(event) {
