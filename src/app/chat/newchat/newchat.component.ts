@@ -55,20 +55,32 @@ export class NewchatComponent implements OnInit {
         this.usersData = data;
         this.filterData = this.usersData;
       })
+    }else if (type == "Hospital") {
+      this.chatService.getAllHospitals().subscribe((data: any) => {
+        this.usersData = data;
+        this.filterData = this.usersData;
+      })
+    }else if (type == "Patient") {
+      this.chatService.getAllPatients().subscribe((data: any) => {
+        this.usersData = data;
+        this.filterData = this.usersData;
+      })
     }
   }
-
+  
   showOptions(event) {
     this.event = event.source.value;
     console.log(event.source.value);
     if (event.checked == true) {
       this.groupArray.push(event.source.value);
+      console.log( this.groupArray);
 
     } else {
 
       let index = this.groupArray.findIndex(o => o._id === event.source.value._id)
       console.log(index)
       this.groupArray.splice(index, 1)
+      console.log( this.groupArray);
     }
   }
 
