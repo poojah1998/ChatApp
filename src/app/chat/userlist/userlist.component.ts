@@ -29,7 +29,6 @@ export class UserlistComponent implements OnInit {
   }
   filterdata(event: any) {
     this.filterData = this.ConversationList.filter(ele => ele.name?.toLowerCase().includes(event.target.value.toLowerCase()));
-    console.log(this.filterData)
   }
 
   showConvo() {

@@ -8,8 +8,19 @@
       </svg>
     </div>
     <ng-container *ngIf="allMessage.length != 0">
-      <img (click)="toggleRightSidenav()" class="msg-profile"
-        [src]="userDetails.profile?.location? userDetails.profile?.location: this.userDetails.image" alt="" />
+      <ng-container *ngIf="this.userDetails.image">
+        <img (click)="toggleRightSidenav()" class="msg-profile"
+          [src]="userDetails.profile?.location? userDetails.profile?.location: this.userDetails.image" alt="" />
+      </ng-container>
+      <ng-container *ngIf="userDetails.type == 'GROUP' &&  !this.userDetails.image">
+        <img (click)="toggleRightSidenav()" class="msg-profile"
+          [src]="userDetails.profile?.location? userDetails.profile?.location:'./assets/image/group.png'" alt="" />
+      </ng-container>
+      <ng-container *ngIf="userDetails.type == undefined  &&  !this.userDetails.image">
+        <img (click)="toggleRightSidenav()" class="msg-profile"
+          [src]="userDetails.profile?.location? userDetails.profile?.location:'./assets/image/default.png'" alt="" />
+      </ng-container>
+
       <div class="chat-area-title" (click)="toggleRightSidenav()">{{userDetails.name}}</div>
     </ng-container>
     <ng-container *ngIf="allMessage.length == 0">
@@ -25,7 +36,8 @@
     </svg>
   </div> -->
 </div>
-<div class="chat-area-main skeleton-placeholder" #scrollMe [style.display]="(imageSrc == '' && fileSrc == '') ? 'block' : 'none'">
+<div class="chat-area-main skeleton-placeholder" #scrollMe
+  [style.display]="(imageSrc == '' && fileSrc == '') ? 'block' : 'none'">
   <ng-container *ngFor="let item of allMessage;let i = index">
     <ng-container *ngIf="item.sender_id == userData._id ; else templateA">
       <div class="chat-msg owner">
@@ -33,7 +45,7 @@
         <!-- user image section -->
         <div class="chat-msg-profile">
           <img class="chat-msg-img" [ngbPopover]="userInfo" container="body" (click)="setUserInfo(item._id)"
-            src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png" alt="" />
+            src="./assets/image/myphoto.png" alt="" />
           <div class="chat-msg-date">{{calculateDiff(item.createdAt)}} Message sent at {{getTime(item.createdAt)}}</div>
         </div>
 
@@ -65,7 +77,7 @@
 
         <!-- Audio -->
         <div class="audio-player" [style.display]="item.mediaName?.includes('.wav')? 'flex' : 'none'">
-          <audio #ref (play)="onPlay(ref)"  (timeupdate)='updateTrackTime(ref,i)' (loadeddata)="showDurationOfAudio(ref)"
+          <audio #ref (play)="onPlay(ref)" (timeupdate)='updateTrackTime(ref,i)' (loadeddata)="showDurationOfAudio(ref)"
             [src]="item.files"></audio>
           <div class="controls">
             <!-- <div class="play-container">
@@ -78,18 +90,20 @@
                 <div id="progress-{{i}}" class="progress"></div>
               </div>
             </div> -->
-             
+
             <div class="play-container">
-              <div class="toggle-play play" (click)="singleAudioPlay(i);ref.play()" [style.display]="audioPlayStatus[i]==false || audioPlayStatus[i]== undefined ? 'block' : 'none'" >
+              <div class="toggle-play play" (click)="singleAudioPlay(i);ref.play()"
+                [style.display]="audioPlayStatus[i]==false || audioPlayStatus[i]== undefined ? 'block' : 'none'">
               </div>
-              <div class="toggle-play pause" (click)="singleAudioPause(i);ref.pause()"  [style.display]="audioPlayStatus[i]==true ? 'block' : 'none'">
+              <div class="toggle-play pause" (click)="singleAudioPause(i);ref.pause()"
+                [style.display]="audioPlayStatus[i]==true ? 'block' : 'none'">
               </div>
             </div>
             <div class="time">
               <div id="currentTime-{{i}}" class="current">0:00</div>
             </div>
             <div class="timeline">
-              <div id="progress-{{i}}" class="progress" ></div>
+              <div id="progress-{{i}}" class="progress"></div>
             </div>
           </div>
         </div>
@@ -99,8 +113,10 @@
       <div class="chat-msg">
         <!-- OTHERSIDE OF USERS -->
         <div class="chat-msg-profile">
-          <img class="chat-msg-img" [src]="convrsationDetails(item.sender_id)?.profile?.location?convrsationDetails(item.sender_id)?.profile?.location:'https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png'" alt="">
-       <p style="font-size: 12px;">{{convrsationDetails(item.sender_id)?.name}}</p>
+          <img class="chat-msg-img"
+            [src]="convrsationDetails(item.sender_id)?.profile?.location?convrsationDetails(item.sender_id)?.profile?.location:'https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png'"
+            alt="">
+          <p style="font-size: 12px;">{{convrsationDetails(item.sender_id)?.name}}</p>
           <div class="chat-msg-date">{{calculateDiff(item.createdAt)}} Message sent at {{getTime(item.createdAt)}}</div>
         </div>
 
@@ -116,22 +132,22 @@
             <p [innerHtml]="item.message" style="margin: 10px 0px 0;"></p>
           </div>
         </div>
-  <!-- File -->
-  <div class="file" *ngIf="item.mediaName?.includes('.pdf')">
-    <img src="./assets/image/file.png" alt="">
-    <div class="file_details">
-      <h4>{{getName(item.mediaName)}}</h4>
-      <!-- <div class="d-flex">
+        <!-- File -->
+        <div class="file" *ngIf="item.mediaName?.includes('.pdf')">
+          <img src="./assets/image/file.png" alt="">
+          <div class="file_details">
+            <h4>{{getName(item.mediaName)}}</h4>
+            <!-- <div class="d-flex">
         <span>232 KB</span>
       </div> -->
-    </div>
-  </div>
-       <!-- Audio -->
-       <div class="audio-player" [style.display]="item.mediaName?.includes('.wav')? 'flex' : 'none'">
-        <audio #ref (play)="onPlay(ref)"  (timeupdate)='updateTrackTime(ref,i)' (loadeddata)="showDurationOfAudio(ref)"
-          [src]="item.files"></audio>
-        <div class="controls">
-          <!-- <div class="play-container">
+          </div>
+        </div>
+        <!-- Audio -->
+        <div class="audio-player" [style.display]="item.mediaName?.includes('.wav')? 'flex' : 'none'">
+          <audio #ref (play)="onPlay(ref)" (timeupdate)='updateTrackTime(ref,i)' (loadeddata)="showDurationOfAudio(ref)"
+            [src]="item.files"></audio>
+          <div class="controls">
+            <!-- <div class="play-container">
             <div class="toggle-play play" (click)="audioPlayStatus[i] = true;ref.play()"  *ngIf="audioPlayStatus[i]==false || audioPlayStatus[i]== undefined">
             </div>
             <div class="time">
@@ -141,21 +157,23 @@
               <div id="progress-{{i}}" class="progress"></div>
             </div>
           </div> -->
-           
-          <div class="play-container">
-            <div class="toggle-play play" (click)="singleAudioPlay(i);ref.play()" [style.display]="audioPlayStatus[i]==false || audioPlayStatus[i]== undefined ? 'block' : 'none'" >
+
+            <div class="play-container">
+              <div class="toggle-play play" (click)="singleAudioPlay(i);ref.play()"
+                [style.display]="audioPlayStatus[i]==false || audioPlayStatus[i]== undefined ? 'block' : 'none'">
+              </div>
+              <div class="toggle-play pause" (click)="singleAudioPause(i);ref.pause()"
+                [style.display]="audioPlayStatus[i]==true ? 'block' : 'none'">
+              </div>
             </div>
-            <div class="toggle-play pause" (click)="singleAudioPause(i);ref.pause()"  [style.display]="audioPlayStatus[i]==true ? 'block' : 'none'">
+            <div class="time">
+              <div id="currentTime-{{i}}" class="current">0:00</div>
             </div>
-          </div>
-          <div class="time">
-            <div id="currentTime-{{i}}" class="current">0:00</div>
-          </div>
-          <div class="timeline">
-            <div id="progress-{{i}}" class="progress" ></div>
+            <div class="timeline">
+              <div id="progress-{{i}}" class="progress"></div>
+            </div>
           </div>
         </div>
-      </div>
 
 
       </div>
@@ -167,34 +185,38 @@
       <div class="chat-msg">
         <div class="chat-msg-profile" style="width: 40px;">
           <span class="chat-msg-img load" style="display: block;"></span>
-          <div class="chat-msg-date load" style="position: absolute; width: 124px; height: 18px;border-radius: 5px;"></div>
+          <div class="chat-msg-date load" style="position: absolute; width: 124px; height: 18px;border-radius: 5px;">
+          </div>
         </div>
         <div class="chat-msg-content">
           <div class="chat-msg-text load" style="width: 180px;"></div>
           <div class="chat-msg-text" style="padding: 0;">
-            <span class="chat-msg-img load" style="width: 310px; height: 250px; display: block; border-radius: 20px 20px 20px 0; background-size: 800px 250px;"></span>
+            <span class="chat-msg-img load"
+              style="width: 310px; height: 250px; display: block; border-radius: 20px 20px 20px 0; background-size: 800px 250px;"></span>
           </div>
-          <div class="chat-msg-text load"  style="width: 180px;"></div>
+          <div class="chat-msg-text load" style="width: 180px;"></div>
         </div>
       </div>
       <div class="chat-msg owner">
-        <div class="chat-msg-profile"  style="width: 40px;">
-          <span class="chat-msg-img load"  style="display: block;"></span>
-          <div class="chat-msg-date load" style="position: absolute; width: 124px; height: 18px;border-radius: 5px;"></div>
+        <div class="chat-msg-profile" style="width: 40px;">
+          <span class="chat-msg-img load" style="display: block;"></span>
+          <div class="chat-msg-date load" style="position: absolute; width: 124px; height: 18px;border-radius: 5px;">
+          </div>
         </div>
         <div class="chat-msg-content">
           <div class="chat-msg-text load" style="width: 180px;"></div>
-          <div class="chat-msg-text load"  style="width: 180px;"></div>
+          <div class="chat-msg-text load" style="width: 180px;"></div>
         </div>
       </div>
       <div class="chat-msg owner">
-        <div class="chat-msg-profile"  style="width: 40px;">
-          <span class="chat-msg-img load"  style="display: block;"></span>
-          <div class="chat-msg-date load" style="position: absolute; width: 124px; height: 18px;border-radius: 5px;"></div>
+        <div class="chat-msg-profile" style="width: 40px;">
+          <span class="chat-msg-img load" style="display: block;"></span>
+          <div class="chat-msg-date load" style="position: absolute; width: 124px; height: 18px;border-radius: 5px;">
+          </div>
         </div>
         <div class="chat-msg-content">
           <div class="chat-msg-text load" style="width: 180px;"></div>
-          <div class="chat-msg-text load"  style="width: 180px;"></div>
+          <div class="chat-msg-text load" style="width: 180px;"></div>
         </div>
       </div>
     </ng-container>

@@ -30,14 +30,18 @@ export class UserinfoComponent implements OnInit {
       this.conversation = JSON.parse(localStorage.getItem("currentConversationData") || '{}');
       this.userId = params["userId"];
       this.conversationId = params["conversationId"];
+     
       // coming from chat list component
       this.sidenav.getAllconversationUser(this.conversationId).subscribe((data: any) => {
         this.allConversation = data;
+        console.log(this.conversation);
         if (this.conversation.type !== 'INDIVIDUAL') {
           this.userDetails = this.conversation; // need to change for all user
+          console.log(this.userDetails);
         }
         else {
           this.userDetails = data[0].user_id;
+          console.log(this.userDetails);
         }
       })
       this.sidenav.getAllPhotos(this.conversationId).subscribe((photos: any) => {
