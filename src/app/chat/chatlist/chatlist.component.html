@@ -45,7 +45,7 @@
         <!-- user image section -->
         <div class="chat-msg-profile">
           <img class="chat-msg-img" [ngbPopover]="userInfo" container="body" (click)="setUserInfo(item.sender_id)"
-            src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png" alt="" />
+          src="./assets/image/myphoto.png"  alt="" />
           <div class="chat-msg-date">{{calculateDiff(item.createdAt)}} Message sent at {{getTime(item.createdAt)}}</div>
         </div>
 
@@ -113,10 +113,16 @@
       <div class="chat-msg">
         <!-- OTHERSIDE OF USERS -->
         <div class="chat-msg-profile">
-
           <img class="chat-msg-img" [ngbPopover]="userInfo" (click)="setUserInfo(item.sender_id)"
             [src]="convrsationDetails(item.sender_id)?.profile?.location?convrsationDetails(item.sender_id)?.profile?.location:'https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png'"
             alt="">
+          <img class="chat-msg-img"
+            [src]="convrsationDetails(item.sender_id)?.profile?.location?convrsationDetails(item.sender_id)?.profile?.location:'https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png'"
+            alt="">
+          <p style="font-size: 12px;">{{convrsationDetails(item.sender_id)?.name}}</p>
+         
+          <img class="chat-msg-img"  [ngbPopover]="userInfo" (click)="setUserInfo(item.sender_id)" [src]="convrsationDetails(item.sender_id)?.profile?.location?convrsationDetails(item.sender_id)?.profile?.location:'https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png'" alt="">
+       <p style="font-size: 12px;">{{convrsationDetails(item.sender_id)?.name}}</p>
           <div class="chat-msg-date">{{calculateDiff(item.createdAt)}} Message sent at {{getTime(item.createdAt)}}</div>
         </div>
 
