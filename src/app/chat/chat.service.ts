@@ -68,6 +68,12 @@ export class ChatService {
 	public getAllDoctors() {
 		return this.httpClient.get(environment.host + "getAllDoctors");
 	}
+	public getAllHospitals() {
+		return this.httpClient.get(environment.host + "getAllhospitals");
+	}
+	public getAllPatients() {
+		return this.httpClient.get(environment.host + "getAllPatients");
+	}
 	public getAllRefferals() {
 		return this.httpClient.get(environment.host + "allRefferals");
 	}

@@ -34,8 +34,15 @@
     <ng-template #tabContent>
         <div class="innerTab">
             <ul>
+             
                 <li (click)="tabs('Doctor')" [ngClass]="{'selected': selectedMenu == 'Doctor'}">
                     <span>Doctor</span>
+                </li>
+                <li (click)="tabs('Hospital')" [ngClass]="{'selected': selectedMenu == 'Hospital'}">
+                    <span>Hospital</span>
+                </li>
+                <li (click)="tabs('Patient')" [ngClass]="{'selected': selectedMenu == 'Patient'}">
+                    <span>Patient</span>
                 </li>
                 <li (click)="tabs('Referral')" [ngClass]="{'selected': selectedMenu == 'Referral'}">
                     <span>Referral</span>
@@ -83,7 +90,7 @@
                     <ng-container *ngFor="let item of filterData">
                         <mat-radio-button [value]="item">
                             <img class="chat-msg-img me-2"
-                                [src]="item.profile?.location? item.profile?.location:'https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png'"
+                                [src]="item.profile?.location? item.profile?.location:'./assets/image/default.png'"
                                 alt="" />{{item.name}}
                         </mat-radio-button>
                     </ng-container>
@@ -92,7 +99,7 @@
             <ng-container *ngIf="index == 1">
                 <p *ngFor="let item of filterData ">
                     <mat-checkbox [checked]="isChecked(item)" [value]="item" (change)="showOptions($event)"> <img class="chat-msg-img me-2"
-                        [src]="item.profile?.location? item.profile?.location:'https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png'"
+                        [src]="item.profile?.location? item.profile?.location:'./assets/image/default.png'"
                             alt="" />{{item.name}}</mat-checkbox>
                 </p>
             </ng-container>
