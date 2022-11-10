@@ -28,6 +28,7 @@ export class UserinfoComponent implements OnInit {
   // constructor(private sidenav: ChatService, private activateRoute: ActivatedRoute, private router: Router) { }
   participantSearchWindow: boolean;
   filterData: any;
+  apiexecute = false;
   constructor(private sidenav: ChatService, public dialog: MatDialog, private activateRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
@@ -54,6 +55,7 @@ export class UserinfoComponent implements OnInit {
         }
       })
       this.sidenav.getAllPhotos(this.conversationId).subscribe((photos: any) => {
+        this.apiexecute = true;
         this.allPhotos = photos;
       })
       this.sidenav.getAllFiles(this.conversationId).subscribe((allfiles: any) => {
@@ -113,7 +115,8 @@ export class UserinfoComponent implements OnInit {
   newChat() { 
     let dialogRef = this.dialog.open(NewchatComponent, { 
       width: '480px',
-      panelClass: 'custom-dialog' 
+      panelClass: 'custom-dialog' ,
+     
     });
   }
 
