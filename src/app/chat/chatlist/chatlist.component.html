@@ -39,6 +39,9 @@
 <div class="chat-area-main skeleton-placeholder" #scrollMe
   [style.display]="(imageSrc == '' && fileSrc == '') ? 'block' : 'none'">
   <ng-container *ngFor="let item of allMessage;let i = index">
+    <div class="msg-date-grp">
+      <span>Today</span>
+    </div>
     <ng-container *ngIf="item.sender_id == userData._id ; else templateA">
       <div class="chat-msg owner">
 
