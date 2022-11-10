@@ -113,16 +113,9 @@
       <div class="chat-msg">
         <!-- OTHERSIDE OF USERS -->
         <div class="chat-msg-profile">
-<<<<<<< HEAD
-          <img class="chat-msg-img"
-            [src]="convrsationDetails(item.sender_id)?.profile?.location?convrsationDetails(item.sender_id)?.profile?.location:'https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png'"
-            alt="">
-          <p style="font-size: 12px;">{{convrsationDetails(item.sender_id)?.name}}</p>
-=======
          
           <img class="chat-msg-img"  [ngbPopover]="userInfo" (click)="setUserInfo(item.sender_id)" [src]="convrsationDetails(item.sender_id)?.profile?.location?convrsationDetails(item.sender_id)?.profile?.location:'https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png'" alt="">
        <p style="font-size: 12px;">{{convrsationDetails(item.sender_id)?.name}}</p>
->>>>>>> 4dbb87596b548083cf77796ccaae0ddc760620b1
           <div class="chat-msg-date">{{calculateDiff(item.createdAt)}} Message sent at {{getTime(item.createdAt)}}</div>
         </div>
 

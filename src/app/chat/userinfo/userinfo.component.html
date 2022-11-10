@@ -1,4 +1,4 @@
-<div class="chat-area-header">
+<div class="chat-area-header" *ngIf="!participantSearchWindow">
   <div class="chat-area-group" (click)="closeSidenav()">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
       stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
@@ -7,34 +7,31 @@
     </svg>
   </div>
 </div>
+<div class="search-user-group" *ngIf="participantSearchWindow">
+  <div class="chat-area-group me-2" (click)="participantSearchWindow = false">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+      stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left">
+      <line x1="19" y1="12" x2="5" y2="12"></line>
+      <polyline points="12 19 5 12 12 5"></polyline>
+    </svg>
+  </div>
+  <input type="text" placeholder="Search..">
+</div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="detail-area-body">
+<div class="detail-area-body" *ngIf="!participantSearchWindow">
   <div class="detail-area-header skeleton-placeholder">
     <ng-container *ngIf="userDetails">
-      <ng-container *ngIf="this.userDetails.image">
+      <ng-container *ngIf="userDetails.image">
         <div class="msg-profile group">
           <img src="{{userDetails.image}}" alt="" class="msg-profile mb-0">
         </div>
       </ng-container>
-      <ng-container *ngIf="userDetails.type == 'GROUP' &&  !this.userDetails.image">
+      <ng-container *ngIf="userDetails.type == 'GROUP' &&  !userDetails.image">
         <div class="msg-profile group">
-          <img src="'./assets/image/group.png'" alt="" class="msg-profile mb-0">
+          <img src="./assets/image/group.png" alt="" class="msg-profile mb-0">
         </div>
       </ng-container>
-      <ng-container *ngIf="this.userDetails.type == 'INDIVIDUAL' && !this.userDetails.image">
+      <ng-container *ngIf="userDetails.type != 'GROUP' && !userDetails.image">
         <div class="msg-profile group">
           <img src="./assets/image/default.png" alt="" class="msg-profile mb-0">
         </div>
@@ -133,6 +130,106 @@
         </ng-container>
       </div>
       <div class="view-more" *ngIf="files">View More</div>
+    </div>
+  </div>
+
+
+  <div class="detail-changes">
+    <div class="detail-change flex-column">
+      <div class="d-flex align-items-center" (click)="allParticipantsSearch()" style="cursor: pointer">
+        Participants <span class="ms-auto">12</span>
+        <div class="colors ms-2">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+            class="feather feather-chevron-right">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </div>
+      </div>
+      <div class="participants-fakeSearch" (click)="allParticipantsSearch()">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+          stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <div class="fake-placeholder">Search..</div>
+      </div>
+      <div class="participant-lists">
+        <span>
+          <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png" alt="">
+        </span>
+        <span>
+          <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png" alt="">
+        </span>
+        <span>
+          <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png" alt="">
+        </span>
+        <span>
+          <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png" alt="">
+        </span>
+        <span>
+          <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png" alt="">
+        </span>
+        <span (click)="newChat()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
+            class="feather feather-plus m-0">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="detail-area-body" *ngIf="participantSearchWindow">
+  <div class="msg border-0">
+    <img class="msg-profile" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png" alt="" />
+    <div class="msg-detail">
+      <div class="msg-username">Name</div>
+    </div>
+  </div>
+  <div class="msg border-0">
+    <img class="msg-profile" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png" alt="" />
+    <div class="msg-detail">
+      <div class="msg-username">Name</div>
+    </div>
+  </div>
+  <div class="msg border-0">
+    <img class="msg-profile" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png" alt="" />
+    <div class="msg-detail">
+      <div class="msg-username">Name</div>
+    </div>
+  </div>
+  <div class="msg border-0">
+    <img class="msg-profile" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png" alt="" />
+    <div class="msg-detail">
+      <div class="msg-username">Name</div>
+    </div>
+  </div>
+  <div class="msg border-0">
+    <img class="msg-profile" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png" alt="" />
+    <div class="msg-detail">
+      <div class="msg-username">Name</div>
+    </div>
+  </div>
+  <div class="msg border-0">
+    <img class="msg-profile" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png" alt="" />
+    <div class="msg-detail">
+      <div class="msg-username">Name</div>
+    </div>
+  </div>
+  <div class="msg border-0">
+    <img class="msg-profile" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png" alt="" />
+    <div class="msg-detail">
+      <div class="msg-username">Name</div>
+    </div>
+  </div>
+  <div class="msg border-0">
+    <img class="msg-profile" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png" alt="" />
+    <div class="msg-detail">
+      <div class="msg-username">Name</div>
     </div>
   </div>
 </div>

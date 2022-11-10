@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Route, Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
 import { ChatService } from './../chat.service';
+import { NewchatComponent } from '../newchat/newchat.component'
 @Component({
   selector: 'app-userinfo',
   templateUrl: './userinfo.component.html',
@@ -21,7 +23,8 @@ export class UserinfoComponent implements OnInit {
   file: any;
   conversation: any;
   repeat: any = [1];
-  constructor(private sidenav: ChatService, private activateRoute: ActivatedRoute, private router: Router) { }
+  participantSearchWindow: boolean;
+  constructor(private sidenav: ChatService, public dialog: MatDialog, private activateRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     //coming from params 
@@ -93,9 +96,19 @@ export class UserinfoComponent implements OnInit {
   }
 
   closeSidenav() {
-
     this.sidenav.close();
     this.router.navigate([`/chat/${this.conversationId}`]);
+  }
+
+  newChat() { 
+    let dialogRef = this.dialog.open(NewchatComponent, { 
+      width: '480px',
+      panelClass: 'custom-dialog' 
+    });
+  }
+
+  allParticipantsSearch(){
+    this.participantSearchWindow = true
   }
 
 }
