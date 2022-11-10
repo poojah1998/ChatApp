@@ -1270,7 +1270,10 @@ ngx-audio-player mat-card{
 }
 
 .participant-lists span img{
-  
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
 @media (max-width: 1120px) {
