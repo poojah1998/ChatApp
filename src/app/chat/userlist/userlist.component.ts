@@ -45,7 +45,7 @@ export class UserlistComponent implements OnInit {
   }
   async chatDeatils(conversation: any) {
     this.selectedUserlist = conversation._id;
-      console.log(conversation._id)
+      console.log(conversation._id,conversation)
     // this.leftsidenav.getAllconversationUser(conversationid).subscribe(() => {
       localStorage.setItem("currentConversationData", JSON.stringify(conversation))
       this.router.navigate([`/chat/${conversation._id}`]);

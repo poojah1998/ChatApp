@@ -67,6 +67,7 @@ export class ChatlistComponent implements OnInit {
   mentionUserNameArray: any[] = [];
   isPlaying: boolean = false;
   convData: any[] = [];
+  filterUserDetail: any;
   constructor(private sidenav: ChatService, private activateRoute: ActivatedRoute, private datePipe: DatePipe, private router: Router, private socketService: SocketService, private audioService: AudioService) {
 
   }
@@ -143,8 +144,9 @@ export class ChatlistComponent implements OnInit {
 
 
   setUserInfo(user_id) {
-
-    console.log(user_id)
+    this.filterUserDetail=this.allConversation.filter(o=> o.user_id && o.user_id._id == user_id)[0]
+    console.log(this.filterUserDetail)
+    console.log(this.allConversation)
   }
   // On file Select
   onChange(event) {
