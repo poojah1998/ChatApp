@@ -5,9 +5,21 @@
 <div style="overflow-y: auto;">
   <ng-container *ngFor="let item of filterData">
     <div class="msg" (click)="showConvo();chatDeatils(item)" [ngClass]="{'active': selectedUserlist == item._id}">
-      <img class="msg-profile"
-        [src]="item.image? item.image:'https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png'"
-        alt="" />
+      <!-- <img class="msg-profile"
+        [src]="item.image? item.image:'./assets/image/group.png'"
+        alt="" /> -->
+        <ng-container *ngIf="item.image">
+          <img class="msg-profile"
+          [src]="item.image? item.image:'./assets/image/group.png'"  alt="" />
+          </ng-container>
+        <ng-container *ngIf="item.type == 'GROUP' && !item.image">
+          <img class="msg-profile"
+          [src]="item.image? item.image:'./assets/image/group.png'"  alt="" />
+          </ng-container>
+          <ng-container *ngIf="item.type == 'INDIVIDUAL' && !item.image">
+            <img class="msg-profile"
+            [src]="item.image? item.image:'./assets/image/default.png'"  alt="" />
+          </ng-container>
       <div class="msg-detail">
         <div class="msg-username">{{item.name}}</div>
         <div class="msg-content">

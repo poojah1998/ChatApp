@@ -21,9 +21,21 @@
 <div class="detail-area-body" *ngIf="!participantSearchWindow">
   <div class="detail-area-header skeleton-placeholder">
     <ng-container *ngIf="userDetails">
-      <div class="msg-profile group">
-        <img src="{{userDetails.image}}" alt="" class="msg-profile mb-0">
-      </div>
+      <ng-container *ngIf="userDetails.image">
+        <div class="msg-profile group">
+          <img src="{{userDetails.image}}" alt="" class="msg-profile mb-0">
+        </div>
+      </ng-container>
+      <ng-container *ngIf="userDetails.type == 'GROUP' &&  !userDetails.image">
+        <div class="msg-profile group">
+          <img src="./assets/image/group.png" alt="" class="msg-profile mb-0">
+        </div>
+      </ng-container>
+      <ng-container *ngIf="userDetails.type != 'GROUP' && !userDetails.image">
+        <div class="msg-profile group">
+          <img src="./assets/image/default.png" alt="" class="msg-profile mb-0">
+        </div>
+      </ng-container>
       <div class="detail-title">{{userDetails.name}}</div>
       <div class="detail-subtitle">{{userDetails.user_type}}</div>
     </ng-container>

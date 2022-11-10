@@ -8,8 +8,19 @@
       </svg>
     </div>
     <ng-container *ngIf="allMessage.length != 0">
-      <img (click)="toggleRightSidenav()" class="msg-profile"
-        [src]="userDetails.profile?.location? userDetails.profile?.location: this.userDetails.image" alt="" />
+      <ng-container *ngIf="this.userDetails.image">
+        <img (click)="toggleRightSidenav()" class="msg-profile"
+          [src]="userDetails.profile?.location? userDetails.profile?.location: this.userDetails.image" alt="" />
+      </ng-container>
+      <ng-container *ngIf="userDetails.type == 'GROUP' &&  !this.userDetails.image">
+        <img (click)="toggleRightSidenav()" class="msg-profile"
+          [src]="userDetails.profile?.location? userDetails.profile?.location:'./assets/image/group.png'" alt="" />
+      </ng-container>
+      <ng-container *ngIf="userDetails.type == undefined  &&  !this.userDetails.image">
+        <img (click)="toggleRightSidenav()" class="msg-profile"
+          [src]="userDetails.profile?.location? userDetails.profile?.location:'./assets/image/default.png'" alt="" />
+      </ng-container>
+
       <div class="chat-area-title" (click)="toggleRightSidenav()">{{userDetails.name}}</div>
     </ng-container>
     <ng-container *ngIf="allMessage.length == 0 && !apiexecute">
@@ -126,41 +137,48 @@
           </div>
         </div>
         <!-- File -->
-        <div class="chat-msg-content" *ngIf="item.mediaName?.includes('.pdf')">
-          <div class="chat-msg-profile-name" [ngbPopover]="userInfo" (click)="setUserInfo(item.sender_id)">
-            {{convrsationDetails(item.sender_id)?.name}}</div>
-          <div class="file">
-            <img src="./assets/image/file.png" alt="">
-            <div class="file_details">
-              <h4>{{getName(item.mediaName)}}</h4>
-            </div>
+        <div class="file" *ngIf="item.mediaName?.includes('.pdf')">
+          <img src="./assets/image/file.png" alt="">
+          <div class="file_details">
+            <h4>{{getName(item.mediaName)}}</h4>
+            <!-- <div class="d-flex">
+        <span>232 KB</span>
+      </div> -->
           </div>
         </div>
         <!-- Audio -->
-        <div class="chat-msg-content" [style.display]="item.mediaName?.includes('.wav')? 'flex' : 'none'">
-          <div class="chat-msg-profile-name" [ngbPopover]="userInfo" (click)="setUserInfo(item.sender_id)">
-            {{convrsationDetails(item.sender_id)?.name}}</div>
-          <div class="audio-player">
-            <audio #ref (play)="onPlay(ref)" (timeupdate)='updateTrackTime(ref,i)'
-              (loadeddata)="showDurationOfAudio(ref)" [src]="item.files"></audio>
-            <div class="controls">
-              <div class="play-container">
-                <div class="toggle-play play" (click)="singleAudioPlay(i);ref.play()"
-                  [style.display]="audioPlayStatus[i]==false || audioPlayStatus[i]== undefined ? 'block' : 'none'">
-                </div>
-                <div class="toggle-play pause" (click)="singleAudioPause(i);ref.pause()"
-                  [style.display]="audioPlayStatus[i]==true ? 'block' : 'none'">
-                </div>
+        <div class="audio-player" [style.display]="item.mediaName?.includes('.wav')? 'flex' : 'none'">
+          <audio #ref (play)="onPlay(ref)" (timeupdate)='updateTrackTime(ref,i)' (loadeddata)="showDurationOfAudio(ref)"
+            [src]="item.files"></audio>
+          <div class="controls">
+            <!-- <div class="play-container">
+            <div class="toggle-play play" (click)="audioPlayStatus[i] = true;ref.play()"  *ngIf="audioPlayStatus[i]==false || audioPlayStatus[i]== undefined">
+            </div>
+            <div class="time">
+              <div id="currentTime-{{i}}" class="current">0:00</div>
+            </div>
+            <div class="timeline">
+              <div id="progress-{{i}}" class="progress"></div>
+            </div>
+          </div> -->
+
+            <div class="play-container">
+              <div class="toggle-play play" (click)="singleAudioPlay(i);ref.play()"
+                [style.display]="audioPlayStatus[i]==false || audioPlayStatus[i]== undefined ? 'block' : 'none'">
               </div>
-              <div class="time">
-                <div id="currentTime-{{i}}" class="current">0:00</div>
+              <div class="toggle-play pause" (click)="singleAudioPause(i);ref.pause()"
+                [style.display]="audioPlayStatus[i]==true ? 'block' : 'none'">
               </div>
-              <div class="timeline">
-                <div id="progress-{{i}}" class="progress"></div>
-              </div>
+            </div>
+            <div class="time">
+              <div id="currentTime-{{i}}" class="current">0:00</div>
+            </div>
+            <div class="timeline">
+              <div id="progress-{{i}}" class="progress"></div>
             </div>
           </div>
         </div>
+
 
       </div>
     </ng-template>
