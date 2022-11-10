@@ -20,26 +20,26 @@
 
 <div class="detail-area-body" *ngIf="!participantSearchWindow">
   <div class="detail-area-header skeleton-placeholder">
-    <ng-container *ngIf="userDetails">
-      <ng-container *ngIf="userDetails.image">
+    <ng-container *ngIf="conversation">
+      <ng-container *ngIf="conversation.image">
         <div class="msg-profile group">
-          <img src="{{userDetails.image}}" alt="" class="msg-profile mb-0">
+          <img src="{{conversation.image}}" alt="" class="msg-profile mb-0">
         </div>
       </ng-container>
-      <ng-container *ngIf="userDetails.type == 'GROUP' &&  !userDetails.image">
+      <ng-container *ngIf="conversation.type == 'GROUP' &&  !conversation.image">
         <div class="msg-profile group">
           <img src="./assets/image/group.png" alt="" class="msg-profile mb-0">
         </div>
       </ng-container>
-      <ng-container *ngIf="userDetails.type != 'GROUP' && !userDetails.image">
+      <ng-container *ngIf="conversation.type != 'GROUP' && !conversation.image">
         <div class="msg-profile group">
           <img src="./assets/image/default.png" alt="" class="msg-profile mb-0">
         </div>
       </ng-container>
-      <div class="detail-title">{{userDetails.name}}</div>
-      <div class="detail-subtitle">{{userDetails.user_type}}</div>
+      <div class="detail-title">{{conversation.name}}</div>
+      <div class="detail-subtitle">{{conversation.user_type}}</div>
     </ng-container>
-    <ng-container *ngIf="!userDetails">
+    <ng-container *ngIf="!conversation">
       <div class="msg-profile group">
         <span class="msg-profile mb-0 load"></span>
       </div>
