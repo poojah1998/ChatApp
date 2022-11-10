@@ -12,7 +12,7 @@
         [src]="userDetails.profile?.location? userDetails.profile?.location: this.userDetails.image" alt="" />
       <div class="chat-area-title" (click)="toggleRightSidenav()">{{userDetails.name}}</div>
     </ng-container>
-    <ng-container *ngIf="allMessage.length == 0">
+    <ng-container *ngIf="allMessage.length == 0 && !apiexecute">
       <span class="msg-profile load"></span>
       <div class="chat-area-title load" style="width: 160px; height: 28px;border-radius: 5px;"></div>
     </ng-container>
@@ -163,7 +163,7 @@
     </ng-template>
   </ng-container>
 
-  <ng-container *ngIf="allMessage.length == 0">
+  <ng-container *ngIf="allMessage.length == 0 && !apiexecute">
     <ng-container *ngFor="let item of repeat">
       <div class="chat-msg">
         <div class="chat-msg-profile" style="width: 40px;">
@@ -200,6 +200,10 @@
       </div>
     </ng-container>
   </ng-container>
+
+
+  
+
 
 </div>
 <div class="chat-file-preview"
