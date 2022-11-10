@@ -86,10 +86,17 @@ export class ChatlistComponent implements OnInit {
         this.sidenav.getAllconversationUser(this.conversationid).subscribe((data: any[] | any) => {
 
           this.allConversation = data;
-          this.convData = this.allConversation.filter((o: any) => o.user_id._id != this.ownerId);
+          console.log(this.allConversation);
+    
+          this.convData = this.allConversation.filter((o: any) => o.user_id && o.user_id._id != this.ownerId);
           
           console.log(this.convData);
-          this.mentionUsers = data.map((ele: any) => ele.user_id.name);
+          this.mentionUsers = data.map((ele: any) => {
+            if(ele.user_id){
+              return ele.user_id.name
+            }
+          });
+          this.mentionUsers = this.mentionUsers.filter((o: any)=>o != undefined);
           console.log(this.mentionUsers)
           this.mentionConfig = {
             mentions: [
@@ -105,14 +112,14 @@ export class ChatlistComponent implements OnInit {
               },
             ]
           }
-          this.newChatData = data.filter((o: any) => o.user_id._id != this.userData._id)
+          this.newChatData = data.filter((o: any) => o.user_id && o.user_id._id != this.userData._id)
           if (this.conversation.type !== 'INDIVIDUAL') {
             this.userDetails = this.conversation; // need to change for all user
           }
           else {
             this.userDetails = this.newChatData[0].user_id;
           }
-          this.receiverIds = data.map((o: any) => o.user_id._id)
+          this.receiverIds = data.map((o: any) => o.user_id && o.user_id._id)
         })
       })
       //chatting page
