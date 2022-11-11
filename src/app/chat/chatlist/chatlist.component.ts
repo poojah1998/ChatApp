@@ -200,16 +200,20 @@ export class ChatlistComponent implements OnInit {
   }
   // On file Select
   onChange(event) {
+  
     this.file = event.target.files[0];
     console.log(this.file);
     this.disabledBtn = false;
+  
     if (this.file.type.includes("image/")) {
       const reader = new FileReader();
       reader.onload = (e: any) => {
         this.imageSrc = reader.result;
         console.log(this.imageSrc);
       }
+      
       reader.readAsDataURL(this.file);
+     
     } else {
       const reader = new FileReader();
       reader.onload = (e: any) => {
