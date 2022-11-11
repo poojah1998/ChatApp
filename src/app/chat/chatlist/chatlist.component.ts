@@ -69,6 +69,8 @@ export class ChatlistComponent implements OnInit {
   convData: any[] = [];
   filterUserDetail: any;
   apiexecute = false;
+  date: any;
+  messageDateString: any;
   constructor(private sidenav: ChatService, private activateRoute: ActivatedRoute, private datePipe: DatePipe, private router: Router, private socketService: SocketService, private audioService: AudioService) {
 
   }
@@ -88,18 +90,17 @@ export class ChatlistComponent implements OnInit {
         this.sidenav.getAllconversationUser(this.conversationid).subscribe((data: any[] | any) => {
           this.apiexecute = true;
           this.allConversation = data;
-          console.log(this.allConversation);
+          
 
           this.convData = this.allConversation.filter((o: any) => o.user_id && o.user_id._id != this.ownerId);
 
-          console.log(this.convData);
           this.mentionUsers = data.map((ele: any) => {
             if (ele.user_id) {
               return ele.user_id.name
             }
           });
           this.mentionUsers = this.mentionUsers.filter((o: any) => o != undefined);
-          console.log(this.mentionUsers)
+         
           this.mentionConfig = {
             mentions: [
               {
@@ -117,11 +118,11 @@ export class ChatlistComponent implements OnInit {
           this.newChatData = data.filter((o: any) => o.user_id && o.user_id._id != this.userData._id)
           if (this.conversation.type !== 'INDIVIDUAL') {
             this.userDetails = this.conversation; // need to change for all user
-            console.log(this.userDetails);
+          
           }
           else {
             this.userDetails = this.newChatData[0].user_id;
-            console.log(this.userDetails);
+           
           }
           this.receiverIds = data.map((o: any) => o.user_id && o.user_id._id)
         })
@@ -129,7 +130,7 @@ export class ChatlistComponent implements OnInit {
       //chatting page
       this.sidenav.allMessageById(this.conversationid).subscribe((data: any) => {
         this.allMessage = data;
-        console.log(this.allMessage);
+     
         setTimeout(() => {
           this.scrollToBottom();
         }, 500);
@@ -140,9 +141,54 @@ export class ChatlistComponent implements OnInit {
     })
     this.getSoketMessage();
     this.scrollToBottom();
+   
   }
+
+  isDifferentDay(messageIndex: number): boolean {
+    if (messageIndex === 0) return true;
+    const d1 = new Date(this.allMessage[messageIndex - 1].createdAt);
+    const d2 = new Date(this.allMessage[messageIndex].createdAt);
+
+    return (
+      d1.getFullYear() !== d2.getFullYear() ||
+      d1.getMonth() !== d2.getMonth() ||
+      d1.getDate() !== d2.getDate()
+    );
+  }
+  getMessageDate(messageIndex: number): string {
+    let dateToday = new Date().toDateString();
+    let longDateYesterday = new Date();
+    longDateYesterday.setDate(new Date().getDate() - 1);
+    let dateYesterday = longDateYesterday.toDateString();
+    let today = dateToday.slice(0, dateToday.length - 5);
+    let yesterday = dateYesterday.slice(0, dateToday.length - 5);
+
+    const wholeDate = new Date(
+      this.allMessage[messageIndex].createdAt
+    ).toDateString();
+
+    this.messageDateString = wholeDate.slice(0, wholeDate.length - 5);
+
+    if (
+      new Date(this.allMessage[messageIndex].createdAt).getFullYear() ===
+      new Date().getFullYear()
+    ) {
+      if (this.messageDateString === today) {
+        return "Today";
+      } else if (this.messageDateString === yesterday) {
+        return "Yesterday";
+      } else {
+        return this.messageDateString;
+      }
+    } else {
+      return wholeDate;
+    }
+  }
+
+
+
+
   convrsationDetails(id: any) {
-    
     return this.convData.filter(o => o.user_id._id == id)[0]?.user_id;
   }
 
