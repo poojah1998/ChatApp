@@ -171,7 +171,7 @@
         <div class="fake-placeholder">Search..</div>
       </div>
       <div class="participant-lists">
-        <span *ngFor="let data of filterData">
+        <span *ngFor="let data of filterData" [matTooltip]="data.name">
           <img
             [src]="data.user_id?.profile?.location ? data.user_id?.profile?.location:'https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png'"
             alt="">
@@ -200,7 +200,7 @@
     </div>
   </div>
 </div>
-<div class="buttonArea">
+<div class="buttonArea" *ngIf="!participantSearchWindow">
   <button mat-button class="dangerBtn">Leave Group</button>
 </div>
 <div class="detail-area-body" *ngIf="participantSearchWindow">
