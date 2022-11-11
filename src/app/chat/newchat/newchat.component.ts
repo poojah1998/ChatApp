@@ -72,7 +72,7 @@ export class NewchatComponent implements OnInit {
     this.event = event.source.value;
     console.log(event.source.value);
     if (event.checked == true) {
-      this.groupArray.push(event.source.value);
+      this.groupArray.push({...event.source.value,userType:this.selectedMenu});
       console.log( this.groupArray);
 
     } else {
@@ -168,7 +168,7 @@ export class NewchatComponent implements OnInit {
           data.push({
             conversation_id: result.ConversationData._id,
             user_id: ele._id,
-            user_type:this.selectedMenu,
+            user_type:ele.userType,
             isAdmin: false,
             isReferal: false
           })
