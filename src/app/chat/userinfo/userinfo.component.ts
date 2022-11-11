@@ -31,6 +31,7 @@ export class UserinfoComponent implements OnInit {
   apiexecute = false;
   deleteUser: any;
   loggedInUser: any;
+  currentGroupUser: any;
   constructor(private sidenav: ChatService, public dialog: MatDialog, private activateRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
@@ -45,8 +46,10 @@ export class UserinfoComponent implements OnInit {
       // coming from chat list component
       this.sidenav.getAllconversationUser(this.conversationId).subscribe((data: any) => {
         this.allConversation = data;
+       
         this.filterData = this.allConversation;
-        console.log(this.filterData);
+        this.currentGroupUser= this.allConversation.filter(o=>o.user_id._id == this.loggedInUser._id)[0]
+        console.log(this.currentGroupUser);
         if (this.conversation.type !== 'INDIVIDUAL') {
           this.userDetails = this.conversation; // need to change for all user
           console.log(this.userDetails);
@@ -67,9 +70,8 @@ export class UserinfoComponent implements OnInit {
       })
     })
 
-
+    
   }
-
 
 
 
