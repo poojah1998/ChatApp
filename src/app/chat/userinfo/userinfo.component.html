@@ -209,10 +209,10 @@
     <div class="msg-detail">
       <div class="msg-username">{{data.user_id?.name}}</div>
     </div>
-    <div class="msg-type align-self-center" *ngIf="data?.user_id?._id == conversation?.owner_id">
+    <div class="msg-type align-self-center" *ngIf="data.isAdmin == true">
       Admin
     </div>
-    <button mat-icon-button (click)="remove(removeUser)">
+    <button mat-icon-button (click)="remove(removeUser)" *ngIf="data.isAdmin !== true">
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
         class="feather feather-trash">
