@@ -60,7 +60,7 @@ export class NewchatComponent implements OnInit {
         this.usersData = data;
         this.filterData = this.usersData;
       })
-    }else if (type == "Patient") {
+    }else {
       this.chatService.getAllPatients().subscribe((data: any) => {
         this.usersData = data;
         this.filterData = this.usersData;
