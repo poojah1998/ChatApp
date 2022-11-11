@@ -8,6 +8,7 @@
             <div class="wrapper">
                 <div class="chat-area align-items-center justify-content-center" *ngIf="!isUserChatHistoryExist">
                     <img src="./assets/image/chat-history-empty-state.png" alt="">
+                    <div class="mt-4 text-2xl font-semibold tracking-tight text-secondary">Select a conversation or start a new chat</div>
                 </div>
                 <app-chatlist *ngIf="isUserChatHistoryExist" class="chat-area"></app-chatlist>
             </div>
