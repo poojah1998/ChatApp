@@ -980,7 +980,7 @@ ngx-audio-player mat-card{
 }
 
 .owner .audio-player{
-  border-radius: 20px 20px 0 20px;
+  border-radius: 20px 0 20px 20px;
 }
 .audio-player .timeline {
   background: white;
@@ -1288,6 +1288,12 @@ ngx-audio-player mat-card{
   }
 }
 
+.owner .chat-msg-content mat-icon{
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+  margin-right: 6px;
+}
 
 .participant-lists{
   display: grid;
@@ -1342,6 +1348,54 @@ ngx-audio-player mat-card{
 .buttonArea{
   padding: 15px;
 }
+
+.seen,
+.notSeen{
+  flex-grow: 1;
+  padding: 10px 8px 10px;
+  min-height: 230px;
+}
+
+.notSeen{
+  border-left: 1px solid var(--border-color);
+}
+
+.seen strong,
+.notSeen strong{
+
+}
+
+.seen strong span,
+.notSeen strong span{
+  font-size: 24px;
+}
+
+.seen ul,
+.notSeen ul{
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.seen ul li,
+.notSeen ul li{
+  display: flex;
+  align-items: center;
+  padding: 4px 0;
+}
+
+.seen ul li img,
+.notSeen ul li img{
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+}
+
+.seen ul li .nameUser,
+.notSeen ul li .nameUser{
+  
+}
+
 @media (max-width: 1120px) {
   .detail-area {
     /* display: none; */
