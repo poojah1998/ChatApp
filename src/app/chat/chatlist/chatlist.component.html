@@ -1,5 +1,5 @@
 <div class="chat-area-header">
-  <div class="msg p-0 skeleton-placeholder">
+  <div class="msg p-0 skeleton-placeholder border-0">
     <div class="chat-area-group d-lg-none me-2" (click)="goUserList()">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
         stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left">
@@ -39,6 +39,9 @@
 <div class="chat-area-main skeleton-placeholder" #scrollMe
   [style.display]="(imageSrc == '' && fileSrc == '') ? 'block' : 'none'">
   <ng-container *ngFor="let item of allMessage;let i = index">
+    <div class="msg-date-grp">
+      <span>Today</span>
+    </div>
     <ng-container *ngIf="item.sender_id == userData._id ; else templateA">
       <div class="chat-msg owner">
 
