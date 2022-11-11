@@ -23,12 +23,13 @@ export class UserinfoComponent implements OnInit {
   file: any;
   conversation: any;
   repeat: any = [1];
-  allMessage:any[]=[];
-  filterUserDetail:any;
+  allMessage: any[] = [];
+  filterUserDetail: any;
   // constructor(private sidenav: ChatService, private activateRoute: ActivatedRoute, private router: Router) { }
   participantSearchWindow: boolean;
   filterData: any;
   apiexecute = false;
+  deleteUser: any;
   constructor(private sidenav: ChatService, public dialog: MatDialog, private activateRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
@@ -36,14 +37,14 @@ export class UserinfoComponent implements OnInit {
 
     this.activateRoute.params.subscribe(params => {
       this.conversation = JSON.parse(localStorage.getItem("currentConversationData") || '{}');
-    
+
       this.userId = params["userId"];
       this.conversationId = params["conversationId"];
-     
+
       // coming from chat list component
       this.sidenav.getAllconversationUser(this.conversationId).subscribe((data: any) => {
         this.allConversation = data;
-        this.filterData= this.allConversation;
+        this.filterData = this.allConversation;
         console.log(this.filterData);
         if (this.conversation.type !== 'INDIVIDUAL') {
           this.userDetails = this.conversation; // need to change for all user
@@ -60,19 +61,23 @@ export class UserinfoComponent implements OnInit {
       })
       this.sidenav.getAllFiles(this.conversationId).subscribe((allfiles: any) => {
         this.allFiles = allfiles;
-      
+
         this.file = allfiles.files
       })
     })
-    
+
 
   }
+
+
+
+
   filterdata(event: any) {
     // this.apiexecute = true;
     this.filterData = this.allConversation.filter(ele => ele.user_id?.name.toLowerCase().includes(event.target.value.toLowerCase()));
   }
   additionalDetails(name: any) {
-  
+
     if (name == 'about') {
       this.about = !this.about;
       if (this.about == true) {
@@ -112,22 +117,29 @@ export class UserinfoComponent implements OnInit {
     this.router.navigate([`/chat/${this.conversationId}`]);
   }
 
-  newChat() { 
-    let dialogRef = this.dialog.open(NewchatComponent, { 
+  newChat() {
+    let dialogRef = this.dialog.open(NewchatComponent, {
       width: '480px',
-      panelClass: 'custom-dialog' ,
-    
+      panelClass: 'custom-dialog',
+
     });
   }
 
-  allParticipantsSearch(){
+  allParticipantsSearch() {
     this.participantSearchWindow = true
   }
 
 
-  remove(templateRef) {
+  remove(templateRef, id) {
+    this.deleteUser = id;
     let dialogRef = this.dialog.open(templateRef, {
-     width: '300px'
-   });
+      width: '300px'
+    });
   }
+  deleteUserByAdmin() {
+    this.sidenav.deleteByAdmin(this.deleteUser).subscribe((res: any) => {
+      console.log(res)
+    })
+  }
+
 }
