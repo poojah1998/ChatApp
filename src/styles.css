@@ -1334,6 +1334,14 @@ ngx-audio-player mat-card{
   object-fit: cover;
 }
 
+.dangerBtn{
+  width: 100%;
+  color: #ea0038;
+  border: 1px solid #ea0038 !important;
+}
+.buttonArea{
+  padding: 15px;
+}
 @media (max-width: 1120px) {
   .detail-area {
     /* display: none; */
