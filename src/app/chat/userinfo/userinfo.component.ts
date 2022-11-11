@@ -32,6 +32,7 @@ export class UserinfoComponent implements OnInit {
   deleteUser: any;
   loggedInUser: any;
   currentGroupUser: any;
+  limitFilterData:any[]=[];
   constructor(private sidenav: ChatService, public dialog: MatDialog, private activateRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
@@ -48,6 +49,11 @@ export class UserinfoComponent implements OnInit {
         this.allConversation = data;
        
         this.filterData = this.allConversation;
+        console.log(this.filterData);
+        
+          this.limitFilterData.push(this.allConversation[0],this.allConversation[1],this.allConversation[2],this.allConversation[3])
+
+        
         this.currentGroupUser= this.allConversation.filter(o=>o.user_id._id == this.loggedInUser._id)[0]
         console.log(this.currentGroupUser);
         if (this.conversation.type !== 'INDIVIDUAL') {
@@ -141,6 +147,12 @@ export class UserinfoComponent implements OnInit {
   }
   deleteUserByAdmin() {
     this.sidenav.deleteByAdmin(this.deleteUser).subscribe((res: any) => {
+      console.log(res)
+    })
+  }
+
+  deleteCurrentUser() {
+    this.sidenav.deleteByAdmin(this.currentGroupUser._id).subscribe((res: any) => {
       console.log(res)
     })
   }

@@ -111,6 +111,11 @@ export class ChatService {
 	//  public getConversationMembers(uid: string){
 	//     return this.httpClient.post(environment.host+uid+"/conversationmembers",{})
 	//  }
+
+	public getownChatUsers(id: string) {
+		return this.httpClient.get(environment.host + "ownChatUsers/" + id);
+	}
+
 	public allMessageById(id: string) {
 		return this.httpClient.get(environment.host + "getAllChatbyId/" + id);
 	}
