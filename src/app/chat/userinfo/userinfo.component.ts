@@ -36,7 +36,7 @@ export class UserinfoComponent implements OnInit {
 
     this.activateRoute.params.subscribe(params => {
       this.conversation = JSON.parse(localStorage.getItem("currentConversationData") || '{}');
-      console.log(this.conversation)
+    
       this.userId = params["userId"];
       this.conversationId = params["conversationId"];
      
@@ -44,7 +44,7 @@ export class UserinfoComponent implements OnInit {
       this.sidenav.getAllconversationUser(this.conversationId).subscribe((data: any) => {
         this.allConversation = data;
         this.filterData= this.allConversation;
-        console.log(this.allConversation);
+        console.log(this.filterData);
         if (this.conversation.type !== 'INDIVIDUAL') {
           this.userDetails = this.conversation; // need to change for all user
           console.log(this.userDetails);
@@ -60,7 +60,7 @@ export class UserinfoComponent implements OnInit {
       })
       this.sidenav.getAllFiles(this.conversationId).subscribe((allfiles: any) => {
         this.allFiles = allfiles;
-        console.log(this.allFiles);
+      
         this.file = allfiles.files
       })
     })
