@@ -214,7 +214,7 @@
     <div class="msg-type align-self-center" *ngIf="data.isAdmin == true">
       Admin
     </div>
-    <button mat-icon-button (click)="remove(removeUser,data.user_id._id)" *ngIf="data.isAdmin !== true">
+    <button mat-icon-button (click)="remove(removeUser,data.user_id._id)" *ngIf=" loggedInUser._id !== data.user_id._id">
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
         class="feather feather-trash">
