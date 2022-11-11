@@ -84,6 +84,9 @@ export class ChatService {
 	public getAllFiles(id: string) {
 		return this.httpClient.get(environment.host + "getAllChatFile/" + id);
 	}
+	public deleteByAdmin(id: string) {
+		return this.httpClient.delete(environment.host + "deleteconversationUser/" + id);
+	}
 	public addConversationUser(payload: any) {
 		return this.httpClient.post(environment.host + "addconversationUser", {});
 	}
