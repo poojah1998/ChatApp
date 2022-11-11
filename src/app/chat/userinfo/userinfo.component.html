@@ -173,7 +173,7 @@
       <div class="participant-lists">
         <span *ngFor="let data of filterData" matTooltip="Name">
           <img
-            [src]="data.user_id?.profile?.location ? data.user_id?.profile?.location:'https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png'"
+            [src]="data.user_id?.profile?.location ? data.user_id?.profile?.location:'./assets/image/default.png'"
             alt="">
         </span>
         <!-- <span>
@@ -206,7 +206,7 @@
 <div class="detail-area-body" *ngIf="participantSearchWindow">
   <div class="msg border-0" *ngFor="let data of filterData;let i=index">
     <img class="msg-profile"
-      [src]="data.user_id?.profile?.location ? data.user_id?.profile?.location:'https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png'"
+      [src]="data.user_id?.profile?.location ? data.user_id?.profile?.location:'./assets/image/default.png'"
       alt="" />
     <div class="msg-detail">
       <div class="msg-username">{{data.user_id?.name}}</div>
