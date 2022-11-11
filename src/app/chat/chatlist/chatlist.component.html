@@ -27,14 +27,7 @@
       <span class="msg-profile load"></span>
       <div class="chat-area-title load" style="width: 160px; height: 28px;border-radius: 5px;"></div>
     </ng-container>
-  </div>
-  <!-- <div class="chat-area-group">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
-      stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
-      <circle cx="11" cy="11" r="8"></circle>
-      <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-    </svg>
-  </div> -->
+  </div>  
 </div>
 <div class="chat-area-main skeleton-placeholder" #scrollMe
   [style.display]="(imageSrc == '' && fileSrc == '') ? 'block' : 'none'">
@@ -54,27 +47,33 @@
 
         <!-- chat section -->
         <div class="chat-msg-content" *ngIf="item.image === '' && item.files === ''">
-          <div class="chat-msg-text" [innerHtml]="item.message"></div>
+          <div class="d-flex align-items-end">
+            <mat-icon matTooltip="3 read, 3 unread" [ngbPopover]="msgSeen" container="body">info</mat-icon>
+            <div class="chat-msg-text" [innerHtml]="item.message"></div>
+          </div>
         </div>
 
         <!-- image section -->
         <div class="chat-msg-content" *ngIf="item.image !== ''">
-          <div class="chat-msg-text">
-            <img src="{{item.image}}" alt="">
-            <p [innerHtml]="item.message" style="margin: 10px 0px 0;"></p>
+          <div class="d-flex align-items-end">
+            <mat-icon matTooltip="3 read, 3 unread" [ngbPopover]="msgSeen" container="body">info</mat-icon>
+            <div class="chat-msg-text">
+              <img src="{{item.image}}" alt="">
+              <p [innerHtml]="item.message" style="margin: 10px 0px 0;"></p>
+            </div>
           </div>
         </div>
 
 
         <!-- File -->
         <div class="chat-msg-content" *ngIf="item.mediaName?.includes('.pdf')">
-          <div class="file">
-            <img src="./assets/image/file.png" alt="">
-            <div class="file_details">
-              <h4>{{getName(item.mediaName)}}</h4>
-              <!-- <div class="d-flex">
-              <span>232 KB</span>
-            </div> -->
+          <div class="d-flex align-items-end">
+            <mat-icon matTooltip="3 read, 3 unread" [ngbPopover]="msgSeen" container="body">info</mat-icon>
+            <div class="file">
+              <img src="./assets/image/file.png" alt="">
+              <div class="file_details">
+                <h4>{{getName(item.mediaName)}}</h4>
+              </div>
             </div>
           </div>
         </div>
@@ -82,26 +81,30 @@
 
         <!-- Audio -->
         <div class="chat-msg-content" [style.display]="item.mediaName?.includes('.wav')? 'flex' : 'none'">
-          <div class="audio-player">
-            <audio #ref (play)="onPlay(ref)" (timeupdate)='updateTrackTime(ref,i)'
-              (loadeddata)="showDurationOfAudio(ref)" [src]="item.files"></audio>
-            <div class="controls">
-              <div class="play-container">
-                <div class="toggle-play play" (click)="singleAudioPlay(i);ref.play()"
-                  [style.display]="audioPlayStatus[i]==false || audioPlayStatus[i]== undefined ? 'block' : 'none'">
+          <div class="d-flex align-items-end">
+            <mat-icon matTooltip="3 read, 3 unread" [ngbPopover]="msgSeen" container="body">info</mat-icon>
+            <div class="audio-player">
+              <audio #ref (play)="onPlay(ref)" (timeupdate)='updateTrackTime(ref,i)'
+                (loadeddata)="showDurationOfAudio(ref)" [src]="item.files"></audio>
+              <div class="controls">
+                <div class="play-container">
+                  <div class="toggle-play play" (click)="singleAudioPlay(i);ref.play()"
+                    [style.display]="audioPlayStatus[i]==false || audioPlayStatus[i]== undefined ? 'block' : 'none'">
+                  </div>
+                  <div class="toggle-play pause" (click)="singleAudioPause(i);ref.pause()"
+                    [style.display]="audioPlayStatus[i]==true ? 'block' : 'none'">
+                  </div>
                 </div>
-                <div class="toggle-play pause" (click)="singleAudioPause(i);ref.pause()"
-                  [style.display]="audioPlayStatus[i]==true ? 'block' : 'none'">
+                <div class="time">
+                  <div id="currentTime-{{i}}" class="current">0:00</div>
                 </div>
-              </div>
-              <div class="time">
-                <div id="currentTime-{{i}}" class="current">0:00</div>
-              </div>
-              <div class="timeline">
-                <div id="progress-{{i}}" class="progress"></div>
+                <div class="timeline">
+                  <div id="progress-{{i}}" class="progress"></div>
+                </div>
               </div>
             </div>
           </div>
+
         </div>
       </div>
     </ng-container>
@@ -319,6 +322,81 @@
     </button>
   </div>
 </div>
+
+<ng-template #msgSeen>
+  <div class="d-flex">
+    <div class="seen">
+      <strong><span>3</span> Read</strong>
+      <ul>
+        <li>
+          <img class="msg-profile" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png">
+          <div class="nameUser">
+            Dhruv Chabra
+          </div>
+        </li>
+        <li>
+          <img class="msg-profile" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png">
+          <div class="nameUser">
+            Dhruv Chabra
+          </div>
+        </li>
+        <li>
+          <img class="msg-profile" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png">
+          <div class="nameUser">
+            Dhruv Chabra
+          </div>
+        </li>
+        <li>
+          <img class="msg-profile" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png">
+          <div class="nameUser">
+            Dhruv Chabra
+          </div>
+        </li>
+        <li>
+          <img class="msg-profile" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png">
+          <div class="nameUser">
+            Dhruv Chabra
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="notSeen">
+      <strong><span>3</span> Unread</strong>
+      <ul>
+        <li>
+          <img class="msg-profile" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png">
+          <div class="nameUser">
+            Dhruv Chabra
+          </div>
+        </li>
+        <li>
+          <img class="msg-profile" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png">
+          <div class="nameUser">
+            Dhruv Chabra
+          </div>
+        </li>
+        <li>
+          <img class="msg-profile" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png">
+          <div class="nameUser">
+            Dhruv Chabra
+          </div>
+        </li>
+        <li>
+          <img class="msg-profile" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png">
+          <div class="nameUser">
+            Dhruv Chabra
+          </div>
+        </li>
+        <li>
+          <img class="msg-profile" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png">
+          <div class="nameUser">
+            Dhruv Chabra
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</ng-template>
 
 <ng-template #userInfo>
   <div class="userCard">
