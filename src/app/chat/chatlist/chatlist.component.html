@@ -111,7 +111,7 @@
         <div class="chat-msg-profile">
 
           <img class="chat-msg-img" [ngbPopover]="userInfo" (click)="setUserInfo(item.sender_id)"
-            [src]="convrsationDetails(item.sender_id)?.profile?.location?convrsationDetails(item.sender_id)?.profile?.location:'https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png'"
+            [src]="convrsationDetails(item.sender_id)?.profile?.location?convrsationDetails(item.sender_id)?.profile?.location:'./assets/image/default.png'"
             alt="">
           <div class="chat-msg-date">{{calculateDiff(item.createdAt)}} Message sent at {{getTime(item.createdAt)}}</div>
         </div>
@@ -328,7 +328,7 @@
     <div class="userProfileDetails pt-0">
       <div class="profImg">
         <img class="chat-msg-img"
-          [src]="filterUserDetail?.user_id.profile.location ? filterUserDetail?.user_id.profile.location : 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png'"
+          [src]="filterUserDetail?.user_id.profile.location ? filterUserDetail?.user_id.profile.location : './assets/image/default.png'"
           alt="" />
       </div>
       <div class="profName">
