@@ -30,11 +30,12 @@ export class UserinfoComponent implements OnInit {
   filterData: any;
   apiexecute = false;
   deleteUser: any;
+  loggedInUser: any;
   constructor(private sidenav: ChatService, public dialog: MatDialog, private activateRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     //coming from params 
-
+    this.loggedInUser = JSON.parse(localStorage.getItem("loginUserData") || '{}');
     this.activateRoute.params.subscribe(params => {
       this.conversation = JSON.parse(localStorage.getItem("currentConversationData") || '{}');
 
