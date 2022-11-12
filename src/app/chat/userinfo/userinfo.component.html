@@ -171,7 +171,7 @@
         <div class="fake-placeholder">Search..</div>
       </div>
       <div class="participant-lists">
-        <span *ngFor="let data of limitFilterData;let i=index;" matTooltip="Name">
+        <span *ngFor="let data of filterData;let i=index;" matTooltip="Name">
           <img
             [src]="data.user_id?.profile?.location ? data.user_id?.profile?.location:'./assets/image/default.png'"
             alt="">
