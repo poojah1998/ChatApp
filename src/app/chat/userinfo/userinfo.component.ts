@@ -51,7 +51,6 @@ export class UserinfoComponent implements OnInit {
         this.filterData = this.allConversation;
         console.log(this.filterData);
         
-          this.limitFilterData.push(this.allConversation[0],this.allConversation[1],this.allConversation[2],this.allConversation[3])
 
         
         this.currentGroupUser= this.allConversation.filter(o=>o.user_id._id == this.loggedInUser._id)[0]
