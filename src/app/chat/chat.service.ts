@@ -116,7 +116,7 @@ export class ChatService {
 		return this.httpClient.get(environment.host + "ownChatUsers/" + id);
 	}
 
-	public allMessageById(id: string) {
-		return this.httpClient.get(environment.host + "getAllChatbyId/" + id);
+	public allMessageById(id: string,pageNumber:any) {
+		return this.httpClient.get(environment.host + "getAllChatbyId/" + id + '/' + pageNumber);
 	}
 }

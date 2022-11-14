@@ -142,7 +142,7 @@ export class ChatlistComponent implements OnInit {
 
 
   getAllMessage(messageCount:number) {
-    this.sidenav.allMessageById(this.conversationid).subscribe((data: any) => {
+    this.sidenav.allMessageById(this.conversationid,messageCount).subscribe((data: any) => {
       this.allMessage = data;
 
       setTimeout(() => {
