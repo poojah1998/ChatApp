@@ -171,7 +171,7 @@
         <div class="fake-placeholder">Search..</div>
       </div>
       <div class="participant-lists">
-        <span *ngFor="let data of filterData" matTooltip="Name">
+        <span *ngFor="let data of filterData;let i=index;" matTooltip="Name">
           <img
             [src]="data.user_id?.profile?.location ? data.user_id?.profile?.location:'./assets/image/default.png'"
             alt="">
@@ -200,8 +200,8 @@
     </div>
   </div>
 </div>
-<div class="buttonArea" *ngIf="!participantSearchWindow">
-  <button mat-button class="dangerBtn">Leave Group</button>
+<div class="buttonArea" *ngIf="!participantSearchWindow && conversation.type !== 'INDIVIDUAL'">
+  <button mat-button class="dangerBtn" (click)="deleteCurrentUser()">Leave Group</button>
 </div>
 <div class="detail-area-body" *ngIf="participantSearchWindow">
   <div class="msg border-0" *ngFor="let data of filterData;let i=index">
@@ -214,7 +214,7 @@
     <div class="msg-type align-self-center" *ngIf="data.isAdmin == true">
       Admin
     </div>
-    <button mat-icon-button (click)="remove(removeUser,data.user_id._id)" *ngIf="data.isAdmin !== true && loggedInUser._id == data.user_id._id">
+    <button mat-icon-button (click)="remove(removeUser,data._id)" *ngIf="loggedInUser._id !== data.user_id._id && currentGroupUser.isAdmin === true">
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
         class="feather feather-trash">

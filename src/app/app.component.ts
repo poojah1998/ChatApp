@@ -10,41 +10,45 @@ export class AppComponent {
 
   constructor() {
     localStorage.setItem("loginUserData", JSON.stringify({
-
-      "_id": "6077cd1938b14c30d47b8adb",
-
+      "_id": "61878a6c913d7a1c604ce3bb",
       "department": [
         "Cancer"
       ],
-      "name": "Dhruv Chhabra",
-      "associatedhospital": {
-        "$oid": "608923e16c9e212d6443fff9"
-      },
-      "degree": "MBBS",
-      "expirence": "23",
-      "user": "6076ddf9305343214c6f90bc",
-      "__v": 0,
+      "name": "dhruv",
+      "associatedhospital": "6187895660d4b33a28bdcfac",
+      "degree": "32",
+      "expirence": "32",
       "profile": {
         "fieldname": "profile",
-        "originalname": "13ee56ed-c91f-421c-95aa-d01fa8de337e.jpg",
+        "originalname": "check.png",
         "encoding": "7bit",
-        "mimetype": "image/jpeg",
-        "size": 96916,
+        "mimetype": "image/png",
+        "size": 30543,
         "bucket": "devoperation",
-        "key": "2021-05-09T08-34-19.338Z13ee56ed-c91f-421c-95aa-d01fa8de337e.jpg",
+        "key": "2021-11-07T08-12-27.716Zcheck.png",
         "acl": "public-read",
-        "contentType": "image/jpeg",
+        "contentType": "image/png",
         "contentDisposition": null,
         "storageClass": "STANDARD",
         "serverSideEncryption": null,
         "metadata": {
           "fieldName": "profile"
         },
-        "location": "https://devoperation.s3.ap-south-1.amazonaws.com/2021-05-09T08-34-19.338Z13ee56ed-c91f-421c-95aa-d01fa8de337e.jpg",
-        "etag": "\"a50181a0fd953a97d430f1d5ced5617d\"",
-        "versionId": null
-      }
-
+        "location": "https://devoperation.s3.ap-south-1.amazonaws.com/2021-11-07T08-12-27.716Zcheck.png",
+        "etag": "\"08258ba4f268e9d2749cfcbd49f4f216\""
+      },
+      "user": "618778b60a25131d041d1e07",
+      "createdAt": {
+        "$date": {
+          "$numberLong": "1636272748393"
+        }
+      },
+      "updatedAt": {
+        "$date": {
+          "$numberLong": "1636272748393"
+        }
+      },
+      "__v": 0
     }))
   }
 

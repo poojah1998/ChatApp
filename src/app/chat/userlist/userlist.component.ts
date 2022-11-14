@@ -15,13 +15,17 @@ export class UserlistComponent implements OnInit {
   selectedUserlist: any;
   repeat: any = [1, 2, 3, 4, 5, 6, 7];
   apiexecute = false;
+  loggedInUser: any;
+  filterConversationList:any[]=[];
   constructor(private leftsidenav: ChatService, public dialog: MatDialog, public breakpointObserver: BreakpointObserver, private router: Router) { }
 
   ngOnInit(): void {
+    this.loggedInUser = JSON.parse(localStorage.getItem("loginUserData") || '{}');
     this.showConvo();
-    this.leftsidenav.getAllConversation().subscribe((data: any) => {
+    this.leftsidenav.getownChatUsers(this.loggedInUser._id).subscribe((data: any) => {
       this.apiexecute = true;
       this.ConversationList = data;
+    
       this.filterData=this.ConversationList;
       console.log(this.ConversationList);
 

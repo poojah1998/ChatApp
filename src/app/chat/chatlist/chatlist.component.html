@@ -302,7 +302,7 @@
     title="Choose your emoji"></emoji-mart>
   <div class="d-flex addiotnalBtns flex-column" [ngClass]="{'isVisible': additionalBtns}">
     <input #file type="file" accept=".pdf" hidden (change)="onChange($event)">
-    <button (click)="file.click()">
+    <button (click)="file.click();isEmojiPickerVisible = false; additionalBtns = false">
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
         stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
         class="feather feather-file">
@@ -311,7 +311,7 @@
       </svg>
     </button>
     <input #image type="file" accept="image/*" hidden (change)="onChange($event);">
-    <button (click)="image.click()" #upload>
+    <button (click)="image.click();isEmojiPickerVisible = false; additionalBtns = false"   #upload>
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
         stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
         class="feather feather-image">
