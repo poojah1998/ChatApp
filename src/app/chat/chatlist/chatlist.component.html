@@ -49,8 +49,8 @@
         <div class="chat-msg-content" *ngIf="item.image === '' && item.files === ''">
           <div class="d-flex align-items-end">
             <!-- <mat-icon matTooltip="3 read, 3 unread" [ngbPopover]="msgSeen" container="body">info</mat-icon> -->
-            <mat-icon>done_all</mat-icon>
-            <!-- <mat-icon style="color: #00a884;">done_all</mat-icon> -->
+            <mat-icon style="color: #8696a0;">done_all</mat-icon>
+            <mat-icon style="color: #00a884;">done_all</mat-icon>
             <div class="chat-msg-text" [innerHtml]="item.message"></div>
           </div>
         </div>
@@ -59,8 +59,8 @@
         <div class="chat-msg-content" *ngIf="item.image !== ''">
           <div class="d-flex align-items-end">
             <!-- <mat-icon matTooltip="3 read, 3 unread" [ngbPopover]="msgSeen" container="body">info</mat-icon> -->
-            <mat-icon>done_all</mat-icon>
-            <!-- <mat-icon style="color: #00a884;">done_all</mat-icon> -->
+            <mat-icon style="color: #8696a0;">done_all</mat-icon>
+            <mat-icon style="color: #00a884;">done_all</mat-icon>
             <div class="chat-msg-text">
               <img src="{{item.image}}" alt="">
               <p [innerHtml]="item.message" style="margin: 10px 0px 0;"></p>
@@ -73,8 +73,8 @@
         <div class="chat-msg-content" *ngIf="item.mediaName?.includes('.pdf')">
           <div class="d-flex align-items-end">
             <!-- <mat-icon matTooltip="3 read, 3 unread" [ngbPopover]="msgSeen" container="body">info</mat-icon> -->
-            <mat-icon>done_all</mat-icon>
-            <!-- <mat-icon style="color: #00a884;">done_all</mat-icon> -->
+            <mat-icon style="color: #8696a0;">done_all</mat-icon>
+            <mat-icon style="color: #00a884;">done_all</mat-icon>
             <div class="file">
               <img src="./assets/image/file.png" alt="">
               <div class="file_details">
@@ -89,8 +89,8 @@
         <div class="chat-msg-content" [style.display]="item.mediaName?.includes('.wav')? 'flex' : 'none'">
           <div class="d-flex align-items-end">
             <!-- <mat-icon matTooltip="3 read, 3 unread" [ngbPopover]="msgSeen" container="body">info</mat-icon> -->
-            <mat-icon>done_all</mat-icon>
-            <!-- <mat-icon style="color: #00a884;">done_all</mat-icon> -->
+            <mat-icon style="color: #8696a0;">done_all</mat-icon>
+            <mat-icon style="color: #00a884;">done_all</mat-icon>
             <div class="audio-player">
               <audio #ref (play)="onPlay(ref)" (timeupdate)='updateTrackTime(ref,i)'
                 (loadeddata)="showDurationOfAudio(ref)" [src]="item.files"></audio>
