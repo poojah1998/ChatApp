@@ -79,6 +79,11 @@ export class AudioService {
         this.recorder.play();
     }
 
+    durationFromUrl(audioUrl) {
+        const track = new Audio(audioUrl);
+        return Math.floor(track.duration);
+    }
+
 
     stopFromUrl() {
         this.recorder.pause();
