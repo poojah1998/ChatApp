@@ -50,12 +50,14 @@ export class UserinfoComponent implements OnInit {
 
         this.filterData = this.allConversation;
         console.log(this.filterData);
-       
-          this.limitFilterData.push(data[0], data[1], data[2], data[3])
-        
-         
 
-        this.currentGroupUser = this.allConversation.filter(o => o.user_id && o.user_id._id == this.loggedInUser._id)[0]
+        this.limitFilterData.push(data[0], data[1], data[2], data[3])
+
+
+  
+          this.currentGroupUser = this.allConversation.filter(o => o.user_id  && o.user_id._id == this.loggedInUser._id)[0]
+        
+
         console.log(this.currentGroupUser);
         if (this.conversation.type !== 'INDIVIDUAL') {
           this.userDetails = this.conversation; // need to change for all user

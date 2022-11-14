@@ -167,9 +167,10 @@ export class NewchatComponent implements OnInit {
           isAdmin: true,
           isReferal: false
         })
+        console.log(data);
         this.groupArray.forEach((ele, index) => {
-          data.filter(o => o.user_id == ele._id)
-          if (data.length == 0) {
+        
+          if (data.filter(o => o.user_id == ele._id).length == 0) {
             data.push({
               conversation_id: result.ConversationData._id,
               user_id: ele._id,
@@ -177,6 +178,7 @@ export class NewchatComponent implements OnInit {
               isAdmin: false,
               isReferal: false
             })
+            console.log(data)
           }
 
           if (index === this.groupArray.length - 1) {
