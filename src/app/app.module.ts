@@ -13,6 +13,7 @@ import { MentionModule } from 'angular-mentions';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxAudioPlayerModule } from 'ngx-audio-player';
 import { ChatModule } from './chat/chat.module';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { ChatModule } from './chat/chat.module';
     MentionModule,
     NgbModule,
     ChatModule,
-    NgxAudioPlayerModule
+    NgxAudioPlayerModule,
+    InfiniteScrollModule
     
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: ApiPrefixInterceptor, multi: true },

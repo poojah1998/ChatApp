@@ -624,6 +624,10 @@ html {
   left: 0; */
 }
 
+.mat-header .mat-tab-header{
+  display: none;
+}
+
 .chat-area-footer svg {
   color: var(--settings-icon-color);
   width: 20px;

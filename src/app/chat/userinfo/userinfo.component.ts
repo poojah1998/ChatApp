@@ -32,7 +32,7 @@ export class UserinfoComponent implements OnInit {
   deleteUser: any;
   loggedInUser: any;
   currentGroupUser: any;
-  limitFilterData:any[]=[];
+  limitFilterData: any[] = [];
   constructor(private sidenav: ChatService, public dialog: MatDialog, private activateRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
@@ -47,13 +47,15 @@ export class UserinfoComponent implements OnInit {
       // coming from chat list component
       this.sidenav.getAllconversationUser(this.conversationId).subscribe((data: any) => {
         this.allConversation = data;
-       
+
         this.filterData = this.allConversation;
         console.log(this.filterData);
+       
+          this.limitFilterData.push(data[0], data[1], data[2], data[3])
         
+         
 
-        
-        this.currentGroupUser= this.allConversation.filter(o=>o.user_id._id == this.loggedInUser._id)[0]
+        this.currentGroupUser = this.allConversation.filter(o => o.user_id && o.user_id._id == this.loggedInUser._id)[0]
         console.log(this.currentGroupUser);
         if (this.conversation.type !== 'INDIVIDUAL') {
           this.userDetails = this.conversation; // need to change for all user
@@ -75,7 +77,7 @@ export class UserinfoComponent implements OnInit {
       })
     })
 
-    
+
   }
 
 
@@ -129,7 +131,10 @@ export class UserinfoComponent implements OnInit {
     let dialogRef = this.dialog.open(NewchatComponent, {
       width: '480px',
       panelClass: 'custom-dialog',
-
+      data: {
+        dataFromMatDialog: 'group',
+        type: 'GROUP'
+      }
     });
   }
 

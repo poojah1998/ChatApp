@@ -15,3 +15,8 @@
 .chat-msg-text{
     white-space: pre-line;
 }
+
+.search-results {
+    height: 20rem;
+    overflow: scroll;
+  }

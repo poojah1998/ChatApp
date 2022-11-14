@@ -27,7 +27,7 @@ export class UserlistComponent implements OnInit {
       this.ConversationList = data;
     
       this.filterData=this.ConversationList;
-      console.log(this.ConversationList);
+      console.log(this.filterData);
 
     })
     this.leftsidenav.newConv.next(false);

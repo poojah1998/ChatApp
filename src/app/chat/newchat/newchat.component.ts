@@ -1,4 +1,5 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ChatService } from '../chat.service';
 
 @Component({
@@ -7,7 +8,7 @@ import { ChatService } from '../chat.service';
   styleUrls: ['./newchat.component.css']
 })
 export class NewchatComponent implements OnInit {
- 
+
   newGrpHeader: boolean = false;
   usersData: any;
   index: any = 0;
@@ -24,16 +25,18 @@ export class NewchatComponent implements OnInit {
   filterData: any;
   file: any;
   user_type: any;
+  dataFromMatDialog: any;
 
-  constructor(private chatService: ChatService) { }
+  constructor(private chatService: ChatService, @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit(): void {
     this.tabs("Doctor");
     this.loginUserData = JSON.parse(localStorage.getItem("loginUserData") || '{}');
     this.ownerId = this.loginUserData._id;
-    this.user_type =this.loginUserData.user_type;
-    console.log(this.ownerId);
-
+    this.user_type = this.loginUserData.user_type;
+    console.log(this.data?.dataFromMatDialog);
+    this.dataFromMatDialog = this.data?.dataFromMatDialog;
+    this.type = this.data?.type ? this.data?.type : 'INDIVIDUAL';
   }
 
   tabClick(event) {
@@ -55,32 +58,32 @@ export class NewchatComponent implements OnInit {
         this.usersData = data;
         this.filterData = this.usersData;
       })
-    }else if (type == "Hospital") {
+    } else if (type == "Hospital") {
       this.chatService.getAllHospitals().subscribe((data: any) => {
         this.usersData = data;
         this.filterData = this.usersData;
       })
-    }else {
+    } else {
       this.chatService.getAllPatients().subscribe((data: any) => {
         this.usersData = data;
         this.filterData = this.usersData;
       })
     }
   }
-  
+
   showOptions(event) {
     this.event = event.source.value;
     console.log(event.source.value);
     if (event.checked == true) {
-      this.groupArray.push({...event.source.value,userType:this.selectedMenu});
-      console.log( this.groupArray);
+      this.groupArray.push({ ...event.source.value, userType: this.selectedMenu });
+      console.log(this.groupArray);
 
     } else {
 
       let index = this.groupArray.findIndex(o => o._id === event.source.value._id)
       console.log(index)
       this.groupArray.splice(index, 1)
-      console.log( this.groupArray);
+      console.log(this.groupArray);
     }
   }
 
@@ -123,7 +126,7 @@ export class NewchatComponent implements OnInit {
       this.chatService.addConversation({
         name: this.individualUser.name,
         type: this.type,
-        user_type:this.selectedMenu,
+        user_type: this.selectedMenu,
         owner_id: this.ownerId,
         image: this.individualUser.profile?.location,
 
@@ -132,14 +135,14 @@ export class NewchatComponent implements OnInit {
         data.push({
           conversation_id: result.ConversationData._id,
           user_id: this.ownerId,
-          user_type:this.selectedMenu,
+          user_type: this.selectedMenu,
           isAdmin: true,
           isReferal: false
         })
         data.push({
           conversation_id: result.ConversationData._id,
           user_id: this.individualUser._id,
-          user_type:this.selectedMenu,
+          user_type: this.selectedMenu,
           isAdmin: false,
           isReferal: false
         })
@@ -152,7 +155,7 @@ export class NewchatComponent implements OnInit {
       this.chatService.addConversation({
         name: this.groupName,
         type: this.type,
-         user_type:this.selectedMenu,
+        user_type: this.selectedMenu,
         owner_id: this.ownerId,
         image: this.image,
 
@@ -160,18 +163,22 @@ export class NewchatComponent implements OnInit {
         data.push({
           conversation_id: result.ConversationData._id,
           user_id: this.ownerId,
-          user_type:this.selectedMenu,
+          user_type: this.selectedMenu,
           isAdmin: true,
           isReferal: false
         })
         this.groupArray.forEach((ele, index) => {
-          data.push({
-            conversation_id: result.ConversationData._id,
-            user_id: ele._id,
-            user_type:ele.userType,
-            isAdmin: false,
-            isReferal: false
-          })
+          data.filter(o => o.user_id == ele._id)
+          if (data.length == 0) {
+            data.push({
+              conversation_id: result.ConversationData._id,
+              user_id: ele._id,
+              user_type: ele.userType,
+              isAdmin: false,
+              isReferal: false
+            })
+          }
+
           if (index === this.groupArray.length - 1) {
             this.chatService.addMoreUser({ data }).subscribe((res: any) => {
               this.chatService.newConv.next(true);

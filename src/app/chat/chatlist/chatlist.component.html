@@ -27,9 +27,10 @@
       <span class="msg-profile load"></span>
       <div class="chat-area-title load" style="width: 160px; height: 28px;border-radius: 5px;"></div>
     </ng-container>
-  </div>  
+  </div>
 </div>
-<div class="chat-area-main skeleton-placeholder" #scrollMe
+<div class="chat-area-main skeleton-placeholder search-results" #scrollMe infiniteScroll infiniteScroll
+  [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" [scrollWindow]="false" (scrolledUp)="onScrollUp()"
   [style.display]="(imageSrc == '' && fileSrc == '') ? 'block' : 'none'">
   <ng-container *ngFor="let item of allMessage;let i = index">
     <div class="msg-date-grp" *ngIf="isDifferentDay(i)">
@@ -311,7 +312,7 @@
       </svg>
     </button>
     <input #image type="file" accept="image/*" hidden (change)="onChange($event);">
-    <button (click)="image.click();isEmojiPickerVisible = false; additionalBtns = false"   #upload>
+    <button (click)="image.click();isEmojiPickerVisible = false; additionalBtns = false" #upload>
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
         stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
         class="feather feather-image">

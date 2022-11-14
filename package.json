@@ -26,6 +26,7 @@
     "angular-mentions": "^1.5.0",
     "bootstrap": "^5.2.2",
     "ngx-audio-player": "^11.0.4",
+    "ngx-infinite-scroll": "^14.0.1",
     "recorder-js": "^1.0.7",
     "rxjs": "~7.5.0",
     "socket.io-client": "^2.3.0",

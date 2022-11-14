@@ -71,6 +71,8 @@ export class ChatlistComponent implements OnInit {
   apiexecute = false;
   date: any;
   messageDateString: any;
+  page = 1;
+  previousLength: number;
   constructor(private sidenav: ChatService, private activateRoute: ActivatedRoute, private datePipe: DatePipe, private router: Router, private socketService: SocketService, private audioService: AudioService) {
 
   }
@@ -90,7 +92,7 @@ export class ChatlistComponent implements OnInit {
         this.sidenav.getAllconversationUser(this.conversationid).subscribe((data: any[] | any) => {
           this.apiexecute = true;
           this.allConversation = data;
-          
+
 
           this.convData = this.allConversation.filter((o: any) => o.user_id && o.user_id._id != this.ownerId);
 
@@ -100,7 +102,7 @@ export class ChatlistComponent implements OnInit {
             }
           });
           this.mentionUsers = this.mentionUsers.filter((o: any) => o != undefined);
-         
+
           this.mentionConfig = {
             mentions: [
               {
@@ -118,30 +120,41 @@ export class ChatlistComponent implements OnInit {
           this.newChatData = data.filter((o: any) => o.user_id && o.user_id._id != this.userData._id)
           if (this.conversation.type !== 'INDIVIDUAL') {
             this.userDetails = this.conversation; // need to change for all user
-          
+
           }
           else {
             this.userDetails = this.newChatData[0].user_id;
-           
+
           }
           this.receiverIds = data.map((o: any) => o.user_id && o.user_id._id)
         })
       })
       //chatting page
-      this.sidenav.allMessageById(this.conversationid).subscribe((data: any) => {
-        this.allMessage = data;
-     
-        setTimeout(() => {
-          this.scrollToBottom();
-        }, 500);
-        console.log(this.allMessage);
-      })
+
 
       //
     })
+    this.getAllMessage(0);
     this.getSoketMessage();
     this.scrollToBottom();
-   
+
+  }
+
+
+  getAllMessage(messageCount:number) {
+    this.sidenav.allMessageById(this.conversationid).subscribe((data: any) => {
+      this.allMessage = data;
+
+      setTimeout(() => {
+        this.scrollToBottom();
+      }, 500);
+      console.log(this.allMessage);
+    })
+  }
+
+  onScrollUp() {
+    this.getAllMessage(this.allMessage.length);
+    console.log("hello");
   }
 
   isDifferentDay(messageIndex: number): boolean {
@@ -200,20 +213,20 @@ export class ChatlistComponent implements OnInit {
   }
   // On file Select
   onChange(event) {
-  
+
     this.file = event.target.files[0];
     console.log(this.file);
     this.disabledBtn = false;
-  
+
     if (this.file.type.includes("image/")) {
       const reader = new FileReader();
       reader.onload = (e: any) => {
         this.imageSrc = reader.result;
         console.log(this.imageSrc);
       }
-      
+
       reader.readAsDataURL(this.file);
-     
+
     } else {
       const reader = new FileReader();
       reader.onload = (e: any) => {

@@ -17,6 +17,7 @@ import { NewchatComponent } from './newchat/newchat.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxAudioPlayerModule } from 'ngx-audio-player';
 import { SafeHtmlPipe } from './safe-html.pipe';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 @NgModule({
   declarations: [
     UserlistComponent,
@@ -37,7 +38,8 @@ import { SafeHtmlPipe } from './safe-html.pipe';
     MentionModule,
     PickerModule,
     NgbModule,
-    NgxAudioPlayerModule 
+    NgxAudioPlayerModule,
+    InfiniteScrollModule
   ],
   providers:[
     DatePipe
