@@ -42,7 +42,7 @@ export class ChatlistComponent implements OnInit {
   taggedUsers: any;
   hashtag: any = [];
   mentionUsers: any;
-  mentionConfig: any;
+  mentionConfig: any={};
   mention_ids: any;
   mention_id: any;
   mentionUserName: any;

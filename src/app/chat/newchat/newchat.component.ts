@@ -142,7 +142,7 @@ export class NewchatComponent implements OnInit {
         data.push({
           conversation_id: result.ConversationData._id,
           user_id: this.individualUser._id,
-          user_type: this.selectedMenu,
+          user_type: this.individualUser.userType,
           isAdmin: false,
           isReferal: false
         })
@@ -152,18 +152,18 @@ export class NewchatComponent implements OnInit {
       })
     }
     else {
-      // this.chatService.addConversation({
-      //   name: this.groupName,
-      //   type: this.type,
-      //   user_type: this.user_type,
-      //   owner_id: this.ownerId,
-      //   image: this.image,
+      this.chatService.addConversation({
+        name: this.groupName,
+        type: this.type,
+        user_type: this.user_type,
+        owner_id: this.ownerId,
+        image: this.image,
 
-      // }).subscribe((result: any) => {
+      }).subscribe((result: any) => {
         data.push({
-          conversation_id: 'result.ConversationData._id',
+          conversation_id: result.ConversationData._id,
           user_id: this.ownerId,
-          user_type: this.selectedMenu,
+          user_type: this.user_type,
           isAdmin: true,
           isReferal: false
         })
@@ -172,7 +172,7 @@ export class NewchatComponent implements OnInit {
 
           if (data.filter(o => o.user_id == ele._id).length == 0) {
             data.push({
-              conversation_id: 'result.ConversationData._id',
+              conversation_id: result.ConversationData._id,
               user_id: ele._id,
               user_type: ele.userType,
               isAdmin: false,
@@ -182,13 +182,13 @@ export class NewchatComponent implements OnInit {
           }
 
           if (index === this.groupArray.length - 1) {
-            // this.chatService.addMoreUser({ data }).subscribe((res: any) => {
-            //   this.chatService.newConv.next(true);
-            // })
+            this.chatService.addMoreUser({ data }).subscribe((res: any) => {
+              this.chatService.newConv.next(true);
+            })
             console.log(data)
           }
         })
-      // })
+      })
     }
   }
 
