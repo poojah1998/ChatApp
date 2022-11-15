@@ -87,48 +87,7 @@ export class ChatlistComponent implements OnInit {
       this.conversation = JSON.parse(localStorage.getItem("currentConversationData") || '{}');
       this.conversationid = params["conversationId"];
       this.userInput = '';
-      this.sidenav.allHashtag().subscribe((hashtags: any) => {
-        this.hashtag = hashtags.map((ele: any) => ele.name);
-        this.sidenav.getAllconversationUser(this.conversationid).subscribe((data: any[] | any) => {
-          this.apiexecute = true;
-          this.allConversation = data;
-
-
-          this.convData = this.allConversation.filter((o: any) => o.user_id && o.user_id._id != this.ownerId);
-
-          this.mentionUsers = data.map((ele: any) => {
-            if (ele.user_id) {
-              return ele.user_id.name
-            }
-          });
-          this.mentionUsers = this.mentionUsers.filter((o: any) => o != undefined);
-
-          this.mentionConfig = {
-            mentions: [
-              {
-                items: this.mentionUsers,
-                triggerChar: '@',
-                dropUp: true
-              },
-              {
-                items: this.hashtag,
-                triggerChar: '#',
-                dropUp: true
-              },
-            ]
-          }
-          this.newChatData = data.filter((o: any) => o.user_id && o.user_id._id != this.userData._id)
-          if (this.conversation.type !== 'INDIVIDUAL') {
-            this.userDetails = this.conversation; // need to change for all user
-
-          }
-          else {
-            this.userDetails = this.newChatData[0].user_id;
-
-          }
-          this.receiverIds = data.map((o: any) => o.user_id && o.user_id._id)
-        })
-      })
+    
       //chatting page
 
 
@@ -137,10 +96,54 @@ export class ChatlistComponent implements OnInit {
     this.getAllMessage(0);
     this.getSoketMessage();
     this.scrollToBottom();
-
+    this.getAllConverSation();
   }
 
 
+  getAllConverSation(){
+    this.sidenav.allHashtag().subscribe((hashtags: any) => {
+      this.hashtag = hashtags.map((ele: any) => ele.name);
+      this.sidenav.getAllconversationUser(this.conversationid).subscribe((data: any[] | any) => {
+        // this.apiexecute = true;
+        this.allConversation = data;
+
+
+        this.convData = this.allConversation.filter((o: any) => o.user_id && o.user_id._id != this.ownerId);
+
+        this.mentionUsers = data.map((ele: any) => {
+          if (ele.user_id) {
+            return ele.user_id.name
+          }
+        });
+        this.mentionUsers = this.mentionUsers.filter((o: any) => o != undefined);
+
+        this.mentionConfig = {
+          mentions: [
+            {
+              items: this.mentionUsers,
+              triggerChar: '@',
+              dropUp: true
+            },
+            {
+              items: this.hashtag,
+              triggerChar: '#',
+              dropUp: true
+            },
+          ]
+        }
+        this.newChatData = data.filter((o: any) => o.user_id && o.user_id._id != this.userData._id)
+        if (this.conversation.type !== 'INDIVIDUAL') {
+          this.userDetails = this.conversation; // need to change for all user
+
+        }
+        else {
+          this.userDetails = this.newChatData[0].user_id;
+
+        }
+        this.receiverIds = data.map((o: any) => o.user_id && o.user_id._id)
+      })
+    })
+  }
   getAllMessage(messageCount:number) {
     this.sidenav.allMessageById(this.conversationid,messageCount).subscribe((data: any) => {
       this.allMessage = data;
