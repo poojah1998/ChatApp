@@ -135,14 +135,14 @@ export class NewchatComponent implements OnInit {
         data.push({
           conversation_id: result.ConversationData._id,
           user_id: this.ownerId,
-          user_type: this.user_type,
+          user_type: this.selectedMenu,
           isAdmin: true,
           isReferal: false
         })
         data.push({
           conversation_id: result.ConversationData._id,
           user_id: this.individualUser._id,
-          user_type: this.individualUser.userType,
+          user_type: this.selectedMenu,
           isAdmin: false,
           isReferal: false
         })
@@ -155,7 +155,7 @@ export class NewchatComponent implements OnInit {
       this.chatService.addConversation({
         name: this.groupName,
         type: this.type,
-        user_type: this.user_type,
+        user_type: this.selectedMenu,
         owner_id: this.ownerId,
         image: this.image,
 
@@ -163,13 +163,13 @@ export class NewchatComponent implements OnInit {
         data.push({
           conversation_id: result.ConversationData._id,
           user_id: this.ownerId,
-          user_type: this.user_type,
+          user_type: this.selectedMenu,
           isAdmin: true,
           isReferal: false
         })
         console.log(data);
         this.groupArray.forEach((ele, index) => {
-
+        
           if (data.filter(o => o.user_id == ele._id).length == 0) {
             data.push({
               conversation_id: result.ConversationData._id,
@@ -178,14 +178,13 @@ export class NewchatComponent implements OnInit {
               isAdmin: false,
               isReferal: false
             })
-            console.log(ele._id,ele.userType)
+            console.log(data)
           }
 
           if (index === this.groupArray.length - 1) {
             this.chatService.addMoreUser({ data }).subscribe((res: any) => {
               this.chatService.newConv.next(true);
             })
-            console.log(data)
           }
         })
       })

@@ -43,7 +43,7 @@
         <div class="chat-msg-profile">
           <img class="chat-msg-img" [ngbPopover]="userInfo" container="body" (click)="setUserInfo(item.sender_id)"
             src="./assets/image/myphoto.png" alt="" />
-          <div class="chat-msg-date">{{calculateDiff(item.createdAt)}} Message sent at {{getTime(item.createdAt)}}</div>
+          <div class="chat-msg-date">Message sent at {{getTime(item.createdAt)}}</div>
         </div>
 
         <!-- chat section -->
@@ -125,7 +125,7 @@
           <img class="chat-msg-img" [ngbPopover]="userInfo" (click)="setUserInfo(item.sender_id)"
             [src]="convrsationDetails(item.sender_id)?.profile?.location?convrsationDetails(item.sender_id)?.profile?.location:'./assets/image/default.png'"
             alt="">
-          <div class="chat-msg-date">{{calculateDiff(item.createdAt)}} Message sent at {{getTime(item.createdAt)}}</div>
+          <div class="chat-msg-date">Message sent at {{getTime(item.createdAt)}}</div>
         </div>
 
         <!-- chat section -->

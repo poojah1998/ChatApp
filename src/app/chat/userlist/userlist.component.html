@@ -3,7 +3,7 @@
 </div>
 
 <div style="overflow-y: auto;">
-  <ng-container *ngFor="let item of filterData">
+  <ng-container *ngFor="let item of filterData ">
     <div class="msg" (click)="showConvo();chatDeatils(item)" [ngClass]="{'active': selectedUserlist == item._id}">
       <!-- <img class="msg-profile"
         [src]="item.image? item.image:'./assets/image/group.png'"
@@ -23,9 +23,14 @@
       <div class="msg-detail">
         <div class="msg-username">{{item.name}}</div>
         <div class="msg-content">
-          <span class="msg-message">Last chated on</span>
+          <span class="msg-message" *ngIf="(item.lastChatDoc | json) != '{}'">{{item.lastChatDoc.message}}
+            <span class="msg-date">{{getTime(item.lastChatDoc.createdAt)}}</span>
+          </span>
+          <span class="msg-message" *ngIf="(item.lastChatDoc | json) == '{}'">Say 👋 to {{item.name}}
+            <span class="msg-date">{{getTime(item.createdAt)}}</span>
+             </span>
           <span></span>
-          <span class="msg-date">20m</span>
+          
         </div>
       </div>
       <div class="msg-type" *ngIf="item.type == 'GROUP'">

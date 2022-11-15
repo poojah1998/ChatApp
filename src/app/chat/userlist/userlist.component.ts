@@ -4,6 +4,7 @@ import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { ChatService } from './../chat.service';
 import { Router } from '@angular/router';
 import { NewchatComponent } from '../newchat/newchat.component'
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-userlist',
   templateUrl: './userlist.component.html',
@@ -17,7 +18,7 @@ export class UserlistComponent implements OnInit {
   apiexecute = false;
   loggedInUser: any;
   filterConversationList:any[]=[];
-  constructor(private leftsidenav: ChatService, public dialog: MatDialog, public breakpointObserver: BreakpointObserver, private router: Router) { }
+  constructor(private leftsidenav: ChatService, public dialog: MatDialog, public breakpointObserver: BreakpointObserver, private router: Router,private datePipe: DatePipe) { }
 
   ngOnInit(): void {
     this.loggedInUser = JSON.parse(localStorage.getItem("loginUserData") || '{}');
@@ -27,6 +28,7 @@ export class UserlistComponent implements OnInit {
       this.ConversationList = data;
     
       this.filterData=this.ConversationList;
+      
       console.log(this.filterData);
 
     })
@@ -73,5 +75,9 @@ export class UserlistComponent implements OnInit {
       if(result === true)
       this.ngOnInit();
     })
+  }
+  public getTime(timeStamp: any) {
+    let x = new Date(timeStamp)
+    return this.datePipe.transform(x, 'h:mm a');
   }
 }

@@ -500,6 +500,7 @@ export class ChatlistComponent implements OnInit {
       this.chat = this.Usermessage.ChatData;
       this.mentionArrayIds = [];
       this.mentionUserNameArray = [];
+      this.sidenav.newConv.next(true);
       this.sendSoketMessage();
       this.ngOnInit();
       this.file = undefined;
