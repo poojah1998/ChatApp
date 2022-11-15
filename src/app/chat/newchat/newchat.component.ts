@@ -126,7 +126,7 @@ export class NewchatComponent implements OnInit {
       this.chatService.addConversation({
         name: this.individualUser.name,
         type: this.type,
-        user_type: this.selectedMenu,
+        user_type: this.user_type,
         owner_id: this.ownerId,
         image: this.individualUser.profile?.location,
 
@@ -135,14 +135,14 @@ export class NewchatComponent implements OnInit {
         data.push({
           conversation_id: result.ConversationData._id,
           user_id: this.ownerId,
-          user_type: this.selectedMenu,
+          user_type: this.user_type,
           isAdmin: true,
           isReferal: false
         })
         data.push({
           conversation_id: result.ConversationData._id,
           user_id: this.individualUser._id,
-          user_type: this.selectedMenu,
+          user_type: this.individualUser.userType,
           isAdmin: false,
           isReferal: false
         })
@@ -155,7 +155,7 @@ export class NewchatComponent implements OnInit {
       this.chatService.addConversation({
         name: this.groupName,
         type: this.type,
-        user_type: this.selectedMenu,
+        user_type: this.user_type,
         owner_id: this.ownerId,
         image: this.image,
 
@@ -163,7 +163,7 @@ export class NewchatComponent implements OnInit {
         data.push({
           conversation_id: result.ConversationData._id,
           user_id: this.ownerId,
-          user_type: this.selectedMenu,
+          user_type: this.user_type,
           isAdmin: true,
           isReferal: false
         })
