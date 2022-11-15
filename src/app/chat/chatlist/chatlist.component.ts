@@ -42,7 +42,7 @@ export class ChatlistComponent implements OnInit {
   taggedUsers: any;
   hashtag: any = [];
   mentionUsers: any;
-  mentionConfig: any={};
+  mentionConfig: any = {};
   mention_ids: any;
   mention_id: any;
   mentionUserName: any;
@@ -83,11 +83,55 @@ export class ChatlistComponent implements OnInit {
     this.sidenav.open();
     this.scrollToBottom();
     //coming from userlist page
+   
     this.activateRoute.params.subscribe(params => {
+
       this.conversation = JSON.parse(localStorage.getItem("currentConversationData") || '{}');
       this.conversationid = params["conversationId"];
+   
       this.userInput = '';
-    
+      this.sidenav.allHashtag().subscribe((hashtags: any) => {
+        this.hashtag = hashtags.map((ele: any) => ele.name);
+     
+        console.log(this.conversation);
+        this.sidenav.getAllconversationUser(this.conversationid).subscribe((data: any[] | any) => {
+          // this.apiexecute = true;
+          this.allConversation = data;
+          console.log(this.conversation); 
+          this.convData = this.allConversation.filter((o: any) => o.user_id && o.user_id._id != this.ownerId);
+          this.mentionUsers = data.map((ele: any) => {
+            if (ele.user_id) {
+              return ele.user_id.name
+            }
+          });
+          this.mentionUsers = this.mentionUsers.filter((o: any) => o != undefined);
+          this.mentionConfig = {
+            mentions: [
+              {
+                items: this.mentionUsers,
+                triggerChar: '@',
+                dropUp: true
+              },
+              {
+                items: this.hashtag,
+                triggerChar: '#',
+                dropUp: true
+              },
+            ]
+          }
+          this.newChatData = data.filter((o: any) => o.user_id && o.user_id._id != this.userData._id)
+          console.log(this.conversation);
+          if (this.conversation.type !== 'INDIVIDUAL') {
+            this.userDetails = this.conversation; // need to change for all user
+            
+          }
+          else {
+            this.userDetails = this.newChatData[0].user_id;
+            console.log(this.userDetails);
+          }
+          this.receiverIds = data.map((o: any) => o.user_id && o.user_id._id)
+        })
+      })
       //chatting page
 
 
@@ -96,68 +140,24 @@ export class ChatlistComponent implements OnInit {
     this.getAllMessage(0);
     this.getSoketMessage();
     this.scrollToBottom();
-    this.getAllConverSation();
   }
 
 
-  getAllConverSation(){
-    this.sidenav.allHashtag().subscribe((hashtags: any) => {
-      this.hashtag = hashtags.map((ele: any) => ele.name);
-      this.sidenav.getAllconversationUser(this.conversationid).subscribe((data: any[] | any) => {
-        // this.apiexecute = true;
-        this.allConversation = data;
-
-
-        this.convData = this.allConversation.filter((o: any) => o.user_id && o.user_id._id != this.ownerId);
-
-        this.mentionUsers = data.map((ele: any) => {
-          if (ele.user_id) {
-            return ele.user_id.name
-          }
-        });
-        this.mentionUsers = this.mentionUsers.filter((o: any) => o != undefined);
-
-        this.mentionConfig = {
-          mentions: [
-            {
-              items: this.mentionUsers,
-              triggerChar: '@',
-              dropUp: true
-            },
-            {
-              items: this.hashtag,
-              triggerChar: '#',
-              dropUp: true
-            },
-          ]
-        }
-        this.newChatData = data.filter((o: any) => o.user_id && o.user_id._id != this.userData._id)
-        if (this.conversation.type !== 'INDIVIDUAL') {
-          this.userDetails = this.conversation; // need to change for all user
-
-        }
-        else {
-          this.userDetails = this.newChatData[0].user_id;
-
-        }
-        this.receiverIds = data.map((o: any) => o.user_id && o.user_id._id)
-      })
-    })
-  }
-  getAllMessage(messageCount:number) {
-    this.sidenav.allMessageById(this.conversationid,messageCount).subscribe((data: any) => {
+  
+  getAllMessage(messageCount: number) {
+    this.sidenav.allMessageById(this.conversationid, messageCount).subscribe((data: any) => {
       this.allMessage = data;
 
       setTimeout(() => {
         this.scrollToBottom();
       }, 500);
-      console.log(this.allMessage);
+     
     })
   }
 
   onScrollUp() {
     this.getAllMessage(this.allMessage.length);
-    console.log("hello");
+   
   }
 
   isDifferentDay(messageIndex: number): boolean {
@@ -211,21 +211,20 @@ export class ChatlistComponent implements OnInit {
 
   setUserInfo(user_id) {
     this.filterUserDetail = this.allConversation.filter(o => o.user_id && o.user_id._id == user_id)[0]
-    console.log(this.filterUserDetail)
-    console.log(this.allConversation)
+    
   }
   // On file Select
   onChange(event) {
 
     this.file = event.target.files[0];
-    console.log(this.file);
+   
     this.disabledBtn = false;
 
     if (this.file.type.includes("image/")) {
       const reader = new FileReader();
       reader.onload = (e: any) => {
         this.imageSrc = reader.result;
-        console.log(this.imageSrc);
+    
       }
 
       reader.readAsDataURL(this.file);
@@ -234,7 +233,7 @@ export class ChatlistComponent implements OnInit {
       const reader = new FileReader();
       reader.onload = (e: any) => {
         this.fileSrc = reader.result;
-        console.log(this.fileSrc);
+       
       }
       reader.readAsDataURL(this.file);
     }
@@ -253,7 +252,7 @@ export class ChatlistComponent implements OnInit {
     this.loading = !this.loading;
     this.sidenav.uploadMedia(formData).subscribe(
       (event: any) => {
-        console.log(event);
+       
         if (typeof (event) === 'object') {
           this.closePreview();
           // Short link via api response
@@ -368,7 +367,7 @@ export class ChatlistComponent implements OnInit {
 
     this.mentionUserName = event.label;
     this.mentionUserNameArray.push(event.label);
-    console.log(this.mentionUserNameArray, this.mentionUserName)
+    
     const newarray = this.allConversation.filter((ele: any) => ele.user_id.name.includes(this.mentionUserName));
     this.mentionArrayIds = [...new Set(newarray.map((it: any) => it.user_id._id))];
     // }
@@ -414,7 +413,7 @@ export class ChatlistComponent implements OnInit {
       this.recordStart = true;
     });
 
-    console.log('Record stop')
+    
   }
 
 
@@ -560,7 +559,7 @@ export class ChatlistComponent implements OnInit {
     // this.sidenav.getUserinfoUpdate.subscribe((info:any)=>{
     this.sidenav.open();
     // console.log(this.conversationid);
-    //console.log(this.userDetails._id);
+    console.log(this.userDetails);
 
     this.router.navigate([`/chat/${this.conversationid}/${this.userDetails._id}`]);
   }
