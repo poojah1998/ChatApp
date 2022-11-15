@@ -15,6 +15,7 @@ export class AppComponent {
         "Cancer"
       ],
       "name": "dhruv",
+      "user_type": "Doctor",
       "associatedhospital": "6187895660d4b33a28bdcfac",
       "degree": "32",
       "expirence": "32",
